@@ -29,6 +29,7 @@ public class MenuController : MonoBehaviour
         _settingsButtons =_settingsButtonsTemplate.CloneTree();
 
         _creditsButton = _doc.rootVisualElement.Q<Button>("CreditsButton");
+        _creditsButton.clicked += CreditsButtonClicked;
 
         _exitButton = _doc.rootVisualElement.Q<Button>("ExitButton");
         _exitButton.clicked += ExitButtonClicked;
@@ -38,7 +39,7 @@ public class MenuController : MonoBehaviour
     }
 
     private void PlayButtonClicked(){
-        SceneManager.LoadScene("FirstLevel");
+        SceneManager.LoadScene("Intro Cutscene");
     }
 
     private void ExitButtonClicked(){
@@ -49,6 +50,10 @@ public class MenuController : MonoBehaviour
     private void SettingsButtonClicked(){
         _buttonsWrapper.Clear();
         _buttonsWrapper.Add(_settingsButtons);
+    }
+
+    private void CreditsButtonClicked(){
+        SceneManager.LoadScene("Credits");
     }
 
     private void BackButtonClicked(){
