@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float HInput;
 
     private bool onGround;
+    private bool isCrouching;
     public float jumpForce;
 
     public float stopThreshold;
@@ -20,6 +21,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+    const String ANIM_STAND = "Stand";
+    const String ANIM_WALK = "Walk";
+    const String ANIM_RUN = "Run";
+    const String ANIM_CROUCH = "Crouch";
+    const String ANIM_AIR = "Air";
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +41,14 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
         }
 
+        if(rb.velocity.x < -0.001) {
+            GetComponent<SpriteRenderer>().flipX = true;
+        } else if(rb.velocity.x > 0.001) {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        isCrouching = (Input.GetKey("down") || Input.GetKey("s")) ? true : false;
+
         setAnimations();
     }
 
@@ -46,20 +60,36 @@ public class PlayerController : MonoBehaviour
 
         //float friction = Mathf.Abs(rb.velocity.x) < 0.1 ? groundFriction * 1.5f : groundFriction;
 
-        float newVelocity = Math.Clamp(rb.velocity.x + (HInput * acceleration) 
-                                        - ((onGround ? 1 : 0) * directionMultiplier * Mathf.Sqrt(groundFriction))
+        float newVelocity = Math.Clamp(rb.velocity.x + (HInput * acceleration * (isCrouching ? 0 : 1)) 
+                                        - ((onGround ? 1 : 0) * directionMultiplier * groundFriction)
                                         , -1 * maxSpeed, maxSpeed);
         
         newVelocity = Mathf.Abs(newVelocity) < 0.0001 ? 0 : newVelocity;
 
         rb.velocity = new Vector2(newVelocity, rb.velocity.y);
-        
-
 
     }
 
     private void setAnimations() {
-        
+        if (isCrouching) {
+            ChangeAnimationState(ANIM_CROUCH);
+        }else if (onGround) {
+            float absVelocityX = Mathf.Abs(rb.velocity.x);
+
+            if (absVelocityX < 0.001) {
+                ChangeAnimationState(ANIM_STAND);
+            } else if (absVelocityX < 2) {
+                ChangeAnimationState(ANIM_WALK);
+            } else {
+                ChangeAnimationState(ANIM_RUN);
+            }
+        } else {
+            ChangeAnimationState(ANIM_AIR);
+        }
+    }
+
+    void ChangeAnimationState(string newState) {
+        animator.Play(newState);
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
