@@ -479,11 +479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572dc08018670d44f9628e34d4278ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0.06
+  acceleration: 0.7
   maxSpeed: 6
-  groundFriction: 0.03
+  groundFriction: 0.15
   HInput: 0
-  jumpForce: 300
+  jumpForce: 350
   stopThreshold: 0.00001
 --- !u!1 &1754552706
 GameObject:
