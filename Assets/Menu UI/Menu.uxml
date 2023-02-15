@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Title" style="height: 115px; align-items: center; width: 100%; -unity-text-align: middle-left; justify-content: center;">
+        <ui:Label text="Goblin Chase" display-tooltip-when-elided="true" style="font-size: 50px; justify-content: center; -unity-text-align: middle-center; -unity-font-definition: url(&apos;project://database/Assets/Menu%20UI/Vanilla%20Caramel%20SDF.asset?fileID=11400000&amp;guid=2f213a0b55758497394d83ac214ee0ce&amp;type=2#Vanilla Caramel SDF&apos;); color: rgb(0, 0, 0);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Buttons" style="width: 100%; align-items: center; flex-grow: 1; justify-content: center; padding-bottom: 30px;">
+        <ui:Button text="Play" display-tooltip-when-elided="true" name="PlayButton" class="menu-button" style="width: 200px; align-items: center; font-size: 20px;" />
+        <ui:Button text="Settings" display-tooltip-when-elided="true" name="SettingsButton" class="menu-button" style="width: 200px; align-items: center; font-size: 20px;" />
+        <ui:Button text="Credits" display-tooltip-when-elided="true" name="CreditsButton" class="menu-button" style="width: 200px; align-items: center; font-size: 20px;" />
+        <ui:Button text="Quit" display-tooltip-when-elided="true" name="ExitButton" class="menu-button" style="width: 200px; align-items: center; font-size: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>
