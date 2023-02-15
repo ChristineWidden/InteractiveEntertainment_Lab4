@@ -481,9 +481,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 0.06
   maxSpeed: 6
-  groundFriction: 0.02
+  groundFriction: 0.03
   HInput: 0
   jumpForce: 300
+  stopThreshold: 0.00001
 --- !u!1 &1754552706
 GameObject:
   m_ObjectHideFlags: 0
