@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce => (2f * jumpHeight) / (jumpTime / 2f);
     public float gravity => (-2f * jumpHeight) / Mathf.Pow(jumpTime / 2f, 2f);
     
+    public int maxHealth;
+    public int health;
 
     private Vector2 velocity = new Vector2(0, 0);
 
@@ -30,12 +32,14 @@ public class PlayerController : MonoBehaviour
     const String ANIM_RUN = "Run";
     const String ANIM_CROUCH = "Crouch";
     const String ANIM_AIR = "Air";
+    const String ANIM_HURT = "Hurt";
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -103,6 +107,16 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Ground")) {
             onGround = true;
             Debug.Log("On ground");
+        }
+    }
+
+    //Upon collision with another GameObject, this GameObject will reverse direction
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Damage")) {
+            health -= 1;
+            Debug.Log("Health is now " + health.ToString());
+            ChangeAnimationState(ANIM_HURT);
         }
     }
 
