@@ -6,17 +6,21 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     //https://youtu.be/nPigL-dIqgE
+    //https://www.youtube.com/watch?v=SPe1xh4D7Wg
 
     public float acceleration;
     public float maxSpeed;
-    public float groundFriction;
-    public float HInput;
-
+    private float HInput;
     private bool onGround;
     private bool isCrouching;
-    public float jumpForce;
 
-    public float stopThreshold;
+    public float jumpHeight;
+    public float jumpTime;
+    public float jumpForce => (2f * jumpHeight) / (jumpTime / 2f);
+    public float gravity => (-2f * jumpHeight) / Mathf.Pow(jumpTime / 2f, 2f);
+    
+
+    private Vector2 velocity = new Vector2(0, 0);
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -37,44 +41,47 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump") && onGround) {
-            rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
+        HInput = isCrouching ? 0 : Input.GetAxis("Horizontal");
+        
+        velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
+
+        if (onGround) {
+            velocity.y = Mathf.Max(velocity.y, 0f);
+            if (Input.GetButtonDown("Jump")) {
+                velocity.y = jumpForce;
+            }
         }
 
-        if(rb.velocity.x < -0.001) {
+        bool falling = velocity.y < 0f || !Input.GetButton("Jump");
+        velocity.y += gravity * (falling ? 2f : 1f) * Time.deltaTime;
+        velocity.y = Mathf.Max(velocity.y, gravity / 2f);
+
+
+
+        if(velocity.x < 0) {
             GetComponent<SpriteRenderer>().flipX = true;
-        } else if(rb.velocity.x > 0.001) {
+        } else if(velocity.x > 0) {
             GetComponent<SpriteRenderer>().flipX = false;
         }
 
-        isCrouching = (Input.GetKey("down") || Input.GetKey("s")) ? true : false;
+        isCrouching = (onGround && (Input.GetKey("down") || Input.GetKey("s"))) ? true : false;
 
         setAnimations();
     }
 
+
     void FixedUpdate() {
-        HInput = Input.GetAxis("Horizontal");
-        //HInput = HInput == 0 ? 0 : Mathf.Sign(HInput);
+        Vector2 position = rb.position;
+        position += velocity * Time.fixedDeltaTime;
 
-        float directionMultiplier = Mathf.Abs(HInput) < stopThreshold ? 0 : Mathf.Sign(rb.velocity.x);
-
-        //float friction = Mathf.Abs(rb.velocity.x) < 0.1 ? groundFriction * 1.5f : groundFriction;
-
-        float newVelocity = Math.Clamp(rb.velocity.x + (HInput * acceleration * (isCrouching ? 0 : 1)) 
-                                        - ((onGround ? 1 : 0) * directionMultiplier * groundFriction)
-                                        , -1 * maxSpeed, maxSpeed);
-        
-        newVelocity = Mathf.Abs(newVelocity) < 0.0001 ? 0 : newVelocity;
-
-        rb.velocity = new Vector2(newVelocity, rb.velocity.y);
-
+        rb.MovePosition(position);
     }
 
     private void setAnimations() {
         if (isCrouching) {
             ChangeAnimationState(ANIM_CROUCH);
         }else if (onGround) {
-            float absVelocityX = Mathf.Abs(rb.velocity.x);
+            float absVelocityX = Mathf.Abs(velocity.x);
 
             if (absVelocityX < 0.001) {
                 ChangeAnimationState(ANIM_STAND);
