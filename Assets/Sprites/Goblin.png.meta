@@ -240,13 +240,55 @@ TextureImporter:
         height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: cdf1c2374a8d4ea4e87fb0ac0881ce53
       internalID: -2028480594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Goblin_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f382d984178d0e641b4d3ce3975b7e61
+      internalID: -1718087694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Goblin_8
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 150
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd9c5bb829c5315448f54e28137aa5dd
+      internalID: 764179595
       vertices: []
       indices: 
       edges: []
@@ -269,6 +311,7 @@ TextureImporter:
       Goblin_6: -2028480594
       Goblin_7: -1718087694
       Goblin_3: 153086743
+      Goblin_8: 764179595
       Goblin_2: -1036099362
   spritePackingTag: 
   pSDRemoveMatte: 0
