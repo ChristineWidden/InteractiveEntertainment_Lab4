@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Damage
+  - GameMusic
   layers:
   - Default
   - TransparentFX
