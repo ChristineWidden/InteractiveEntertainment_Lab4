@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerController : MonoBehaviour
@@ -20,7 +21,8 @@ public class PlayerController : MonoBehaviour
     public float gravity => (-2f * jumpHeight) / Mathf.Pow(jumpTime / 2f, 2f);
     
     public int maxHealth;
-    public int health;
+    public int currentHealth;
+    public HealthBar healthBar;
 
     private Vector2 velocity = new Vector2(0, 0);
 
@@ -39,7 +41,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        health = maxHealth;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -114,9 +117,13 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Damage")) {
-            health -= 1;
-            Debug.Log("Health is now " + health.ToString());
+            currentHealth -= 10;
+            healthBar.SetHealth(currentHealth);
+            Debug.Log("Health is now " + currentHealth.ToString());
             ChangeAnimationState(ANIM_HURT);
+            if (currentHealth < 1){
+                SceneManager.LoadScene("GameOverScene");
+            }
         }
     }
 

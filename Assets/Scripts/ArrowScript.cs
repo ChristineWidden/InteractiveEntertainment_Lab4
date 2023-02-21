@@ -38,6 +38,6 @@ public class ArrowScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("The arrow has hit!");
+        //Debug.Log("The arrow has hit!");
     }
 }
