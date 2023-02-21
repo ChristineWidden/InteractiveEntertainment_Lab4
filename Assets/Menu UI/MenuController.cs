@@ -13,6 +13,8 @@ public class MenuController : MonoBehaviour
     private Button _exitButton;
     private VisualElement _buttonsWrapper;
 
+    private bool _muted = false;
+
     private void Awake(){
         _doc = GetComponent<UIDocument>();
 
@@ -40,7 +42,8 @@ public class MenuController : MonoBehaviour
     }
 
     private void MuteButtonClicked(){
-        //mute
+        _muted = !_muted;
+        AudioListener.volume = _muted ? 0 : 1;
     }
 
     private void CreditsButtonClicked(){
