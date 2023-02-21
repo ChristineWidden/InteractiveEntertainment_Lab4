@@ -8,14 +8,10 @@ public class MenuController : MonoBehaviour
 {
     private UIDocument _doc;
     private Button _playButton;
-    private Button _settingsButton;
+    private Button _muteButton;
     private Button _creditsButton;
     private Button _exitButton;
     private VisualElement _buttonsWrapper;
-
-    [SerializeField]
-    private VisualTreeAsset _settingsButtonsTemplate;
-    private VisualElement _settingsButtons;
 
     private void Awake(){
         _doc = GetComponent<UIDocument>();
@@ -24,18 +20,14 @@ public class MenuController : MonoBehaviour
         _playButton.clicked += PlayButtonClicked;
 
         _buttonsWrapper = _doc.rootVisualElement.Q<VisualElement>("Buttons");
-        _settingsButton = _doc.rootVisualElement.Q<Button>("SettingsButton");
-        _settingsButton.clicked += SettingsButtonClicked;
-        _settingsButtons =_settingsButtonsTemplate.CloneTree();
+        _muteButton = _doc.rootVisualElement.Q<Button>("MuteButton");
+        _muteButton.clicked += MuteButtonClicked;
 
         _creditsButton = _doc.rootVisualElement.Q<Button>("CreditsButton");
         _creditsButton.clicked += CreditsButtonClicked;
 
         _exitButton = _doc.rootVisualElement.Q<Button>("ExitButton");
         _exitButton.clicked += ExitButtonClicked;
-
-        var backButton = _settingsButtons.Q<Button>("BackButton");
-        backButton.clicked += BackButtonClicked;
     }
 
     private void PlayButtonClicked(){
@@ -47,9 +39,8 @@ public class MenuController : MonoBehaviour
         Debug.Log("Quitting");
     }
 
-    private void SettingsButtonClicked(){
-        _buttonsWrapper.Clear();
-        _buttonsWrapper.Add(_settingsButtons);
+    private void MuteButtonClicked(){
+        //mute
     }
 
     private void CreditsButtonClicked(){
@@ -59,7 +50,7 @@ public class MenuController : MonoBehaviour
     private void BackButtonClicked(){
         _buttonsWrapper.Clear();
         _buttonsWrapper.Add(_playButton);
-        _buttonsWrapper.Add(_settingsButton);
+        _buttonsWrapper.Add(_muteButton);
         _buttonsWrapper.Add(_creditsButton);
         _buttonsWrapper.Add(_exitButton);
     }
