@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce => (2f * jumpHeight) / (jumpTime / 2f);
     public float gravity => (-2f * jumpHeight) / Mathf.Pow(jumpTime / 2f, 2f);
     
+    public int animatingHurt;
+
     public int maxHealth;
     public int currentHealth;
     public HealthBar healthBar;
@@ -36,6 +38,13 @@ public class PlayerController : MonoBehaviour
     const String ANIM_AIR = "Air";
     const String ANIM_HURT = "Hurt";
 
+    const int DAMAGE = 5;
+
+
+    private int rockCountdown;
+
+    public int ROCK_THROW_WAIT = 30;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,14 +52,25 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        animatingHurt = 0;
+        rockCountdown = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (rockCountdown > 0) {
+            rockCountdown -= 1;
+        }
+
         HInput = isCrouching ? 0 : Input.GetAxis("Horizontal");
         
         velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
+
+        if(Input.GetKey("w")) {
+            ThrowRock();
+        }
 
         if (onGround) {
             velocity.y = Mathf.Max(velocity.y, 0f);
@@ -81,10 +101,18 @@ public class PlayerController : MonoBehaviour
         Vector2 position = rb.position;
         position += velocity * Time.fixedDeltaTime;
 
+        if (animatingHurt > 0) {
+            animatingHurt = animatingHurt - 1;
+        }
+
         rb.MovePosition(position);
     }
 
     private void setAnimations() {
+        if (animatingHurt != 0) {
+            return;
+        }
+
         if (isCrouching) {
             ChangeAnimationState(ANIM_CROUCH);
         }else if (onGround) {
@@ -116,14 +144,20 @@ public class PlayerController : MonoBehaviour
     //Upon collision with another GameObject, this GameObject will reverse direction
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Damage")) {
-            currentHealth -= 10;
-            healthBar.SetHealth(currentHealth);
+        if (animatingHurt == 0 && other.gameObject.CompareTag("Damage")) {
+            animatingHurt = 15;
+
+            currentHealth -= DAMAGE;
             Debug.Log("Health is now " + currentHealth.ToString());
+
             ChangeAnimationState(ANIM_HURT);
             if (currentHealth < 1){
                 SceneManager.LoadScene("GameOverScene");
             }
+
+            healthBar.SetHealth(currentHealth);
+            
+
         }
     }
 
@@ -132,6 +166,25 @@ public class PlayerController : MonoBehaviour
             onGround = false;
             Debug.Log("In air");
         }
+    }
+
+    public void ThrowRock() {
+        if (rockCountdown != 0) return;
+
+        rockCountdown = ROCK_THROW_WAIT;
+
+        float arrowDirectionX = transform.position.x + 0;
+        float arrowDirectionY = transform.position.y + 1;
+
+        Vector3 arrowMoveVector = new Vector3(arrowDirectionX, arrowDirectionY, 0f);
+        Vector2 rockDirection = (arrowMoveVector - transform.position).normalized;
+
+        GameObject rock = RockPool.rockPoolInstance.GetRock();
+        rock.transform.position = transform.position;
+        rock.transform.rotation = transform.rotation;
+        rock.SetActive(true);
+        rock.GetComponent<RockScript>().SetMoveDirection(rockDirection);
+        
     }
 
 }
