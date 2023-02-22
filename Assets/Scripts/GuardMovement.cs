@@ -12,12 +12,14 @@ public class GuardMovement : MonoBehaviour
 
     public float currentHealth = 100;
 
-    const int DAMAGE = 30;
+    const int DAMAGE = 5;
 
     private int hurting;
     public int DAMAGE_BUFFER = 30;
 
     public static int guardCount = 2;
+
+    [SerializeField] private AudioSource hurtSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,8 @@ public class GuardMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (hurting == 0 && other.gameObject.CompareTag("Rock")) {
+            hurtSoundEffect.Play();
+
             Debug.Log("GUARD HURT!!! Guard count is " + guardCount.ToString());
             hurting = DAMAGE_BUFFER;
             currentHealth -= DAMAGE;
