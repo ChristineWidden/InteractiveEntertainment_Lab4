@@ -8,6 +8,8 @@ public class ArrowScript : MonoBehaviour
     private Vector2 moveDirection;
     public float moveSpeed;
 
+    private Animator animator;
+
     private void OnEnable() {
         Invoke("Destroy", 3f);
     }
@@ -15,12 +17,24 @@ public class ArrowScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
 
+        DoAnimationStuff();
+    }
+
+    void DoAnimationStuff() {
+        float r = 8 * (-1f * Mathf.Atan2(moveDirection.x, moveDirection.y) + 1f * Mathf.PI) / (2f * Mathf.PI);
+        Debug.Log("ARCTAN RESULT IS " + Mathf.Atan2(moveDirection.x, moveDirection.y).ToString());
+        string animation =  Mathf.Round(r).ToString();
+        Debug.Log("ANIMATION IS "+ animation);
+        ChangeAnimationState(animation);
     }
 
     // Update is called once per frame
     void Update()
     {
+        DoAnimationStuff();
+
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
@@ -36,8 +50,7 @@ public class ArrowScript : MonoBehaviour
         CancelInvoke();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        //Debug.Log("The arrow has hit!");
+    void ChangeAnimationState(string newState) {
+        animator.Play(newState);
     }
 }
