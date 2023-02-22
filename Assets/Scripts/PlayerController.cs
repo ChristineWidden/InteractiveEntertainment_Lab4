@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private bool onGround;
     private bool isCrouching;
 
+    public float boundary;
+
     public float jumpHeight;
     public float jumpTime;
     public float jumpForce => (2f * jumpHeight) / (jumpTime / 2f);
@@ -73,6 +75,7 @@ public class PlayerController : MonoBehaviour
         velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
 
         if(Input.GetKey("w")) {
+            Debug.Log("Throwing a rock!");
             ThrowRock();
         }
 
@@ -108,6 +111,14 @@ public class PlayerController : MonoBehaviour
 
         if (animatingHurt > 0) {
             animatingHurt = animatingHurt - 1;
+        }
+
+        if (position.x < (-1 * boundary)) {
+            position = new Vector2(-1 * boundary, position.y);
+        }
+
+        if (position.x > (boundary)) {
+            position = new Vector2(boundary, position.y);
         }
 
         rb.MovePosition(position);
@@ -154,6 +165,7 @@ public class PlayerController : MonoBehaviour
 
             currentHealth -= DAMAGE;
             Debug.Log("Health is now " + currentHealth.ToString());
+            hurtSoundEffect.Play();
 
             ChangeAnimationState(ANIM_HURT);
             if (currentHealth < 1){
@@ -175,6 +187,8 @@ public class PlayerController : MonoBehaviour
 
     public void ThrowRock() {
         if (rockCountdown != 0) return;
+
+        throwSoundEffect.Play();
 
         rockCountdown = ROCK_THROW_WAIT;
 
