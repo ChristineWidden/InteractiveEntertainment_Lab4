@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 117, y: 136}
-  m_SizeDelta: {x: 500, y: 30}
+  m_AnchoredPosition: {x: 4.2361, y: -1.0823}
+  m_SizeDelta: {x: 367.59, y: 173.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &229870248
 MonoBehaviour:
@@ -183,10 +183,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -194,7 +194,37 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Game created by Christine Widden and Diana Koralski
+  m_Text: 'Game created by Christine Widden and Diana Koralski
+
+
+    Youtube Tutorials:
+
+    Create
+    Game Menu like a PRO using UI Toolkit by PitiIT
+
+    Unity Tutorial : How to
+    Seamlessly playing music between multiple scenes by CatoDevs
+
+    GAME OVER -
+    How to make a Video Game in Unity by Brackeys
+
+    How to make a HEALTH BAR in
+    Unity! by Brackeys
+
+
+    Assets:
+
+    Heart and Health Bar by Brackeys
+
+    Menu
+    Background from Vecteezy
+
+    Background music from Chosic
+
+    Coins and Jewels
+    from dreamstime
+
+'
 --- !u!222 &229870249
 CanvasRenderer:
   m_ObjectHideFlags: 0
