@@ -1,0 +1,9 @@
+.menu-button {
+    font-size: 30px;
+    -unity-font-style: normal;
+    -unity-font-definition: url('project://database/Assets/Menu%20UI/Vanilla%20Caramel%20SDF.asset?fileID=11400000&guid=2f213a0b55758497394d83ac214ee0ce&type=2#Vanilla Caramel SDF');
+    width: initial;
+}
+
+.menu-button:hover {
+}
