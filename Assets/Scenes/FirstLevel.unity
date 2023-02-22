@@ -501,7 +501,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 204293433}
-  ROCK_THROW_WAIT: 300
+  ROCK_THROW_WAIT: 150
   jumpSoundEffect: {fileID: 502920416}
   hurtSoundEffect: {fileID: 502920415}
   throwSoundEffect: {fileID: 502920417}
