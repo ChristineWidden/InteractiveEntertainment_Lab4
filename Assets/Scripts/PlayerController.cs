@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour
 
     public int ROCK_THROW_WAIT = 30;
 
+    [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource hurtSoundEffect;
+    [SerializeField] private AudioSource throwSoundEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +79,7 @@ public class PlayerController : MonoBehaviour
         if (onGround) {
             velocity.y = Mathf.Max(velocity.y, 0f);
             if (Input.GetButtonDown("Jump")) {
+                jumpSoundEffect.Play();
                 velocity.y = jumpForce;
             }
         }
