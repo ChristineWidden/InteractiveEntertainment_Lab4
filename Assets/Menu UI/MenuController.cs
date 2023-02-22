@@ -33,7 +33,7 @@ public class MenuController : MonoBehaviour
     }
 
     private void PlayButtonClicked(){
-        SceneManager.LoadScene("FirstLevel");
+        SceneManager.LoadScene("Intro Cutscene");
     }
 
     private void ExitButtonClicked(){
