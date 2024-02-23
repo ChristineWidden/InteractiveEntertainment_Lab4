@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using System;
 
 public class PlayerController : MonoBehaviour
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public int maxHealth;
     public int currentHealth;
-    public HealthBar healthBar;
+    public HealthMeterScript healthBar;
 
     private Vector2 velocity = new Vector2(0, 0);
 
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     const String ANIM_AIR = "Air";
     const String ANIM_HURT = "Hurt";
 
-    const int DAMAGE = 5;
+    [SerializeField] private const int DAMAGE = 1;
 
 
     private int rockCountdown;
@@ -51,18 +52,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource hurtSoundEffect;
     [SerializeField] private AudioSource throwSoundEffect;
 
+    private PlayerInput playerInput;
+
     // Start is called before the first frame update
     void Start()
     {
+        //playerInput = new PlayerInputs();
+        playerInput = GetComponent<PlayerInput>();
+        //playerInput.Enable(); // Input Action Initializing..
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+
         healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(maxHealth);
+        //healthBar.GenerateHealthBar();
         animatingHurt = 0;
         rockCountdown = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -70,24 +79,25 @@ public class PlayerController : MonoBehaviour
             rockCountdown -= 1;
         }
 
-        HInput = isCrouching ? 0 : Input.GetAxis("Horizontal");
-        
+        //HInput = isCrouching ? 0 : playerInput.actions["Movement"].ReadValue<float>();
+        //Vector2 test = playerInput.actions["Movement"].ReadValue<Vector2>();
+        HInput = playerInput.actions["Movement"].ReadValue<float>();
         velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
 
-        if(Input.GetKey("w")) {
+        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f) {
             Debug.Log("Throwing a rock!");
             ThrowRock();
         }
 
         if (onGround) {
             velocity.y = Mathf.Max(velocity.y, 0f);
-            if (Input.GetButtonDown("Jump")) {
+            if (playerInput.actions["Jump"].ReadValue<float>() > 0.5f) {
                 jumpSoundEffect.Play();
                 velocity.y = jumpForce;
             }
         }
 
-        bool falling = velocity.y < 0f || !Input.GetButton("Jump");
+        bool falling = velocity.y < 0f || !(playerInput.actions["Jump"].ReadValue<float>() > 0.5f);
         velocity.y += gravity * (falling ? 2f : 1f) * Time.deltaTime;
         velocity.y = Mathf.Max(velocity.y, gravity / 2f);
 
@@ -98,8 +108,7 @@ public class PlayerController : MonoBehaviour
         } else if(velocity.x > 0) {
             GetComponent<SpriteRenderer>().flipX = false;
         }
-
-        isCrouching = (onGround && (Input.GetKey("down") || Input.GetKey("s"))) ? true : false;
+        isCrouching = (onGround && (playerInput.actions["Crouch"].ReadValue<float>() > 0.5f)) ? true : false;
 
         setAnimations();
     }
@@ -174,7 +183,6 @@ public class PlayerController : MonoBehaviour
 
             healthBar.SetHealth(currentHealth);
             
-
         }
     }
 

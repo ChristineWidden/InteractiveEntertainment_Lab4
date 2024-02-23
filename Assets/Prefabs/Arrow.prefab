@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5113030091205826519}
   - component: {fileID: -5093616138325558129}
   - component: {fileID: -9001545336729386470}
+  - component: {fileID: 4079892816608582383}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Damage
@@ -184,3 +185,17 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &4079892816608582383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533223381476316041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ebef86fa0df0447aa326a132604bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standardRenderMaterial: {fileID: 2100000, guid: e2632be821698d04e85e57946a14637a, type: 2}
+  highContrastMaterial: {fileID: 2100000, guid: e2632be821698d04e85e57946a14637a, type: 2}

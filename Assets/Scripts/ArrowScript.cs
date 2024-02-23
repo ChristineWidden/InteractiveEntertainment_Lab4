@@ -24,9 +24,9 @@ public class ArrowScript : MonoBehaviour
 
     void DoAnimationStuff() {
         float r = 8 * (-1f * Mathf.Atan2(moveDirection.x, moveDirection.y) + 1f * Mathf.PI) / (2f * Mathf.PI);
-        Debug.Log("ARCTAN RESULT IS " + Mathf.Atan2(moveDirection.x, moveDirection.y).ToString());
+        //Debug.Log("ARCTAN RESULT IS " + Mathf.Atan2(moveDirection.x, moveDirection.y).ToString());
         string animation =  Mathf.Round(r).ToString();
-        Debug.Log("ANIMATION IS "+ animation);
+        //Debug.Log("ANIMATION IS "+ animation);
         ChangeAnimationState(animation);
     }
 
