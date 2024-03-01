@@ -45,7 +45,7 @@ public class PlayerPhysics : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         HInput = playerInput.actions["Movement"].ReadValue<float>();
         velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
@@ -59,11 +59,11 @@ public class PlayerPhysics : MonoBehaviour
         // Changes the height position of the player..
         if (jumping && onGround && velocity.y <= 0)
         {
-            velocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            velocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             jumpSoundEffect.Play();
         }
-
         velocity.y += gravityValue * Time.deltaTime; // apply gravity
+
 
 
         // if (onGround) {
@@ -87,7 +87,7 @@ public class PlayerPhysics : MonoBehaviour
         isCrouching = (onGround && (playerInput.actions["Crouch"].ReadValue<float>() > 0.5f)) ? true : false;
 
         Vector2 position = rb.position;
-        position += velocity * Time.fixedDeltaTime;
+        position += velocity * Time.deltaTime;
 
         rb.MovePosition(position);
 
@@ -100,14 +100,14 @@ public class PlayerPhysics : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Ground")) {
             onGround = true;
-            Debug.Log("On ground");
+            //Debug.Log("On ground");
         }
     }
 
     void OnCollisionExit2D(Collision2D other) {
         if(other.gameObject.CompareTag("Ground")) {
             onGround = false;
-            Debug.Log("In air");
+            //Debug.Log("In air");
         }
     }
 

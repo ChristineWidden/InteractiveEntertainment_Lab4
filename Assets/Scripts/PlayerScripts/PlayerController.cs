@@ -7,7 +7,8 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
+    public int points = 0;    
 
     public int maxHealth;
     public int currentHealth;
@@ -24,10 +25,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private const int DAMAGE = 1;
 
-
     private int rockCountdown;
 
-    public int ROCK_THROW_WAIT = 30;
+    public int ROCK_THROW_WAIT;
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource hurtSoundEffect;
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float immunityDuration;
     private float immunityCountdown;
+
+    [SerializeField] private GameObject projectile;
 
     // Start is called before the first frame update
     void Start()
@@ -74,14 +76,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Upon collision with another GameObject, this GameObject will reverse direction
     void OnTriggerEnter2D(Collider2D other)
     {
         if (immunityCountdown <= 0 && other.gameObject.CompareTag("Damage")) {
             immunityCountdown = immunityDuration;
 
             currentHealth -= DAMAGE;
-            Debug.Log("Health is now " + currentHealth.ToString());
+            //Debug.Log("Health is now " + currentHealth.ToString());
             hurtSoundEffect.Play();
 
             if (currentHealth < 1){
@@ -103,15 +104,15 @@ public class PlayerController : MonoBehaviour
         float arrowDirectionX = transform.position.x + 0;
         float arrowDirectionY = transform.position.y + 1;
 
-        Vector3 arrowMoveVector = new Vector3(arrowDirectionX, arrowDirectionY, 0f);
+        Vector3 arrowMoveVector = new(arrowDirectionX, arrowDirectionY, 0f);
         Vector2 rockDirection = (arrowMoveVector - transform.position).normalized;
 
-        GameObject rock = RockPool.rockPoolInstance.GetRock();
+        //GameObject rock = RockPool.rockPoolInstance.GetRock();
+        GameObject rock = Instantiate(projectile);
         rock.transform.position = transform.position;
         rock.transform.rotation = transform.rotation;
         rock.SetActive(true);
-        rock.GetComponent<RockScript>().SetMoveDirection(rockDirection);
-        
+        rock.GetComponent<PlayerProjectile>().moveDirection = rockDirection;
     }
 
 }
