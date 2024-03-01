@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerBackup : MonoBehaviour
 {
     //https://youtu.be/nPigL-dIqgE
     //https://www.youtube.com/watch?v=SPe1xh4D7Wg
