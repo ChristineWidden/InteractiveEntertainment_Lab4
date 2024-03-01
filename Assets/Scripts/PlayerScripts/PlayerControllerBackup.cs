@@ -206,11 +206,11 @@ public class PlayerControllerBackup : MonoBehaviour
         Vector3 arrowMoveVector = new Vector3(arrowDirectionX, arrowDirectionY, 0f);
         Vector2 rockDirection = (arrowMoveVector - transform.position).normalized;
 
-        GameObject rock = RockPool.rockPoolInstance.GetRock();
-        rock.transform.position = transform.position;
-        rock.transform.rotation = transform.rotation;
-        rock.SetActive(true);
-        rock.GetComponent<RockScript>().SetMoveDirection(rockDirection);
+        // GameObject rock = RockPool.rockPoolInstance.GetRock();
+        // rock.transform.position = transform.position;
+        // rock.transform.rotation = transform.rotation;
+        // rock.SetActive(true);
+        // rock.GetComponent<RockScript>().SetMoveDirection(rockDirection);
         
     }
 
