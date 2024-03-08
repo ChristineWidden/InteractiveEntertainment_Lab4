@@ -9,6 +9,7 @@ public class GuardMovement : MonoBehaviour
     public float moveSpeed;
     private bool moveRight;
     public float moveLimit;
+    private float initXPos;
 
     public float currentHealth = 100;
 
@@ -27,6 +28,7 @@ public class GuardMovement : MonoBehaviour
         moveSpeed = 2f;
         moveRight = true;
         hurting = 0;
+        initXPos = transform.position.x;
     }
 
     // Update is called once per frame
@@ -36,9 +38,9 @@ public class GuardMovement : MonoBehaviour
             hurting = hurting - 1;
         }
 
-        if (transform.position.x > moveLimit) {
+        if (transform.position.x > moveLimit + initXPos) {
             moveRight = false;
-        } else if (transform.position.x < moveLimit * -1) {
+        } else if (transform.position.x < initXPos + moveLimit * -1) {
             moveRight = true;
         }
 

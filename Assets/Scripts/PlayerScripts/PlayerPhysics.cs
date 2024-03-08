@@ -34,6 +34,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private PlayerInput playerInput;
     private PlayerAnimator animator;
+    private PlayerController controller;
 
     [SerializeField] private float gravityValue = -9.81f;
 
@@ -48,6 +49,7 @@ public class PlayerPhysics : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<PlayerAnimator>();
+        controller = GetComponent<PlayerController>();
 
     }
 
@@ -79,8 +81,10 @@ public class PlayerPhysics : MonoBehaviour
 
 
         if(velocity.x < 0) {
+            controller.facingRight = false;
             GetComponent<SpriteRenderer>().flipX = true;
         } else if(velocity.x > 0) {
+            controller.facingRight = true;
             GetComponent<SpriteRenderer>().flipX = false;
         }
         
