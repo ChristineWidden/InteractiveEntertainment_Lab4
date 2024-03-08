@@ -34,13 +34,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource throwSoundEffect;
 
     private PlayerAnimator animator;
-
     private PlayerInput playerInput;
 
     [SerializeField] private float immunityDuration;
     private float immunityCountdown;
 
     [SerializeField] private GameObject projectile;
+
+    public bool facingRight = true;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
             rockCountdown -= 1;
         }
 
-        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown > 0) {
+        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown == 0) {
             ThrowRock();
         }
 
@@ -100,8 +101,8 @@ public class PlayerController : MonoBehaviour
 
         rockCountdown = ROCK_THROW_WAIT;
 
-        float arrowDirectionX = transform.position.x + 0;
-        float arrowDirectionY = transform.position.y + 1;
+        float arrowDirectionX = transform.position.x + (facingRight ? 1 : -1);
+        float arrowDirectionY = transform.position.y + 0;
 
         Vector3 arrowMoveVector = new(arrowDirectionX, arrowDirectionY, 0f);
         Vector2 rockDirection = (arrowMoveVector - transform.position).normalized;
