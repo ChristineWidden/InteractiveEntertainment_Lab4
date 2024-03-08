@@ -51,6 +51,6 @@ public class ArrowScript : MonoBehaviour
     }
 
     void ChangeAnimationState(string newState) {
-        animator.Play(newState);
+        //animator.Play(newState);
     }
 }

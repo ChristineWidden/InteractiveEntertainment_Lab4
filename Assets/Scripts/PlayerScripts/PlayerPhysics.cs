@@ -14,7 +14,9 @@ public class PlayerPhysics : MonoBehaviour
     public float maxSpeed;
     private float HInput;
     private bool onGround;
-    private bool isCrouching;
+    // [SerializeField] private float groundedBuffer = 0;
+    // private float groundedBufferMax;
+    // private bool isCrouching;
 
     public float jumpHeight;
     // public float jumpTime;
@@ -35,6 +37,10 @@ public class PlayerPhysics : MonoBehaviour
 
     [SerializeField] private float gravityValue = -9.81f;
 
+    private string nextAnimation;
+
+    // private int groundCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,8 +53,15 @@ public class PlayerPhysics : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         HInput = playerInput.actions["Movement"].ReadValue<float>();
-        velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
+        if (onGround && (playerInput.actions["Crouch"].ReadValue<float>() > 0.5f)) {
+            // if crouching, slow to a halt
+            Debug.Log("hi");
+            velocity.x = Mathf.MoveTowards(velocity.x, 0, acceleration * maxSpeed * Time.deltaTime);
+        } else {
+            velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
+        }
 
         if (onGround && velocity.y < 0)
         {
@@ -65,33 +78,18 @@ public class PlayerPhysics : MonoBehaviour
         velocity.y += gravityValue * Time.deltaTime; // apply gravity
 
 
-
-        // if (onGround) {
-        //     velocity.y = Mathf.Max(velocity.y, 0f);
-        //     if (playerInput.actions["Jump"].ReadValue<float>() > 0.5f) {
-        //         jumpSoundEffect.Play();
-        //         velocity.y = jumpForce;
-        //     }
-        // }
-
-        // bool falling = velocity.y < 0f || !(playerInput.actions["Jump"].ReadValue<float>() > 0.5f);
-        // velocity.y += gravity * (falling ? 2f : 1f) * Time.deltaTime;
-        // velocity.y = Mathf.Max(velocity.y, gravity / 2f);
-
-
         if(velocity.x < 0) {
             GetComponent<SpriteRenderer>().flipX = true;
         } else if(velocity.x > 0) {
             GetComponent<SpriteRenderer>().flipX = false;
         }
-        isCrouching = (onGround && (playerInput.actions["Crouch"].ReadValue<float>() > 0.5f)) ? true : false;
+        
 
         Vector2 position = rb.position;
         position += velocity * Time.deltaTime;
 
         rb.MovePosition(position);
 
-        animator.isCrouching = isCrouching;
         animator.onGround = onGround;
         animator.velocity = velocity;
     }
@@ -100,14 +98,20 @@ public class PlayerPhysics : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Ground")) {
             onGround = true;
-            //Debug.Log("On ground");
+            //groundCount++;
+            //groundedBuffer = groundedBufferMax;
+            // Debug.Log("On ground");
         }
     }
 
     void OnCollisionExit2D(Collision2D other) {
+        //if(other.gameObject.CompareTag("Ground") && groundedBuffer <= 0) {
         if(other.gameObject.CompareTag("Ground")) {
+            // groundCount--;
+            // if (groundCount == 0) {
             onGround = false;
-            //Debug.Log("In air");
+            // Debug.Log("In air");
+            // }
         }
     }
 
