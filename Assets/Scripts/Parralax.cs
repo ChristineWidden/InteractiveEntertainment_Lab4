@@ -20,6 +20,6 @@ public class Parralax : MonoBehaviour
     {
         float newX = originalPosition.x + parralaxAmount * followObject.transform.position.x;
         float newY = originalPosition.y + parralaxAmount * followObject.transform.position.y;
-        transform.position = new(newX, newY, transform.position.z);
+        transform.position = new(newX, transform.position.y, transform.position.z);
     }
 }

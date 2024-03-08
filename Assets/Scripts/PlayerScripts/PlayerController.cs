@@ -64,12 +64,11 @@ public class PlayerController : MonoBehaviour
             rockCountdown -= 1;
         }
 
-        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f) {
-            Debug.Log("Throwing a rock!");
+        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown > 0) {
             ThrowRock();
         }
 
-        animator.animatingHurt = immunityCountdown;
+        //animator.animatingHurt = immunityCountdown;
 
         if (immunityCountdown > 0) {
             immunityCountdown -= Time.deltaTime;
@@ -95,7 +94,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ThrowRock() {
-        if (rockCountdown != 0) return;
+        Debug.Log("Throwing a rock!");
 
         throwSoundEffect.Play();
 
