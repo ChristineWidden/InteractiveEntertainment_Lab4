@@ -102,8 +102,6 @@ public class PlayerPhysics : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Ground")) {
             onGround = true;
-            //groundCount++;
-            //groundedBuffer = groundedBufferMax;
             // Debug.Log("On ground");
         }
     }
@@ -111,11 +109,8 @@ public class PlayerPhysics : MonoBehaviour
     void OnCollisionExit2D(Collision2D other) {
         //if(other.gameObject.CompareTag("Ground") && groundedBuffer <= 0) {
         if(other.gameObject.CompareTag("Ground")) {
-            // groundCount--;
-            // if (groundCount == 0) {
             onGround = false;
             // Debug.Log("In air");
-            // }
         }
     }
 

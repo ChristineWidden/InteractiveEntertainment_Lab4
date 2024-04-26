@@ -33,6 +33,10 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private string currentState;
 
+    [SerializeField] private Sprite[] standardSprites;
+    [SerializeField] private Sprite[] poweredUpSprites;
+
+
     void Start()
     {
         animator = GetComponent<Animator>();

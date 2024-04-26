@@ -12,7 +12,13 @@ public class PlayerController : MonoBehaviour
 
     public int maxHealth;
     public int currentHealth;
-    public HealthMeterScript healthBar;
+    public HealthRing healthBar;
+    public PowerUpUI powerUpUI;
+
+    public PowerUpEnum powerUpState = PowerUpEnum.Rock;
+
+    private Coroutine resetPowerUpCoroutine;
+
 
     //private Animator animator;
 
@@ -39,7 +45,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float immunityDuration;
     private float immunityCountdown;
 
-    [SerializeField] private GameObject projectile;
+    private GameObject projectile;
+    [SerializeField] private GameObject defaultProjectile;
 
     public bool facingRight = true;
 
@@ -48,11 +55,12 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<PlayerAnimator>();
+        projectile = defaultProjectile;
 
         //animator = GetComponent<Animator>();
         currentHealth = maxHealth;
 
-        healthBar.SetMaxHealth(maxHealth);
+        // healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(maxHealth);
         immunityCountdown = 0f;
         rockCountdown = 0;
@@ -69,8 +77,6 @@ public class PlayerController : MonoBehaviour
             ThrowRock();
         }
 
-        //animator.animatingHurt = immunityCountdown;
-
         if (immunityCountdown > 0) {
             immunityCountdown -= Time.deltaTime;
         }
@@ -78,11 +84,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (immunityCountdown <= 0 && other.gameObject.CompareTag("Damage")) {
+        if ((other.gameObject.CompareTag("Damage") || other.gameObject.CompareTag("Enemy")) 
+            && immunityCountdown <= 0) {
             immunityCountdown = immunityDuration;
 
             currentHealth -= DAMAGE;
-            //Debug.Log("Health is now " + currentHealth.ToString());
             hurtSoundEffect.Play();
 
             if (currentHealth < 1){
@@ -90,8 +96,32 @@ public class PlayerController : MonoBehaviour
             }
 
             healthBar.SetHealth(currentHealth);
-            
         }
+
+        if (other.gameObject.CompareTag("Enemy")) {
+            // TODO bounce back off of enemy
+        }
+
+        if (other.gameObject.CompareTag("PowerUp")) {
+            PowerUp powerUp = other.GetComponent<PowerUp>();
+            powerUpState = powerUp.powerUpType;
+            powerUpUI.SetPowerUp(powerUpState);
+            projectile = powerUp.associatedProjectile;
+
+            if (resetPowerUpCoroutine != null)
+            {
+                StopCoroutine(resetPowerUpCoroutine);
+            }
+            resetPowerUpCoroutine = StartCoroutine(ResetPowerUp(powerUp.powerUpDuration));
+            // Invoke(nameof(ResetPowerUp), powerUp.powerUpDuration);
+        }
+    }
+
+    private IEnumerator ResetPowerUp(float powerUpDuration) {
+        yield return new WaitForSeconds(powerUpDuration);
+        powerUpState = PowerUpEnum.Rock;
+        projectile = defaultProjectile;
+        powerUpUI.SetPowerUp(powerUpState);
     }
 
     public void ThrowRock() {
@@ -107,11 +137,12 @@ public class PlayerController : MonoBehaviour
         Vector3 arrowMoveVector = new(arrowDirectionX, arrowDirectionY, 0f);
         Vector2 rockDirection = (arrowMoveVector - transform.position).normalized;
 
-        //GameObject rock = RockPool.rockPoolInstance.GetRock();
         GameObject rock = Instantiate(projectile);
         rock.transform.position = transform.position;
         rock.transform.rotation = transform.rotation;
         rock.SetActive(true);
+        rock.transform.parent = ProjectileHolder.instance.transform;
+
         rock.GetComponent<PlayerProjectile>().moveDirection = rockDirection;
     }
 

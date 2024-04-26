@@ -10,9 +10,12 @@ public class PlayerProjectile : MonoBehaviour
     public Vector2 moveDirection;
     [SerializeField] private float existTime;
     [SerializeField] private float moveSpeed;
+    public float stunTime;
+    public bool doesKill;
+    public float freezeTime;
 
     private void OnEnable() {
-        Invoke("Destroy", existTime);
+        Invoke(nameof(Destroy), existTime);
     }
 
     private void Destroy() {
@@ -20,11 +23,14 @@ public class PlayerProjectile : MonoBehaviour
     }
 
     void Update() {
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        transform.Translate(moveSpeed * Time.deltaTime * moveDirection);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("The arrow has hit!");
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
