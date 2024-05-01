@@ -120,6 +120,10 @@ PrefabInstance:
       propertyPath: jumpHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1433861490740279477, guid: da7d2c424a129ff41ac4de8d2bd0bc6d, type: 3}
+      propertyPath: maxSpeedBase
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3398702352890252633, guid: da7d2c424a129ff41ac4de8d2bd0bc6d, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -280,7 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c28c42358024c594bb21c4e17847755d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAMAGE_BUFFER: 30
+  damageTakenOnHitBase: 1
+  immunitySecondsBase: 0.2
+  hurtSoundEffect: {fileID: 8645180651939146014}
 --- !u!114 &3057277385916437745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,5 +317,10 @@ MonoBehaviour:
 --- !u!4 &4683397713043820844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3398702352890252635, guid: da7d2c424a129ff41ac4de8d2bd0bc6d, type: 3}
+  m_PrefabInstance: {fileID: 8058163079278779511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8645180651939146014 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1742190879566591337, guid: da7d2c424a129ff41ac4de8d2bd0bc6d, type: 3}
   m_PrefabInstance: {fileID: 8058163079278779511}
   m_PrefabAsset: {fileID: 0}

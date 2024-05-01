@@ -3,30 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GuardDamage : MonoBehaviour, IOptionObserver
+public class GuardDamage : IOptionObserver
 {
 
     [SerializeField] private float currentHealth = 100;
 
-    private float immunityTimer;
 
     [SerializeField] private float damageTakenOnHitBase;
     private float damageTakenOnHit;
     [SerializeField] private float immunitySecondsBase;
     public float immunitySeconds;
+    private float immunityTimer;
 
     [SerializeField] private AudioSource hurtSoundEffect;
 
-    private void OnEnable()
+    private new void OnEnable()
     {
-        OptionsManager.Instance.RegisterObserver(this);
+        base.OnEnable();
         UpdateDifficulty();
     }
-    private void OnDisable()
-    {
-        OptionsManager.Instance.UnregisterObserver(this);
-    }
-    public void OnOptionChanged() {
+    public override void OnOptionChanged() {
         UpdateDifficulty();
     }
     private void UpdateDifficulty() {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Enemy : MonoBehaviour, IOptionObserver
+public class Enemy : IOptionObserver
 {    
     private float immunityTimer;
     private bool stunned; 
@@ -23,16 +23,13 @@ public class Enemy : MonoBehaviour, IOptionObserver
 
     [SerializeField] private AudioSource hurtSoundEffect;
 
-    private void OnEnable()
+
+    private new void OnEnable()
     {
-        OptionsManager.Instance.RegisterObserver(this);
+        base.OnEnable();
         UpdateDifficulty();
     }
-    private void OnDisable()
-    {
-        OptionsManager.Instance.UnregisterObserver(this);
-    }
-    public void OnOptionChanged() {
+    public override void OnOptionChanged() {
         UpdateDifficulty();
     }
     private void UpdateDifficulty() {

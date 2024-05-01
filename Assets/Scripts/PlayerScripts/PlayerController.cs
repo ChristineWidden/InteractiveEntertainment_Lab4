@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : IOptionObserver
 {
 
     public int points = 0;    
@@ -31,9 +31,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private const int DAMAGE = 1;
 
-    private int rockCountdown;
-
-    public int ROCK_THROW_WAIT;
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource hurtSoundEffect;
@@ -42,15 +39,35 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimator animator;
     private PlayerInput playerInput;
 
-    [SerializeField] private float immunityDuration;
-    private float immunityCountdown;
+    private float ROCK_THROW_WAIT;
+    public float ROCK_THROW_WAIT_BASE;
+    private float rockCountdown;
+    [SerializeField] private float immunitySecondsBase;
+    private float immunitySeconds;
+    private float immunityTimer;
+
 
     private GameObject projectile;
     [SerializeField] private GameObject defaultProjectile;
 
     public bool facingRight = true;
 
-    // Start is called before the first frame update
+
+
+    private new void OnEnable()
+    {
+        base.OnEnable();
+        UpdateDifficulty();
+    }
+    public override void OnOptionChanged() {
+        UpdateDifficulty();
+    }
+    private void UpdateDifficulty() {
+        immunitySeconds = immunitySecondsBase * OptionsManager.Instance.currentDifficulty.playerImmunityFrameMultiplier;
+        ROCK_THROW_WAIT = ROCK_THROW_WAIT_BASE * OptionsManager.Instance.currentDifficulty.playerProjectileFrequencyMultiplier;
+    }
+
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -62,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         // healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(maxHealth);
-        immunityCountdown = 0f;
+        immunityTimer = 0f;
         rockCountdown = 0;
     }
 
@@ -70,23 +87,23 @@ public class PlayerController : MonoBehaviour
     {
 
         if (rockCountdown > 0) {
-            rockCountdown -= 1;
+            rockCountdown -= Time.deltaTime;
+        }
+        if (immunityTimer > 0) {
+            immunityTimer -= Time.deltaTime;
         }
 
-        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown == 0) {
+        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown <= 0) {
             ThrowRock();
         }
 
-        if (immunityCountdown > 0) {
-            immunityCountdown -= Time.deltaTime;
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if ((other.gameObject.CompareTag("Damage") || other.gameObject.CompareTag("Enemy")) 
-            && immunityCountdown <= 0) {
-            immunityCountdown = immunityDuration;
+            && immunityTimer <= 0) {
+            immunityTimer = immunitySeconds;
 
             currentHealth -= DAMAGE;
             hurtSoundEffect.Play();

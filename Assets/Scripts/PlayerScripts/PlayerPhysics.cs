@@ -14,16 +14,10 @@ public class PlayerPhysics : MonoBehaviour
     public float maxSpeed;
     private float HInput;
     private bool onGround;
-    // [SerializeField] private float groundedBuffer = 0;
-    // private float groundedBufferMax;
-    // private bool isCrouching;
 
     public float jumpHeight;
-    // public float jumpTime;
-    // public float jumpForce => (2f * jumpHeight) / (jumpTime / 2f);
-    // public float gravity => (-2f * jumpHeight) / Mathf.Pow(jumpTime / 2f, 2f);
 
-    private Vector2 velocity = new Vector2(0, 0);
+    private Vector2 velocity = new(0, 0);
 
     private Rigidbody2D rb;
 
@@ -40,9 +34,6 @@ public class PlayerPhysics : MonoBehaviour
 
     private string nextAnimation;
 
-    // private int groundCount = 0;
-
-    // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();

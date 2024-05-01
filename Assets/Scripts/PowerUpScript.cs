@@ -37,7 +37,7 @@ public class PowerUp : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             AudioSource boopSound = SoundEffectHolder.soundEffectInstance.COLLECT_POWER_UP;
-            boopSound.Play();
+            //boopSound.Play();
             destroyedEvent.Invoke();
             Destroy(gameObject);
             // gameObject.SetActive(false);

@@ -1,32 +1,23 @@
 using UnityEngine;
 
-public class SetMaterial : MonoBehaviour, IOptionObserver
+public class SetMaterial : IOptionObserver
 {
     public Material standardRenderMaterial; // Assign the new material in the Unity Editor
     public Material highContrastMaterial;
     private Renderer objectRenderer;
 
-    private void OnEnable()
+    private new void OnEnable()
     {
-        OptionsManager.Instance.RegisterObserver(this);
-
-        // Get the Renderer component of the GameObject
-        objectRenderer = GetComponent<Renderer>();
-        if (objectRenderer == null)
+        base.OnEnable();
+    
+        if (!TryGetComponent<Renderer>(out objectRenderer))
         {
             Debug.LogError("Renderer component not found on the GameObject.");
         }
 
         UpdateContrast();
     }
-
-    private void OnDisable()
-    {
-        OptionsManager.Instance.UnregisterObserver(this);
-    }
-
-    //TODO use events instead
-    public void OnOptionChanged() {
+    public override void OnOptionChanged() {
         UpdateContrast();
     }
 

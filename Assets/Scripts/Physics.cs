@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using System;
 
-public class Physics : MonoBehaviour, IOptionObserver
+public class Physics : IOptionObserver
 {
     //https://youtu.be/nPigL-dIqgE
     //https://www.youtube.com/watch?v=SPe1xh4D7Wg
@@ -37,20 +37,17 @@ public class Physics : MonoBehaviour, IOptionObserver
     public UnityEvent onFalling;
 
 
-    private void OnEnable()
+    private new void OnEnable()
     {
-        OptionsManager.Instance.RegisterObserver(this);
+        base.OnEnable();
         UpdateDifficulty();
     }
-    private void OnDisable()
-    {
-        OptionsManager.Instance.UnregisterObserver(this);
-    }
-    public void OnOptionChanged() {
+    public override void OnOptionChanged() {
         UpdateDifficulty();
     }
     private void UpdateDifficulty() {
-        maxSpeed = maxSpeedBase * OptionsManager.Instance.currentDifficulty.enemySpeedMultiplier;
+        OptionsManager optionsManager = OptionsManager.Instance != null ? OptionsManager.Instance : throw new ArgumentNullException("Options manager was null");
+        maxSpeed = maxSpeedBase * optionsManager.currentDifficulty.enemySpeedMultiplier;
     }
 
     void Start()
