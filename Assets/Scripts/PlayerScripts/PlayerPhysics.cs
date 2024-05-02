@@ -17,7 +17,7 @@ public class PlayerPhysics : MonoBehaviour
 
     public float jumpHeight;
 
-    private Vector2 velocity = new(0, 0);
+    public Vector2 velocity = new(0, 0);
 
     private Rigidbody2D rb;
 

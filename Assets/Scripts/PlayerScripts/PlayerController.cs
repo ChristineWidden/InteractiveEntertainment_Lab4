@@ -19,6 +19,7 @@ public class PlayerController : IOptionObserver
 
     private Coroutine resetPowerUpCoroutine;
 
+    private PlayerPhysics physics;
 
     //private Animator animator;
 
@@ -72,6 +73,7 @@ public class PlayerController : IOptionObserver
     {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<PlayerAnimator>();
+        physics = GetComponent<PlayerPhysics>(); // TODO switch over to universal physics script
         projectile = defaultProjectile;
 
         //animator = GetComponent<Animator>();
@@ -116,7 +118,8 @@ public class PlayerController : IOptionObserver
         }
 
         if (other.gameObject.CompareTag("Enemy")) {
-            // TODO bounce back off of enemy
+            Debug.Log("Adding velocity!");
+            physics.velocity = new Vector2(physics.velocity.x, 10);
         }
 
         if (other.gameObject.CompareTag("PowerUp")) {
