@@ -100,7 +100,8 @@ public class Enemy : IOptionObserver
     void GetStunned(float stunTime)
     {
         // Debug.Log("Transparent now?");
-        thisCollider.isTrigger = true;
+        // thisCollider.isTrigger = true;
+        ChangeLayer("IgnorePlayer");
         sprite.material.SetFloat("_Alpha", stunAlpha);
         StartCoroutine(StunOff(stunTime));
     }
@@ -109,7 +110,26 @@ public class Enemy : IOptionObserver
     {
         yield return new WaitForSeconds(delayTime);
         sprite.material.SetFloat("_Alpha", originalAlpha);
-        thisCollider.isTrigger = false;
+        // thisCollider.isTrigger = false;
+        ChangeLayer("Default");
+    }
+
+    void ChangeLayer(string layerName)
+    {
+        // Get the layer index by name
+        int layerIndex = LayerMask.NameToLayer(layerName);
+        
+        // Check if the layer index is valid
+        if (layerIndex != -1)
+        {
+            // Change the layer of the GameObject
+            gameObject.layer = layerIndex;
+            Debug.Log("Layer changed to: " + layerName);
+        }
+        else
+        {
+            Debug.LogError("Layer not found: " + layerName);
+        }
     }
 
     void Die()
