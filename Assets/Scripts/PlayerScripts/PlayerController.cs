@@ -8,7 +8,7 @@ using System;
 public class PlayerController : IOptionObserver
 {
 
-    public int points = 0;    
+    public int points = 0;
 
     public int maxHealth;
     public int currentHealth;
@@ -19,7 +19,7 @@ public class PlayerController : IOptionObserver
 
     private Coroutine resetPowerUpCoroutine;
 
-    private PlayerPhysics physics;
+    private Physics physics;
 
     //private Animator animator;
 
@@ -54,16 +54,17 @@ public class PlayerController : IOptionObserver
     public bool facingRight = true;
 
 
-
     private new void OnEnable()
     {
         base.OnEnable();
         UpdateDifficulty();
     }
-    public override void OnOptionChanged() {
+    public override void OnOptionChanged()
+    {
         UpdateDifficulty();
     }
-    private void UpdateDifficulty() {
+    private void UpdateDifficulty()
+    {
         immunitySeconds = immunitySecondsBase * OptionsManager.Instance.currentDifficulty.playerImmunityFrameMultiplier;
         ROCK_THROW_WAIT = ROCK_THROW_WAIT_BASE * OptionsManager.Instance.currentDifficulty.playerProjectileFrequencyMultiplier;
     }
@@ -73,7 +74,7 @@ public class PlayerController : IOptionObserver
     {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<PlayerAnimator>();
-        physics = GetComponent<PlayerPhysics>(); // TODO switch over to universal physics script
+        physics = GetComponent<Physics>(); // TODO switch over to universal physics script
         projectile = defaultProjectile;
 
         //animator = GetComponent<Animator>();
@@ -88,41 +89,62 @@ public class PlayerController : IOptionObserver
     void Update()
     {
 
-        if (rockCountdown > 0) {
+        if (rockCountdown > 0)
+        {
             rockCountdown -= Time.deltaTime;
         }
-        if (immunityTimer > 0) {
+        if (immunityTimer > 0)
+        {
             immunityTimer -= Time.deltaTime;
         }
 
-        if(playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown <= 0) {
+
+        if (playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown <= 0)
+        {
             ThrowRock();
         }
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void GetHurt()
     {
-        if ((other.gameObject.CompareTag("Damage") || other.gameObject.CompareTag("Enemy")) 
-            && immunityTimer <= 0) {
-            immunityTimer = immunitySeconds;
-
-            currentHealth -= DAMAGE;
-            hurtSoundEffect.Play();
-
-            if (currentHealth < 1){
-                SceneManager.LoadScene("GameOverScene");
-            }
-
-            healthBar.SetHealth(currentHealth);
+        immunityTimer = immunitySeconds;
+        currentHealth -= DAMAGE;
+        hurtSoundEffect.Play();
+        if (currentHealth < 1)
+        {
+            SceneManager.LoadScene("GameOverScene");
         }
+        healthBar.SetHealth(currentHealth);
+    }
 
-        if (other.gameObject.CompareTag("Enemy")) {
+    public void HandleFeetCollisions(string otherTag)
+    {
+        Debug.Log("handling feet collisions with " + otherTag);
+
+        if (otherTag == "Enemy")
+        {
             Debug.Log("Adding velocity!");
             physics.velocity = new Vector2(physics.velocity.x, 10);
         }
 
-        if (other.gameObject.CompareTag("PowerUp")) {
+        if (otherTag == "Damage" || otherTag == "Enemy"
+        && immunityTimer <= 0)
+        {
+            GetHurt();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((other.gameObject.CompareTag("Damage") || other.gameObject.CompareTag("Enemy"))
+            && immunityTimer <= 0)
+        {
+            GetHurt();
+        }
+
+        if (other.gameObject.CompareTag("PowerUp"))
+        {
             PowerUp powerUp = other.GetComponent<PowerUp>();
             powerUpState = powerUp.powerUpType;
             powerUpUI.SetPowerUp(powerUpState);
@@ -137,21 +159,23 @@ public class PlayerController : IOptionObserver
         }
     }
 
-    private IEnumerator ResetPowerUp(float powerUpDuration) {
+    private IEnumerator ResetPowerUp(float powerUpDuration)
+    {
         yield return new WaitForSeconds(powerUpDuration);
         powerUpState = PowerUpEnum.Rock;
         projectile = defaultProjectile;
         powerUpUI.SetPowerUp(powerUpState);
     }
 
-    public void ThrowRock() {
+    public void ThrowRock()
+    {
         Debug.Log("Throwing a rock!");
 
         throwSoundEffect.Play();
 
         rockCountdown = ROCK_THROW_WAIT;
 
-        float arrowDirectionX = transform.position.x + (facingRight ? 1 : -1);
+        float arrowDirectionX = transform.position.x + (physics.facingRight ? 1 : -1);
         float arrowDirectionY = transform.position.y + 0;
 
         Vector3 arrowMoveVector = new(arrowDirectionX, arrowDirectionY, 0f);

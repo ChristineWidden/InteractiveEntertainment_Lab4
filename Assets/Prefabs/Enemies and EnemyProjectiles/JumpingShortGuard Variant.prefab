@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5227684331242490004
+--- !u!1001 &7238170257648331389
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,13 +8,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
-      propertyPath: m_LocalPosition.x
+    - target: {fileID: 4088507186986096590, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: hurtAnimState
+      value: JumpGuard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088507186986096590, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: idleAnimState
+      value: JumpGuard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088507186986096590, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: defaultAnimState
+      value: JumpGuard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683397713043820843, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 177577778, guid: 059fb003f49b15f4697fb81f1a9fa9a8, type: 3}
+    - target: {fileID: 4683397713043820843, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.66
       objectReference: {fileID: 0}
     - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48,37 +68,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5781269421636269684, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.738799
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781269421636269684, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.6333333
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 8416789373509048071, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_Name
-      value: ThrowingShortGuard Variant
+      value: JumpingShortGuard Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4683397713043820842, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3773257913944160609}
+      insertIndex: 10
+      addedObject: {fileID: 2853007698885103182}
   m_SourcePrefab: {fileID: 100100000, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
---- !u!1 &608745006417516990 stripped
+--- !u!1 &2634007750584548183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4683397713043820842, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
-  m_PrefabInstance: {fileID: 5227684331242490004}
+  m_PrefabInstance: {fileID: 7238170257648331389}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3773257913944160609
+--- !u!114 &2853007698885103182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608745006417516990}
+  m_GameObject: {fileID: 2634007750584548183}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c992bbd8a99938946abadd53d70783bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 47ac2181445113b489ae3b92d7628808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAngle: 0
-  initVelocity: 0
-  fireDirection: 1
-  fireInterval: 0
-  projectile: {fileID: 7787440688664846231, guid: a9901cefe636ece43ba72b431a99d204, type: 3}
+  jumpInterval: 1

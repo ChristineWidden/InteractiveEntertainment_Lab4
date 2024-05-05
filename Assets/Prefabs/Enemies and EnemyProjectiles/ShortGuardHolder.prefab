@@ -286,6 +286,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenOnHitBase: 1
   immunitySecondsBase: 0.2
+  defaultAnimState: ShortGuard
+  hurtAnimState: ShortGuard
+  idleAnimState: ShortGuard
   hurtSoundEffect: {fileID: 8645180651939146014}
 --- !u!114 &3057277385916437745
 MonoBehaviour:

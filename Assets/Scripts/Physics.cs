@@ -12,6 +12,8 @@ public class Physics : IOptionObserver
     //https://www.youtube.com/watch?v=SPe1xh4D7Wg
 
     private Rigidbody2D rb;
+    private Collider2D groundCollider;
+    private Collider2D wallCollider;
 
     [SerializeField] private float jumpHeight;
     [SerializeField] private float acceleration;
@@ -21,7 +23,7 @@ public class Physics : IOptionObserver
     
     [SerializeField] private float gravityValue = -9.81f;
 
-    private bool onGround;
+    public bool onGround {get; private set;}
     [HideInInspector] public bool facingRight;
     [HideInInspector] public Vector2 velocity = new(0, 0);
 
@@ -60,7 +62,6 @@ public class Physics : IOptionObserver
         
         if (onGround && (CrouchInput > 0.5f)) {
             // if crouching, slow to a halt
-            Debug.Log("hi");
             velocity.x = Mathf.MoveTowards(velocity.x, 0, acceleration * maxSpeedBase * Time.deltaTime);
         } else {
             velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeedBase, acceleration * maxSpeedBase * Time.deltaTime);
@@ -84,11 +85,11 @@ public class Physics : IOptionObserver
         velocity.y += gravityValue * Time.deltaTime; // apply gravity
 
 
-        if(velocity.x < 0 && facingRight) {
+        if(velocity.x < 0) {
             facingRight = false;
             GetComponent<SpriteRenderer>().flipX = true;
             onMoveLeft.Invoke();
-        } else if(velocity.x > 0 && !facingRight) {
+        } else if(velocity.x > 0) {
             facingRight = true;
             GetComponent<SpriteRenderer>().flipX = false;
             onMoveRight.Invoke();
@@ -98,6 +99,15 @@ public class Physics : IOptionObserver
         position += velocity * Time.deltaTime;
 
         rb.MovePosition(position);
+    }
+
+    public void setOnGround(bool state) {
+        onGround = state;
+        if (onGround) {
+            onHitGround.Invoke();
+        } else {
+            onLeaveGround.Invoke();
+        }
     }
 
 

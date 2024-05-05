@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class DropdownScript : MonoBehaviour
 {
-    public delegate void DropdownEvent(int index);
+    // public delegate void DropdownEvent(int index);
     public UnityEvent<int> onValueChanged;
 
     public void HandleInputData(int val) {

@@ -8,7 +8,6 @@ public class Enemy : IOptionObserver
     private float immunityTimer;
     private bool stunned; 
     // TODO some way to make sure that stun timer resets with each hit
-    // TODO fix falling through floor on stun
 
     [SerializeField] private float damageTakenOnHitBase;
     private float damageTakenOnHit;
@@ -17,6 +16,12 @@ public class Enemy : IOptionObserver
 
     private Collider2D thisCollider;
     private SpriteRenderer sprite;
+
+    private Animator animator;
+    private string currentAnimState;
+    [SerializeField] private string defaultAnimState;
+    [SerializeField] private string hurtAnimState;
+    [SerializeField] private string idleAnimState;
     
     private float originalAlpha;
     private float stunAlpha;
@@ -42,10 +47,13 @@ public class Enemy : IOptionObserver
     {
         thisCollider = GetComponent<Collider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        ChangeAnimationState(defaultAnimState);
         originalAlpha = sprite.material.GetFloat("_Alpha");
         stunAlpha = originalAlpha * 0.5f;
         thisCollider.isTrigger = false; // Initially, collider acts as solid
         immunityTimer = 0;
+        
     }
 
     void Update()
@@ -137,5 +145,11 @@ public class Enemy : IOptionObserver
         // TODO: Add death animation
         Debug.Log("DYING!");
         Destroy(gameObject);
+    }
+
+    public void ChangeAnimationState(string newState) {
+        if (currentAnimState == newState) return;
+        animator.Play(newState);
+        currentAnimState = newState;
     }
 }
