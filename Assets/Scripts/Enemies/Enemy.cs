@@ -5,14 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : IOptionObserver
 {    
-    private float immunityTimer;
-    private bool stunned; 
+
     // TODO some way to make sure that stun timer resets with each hit
 
     [SerializeField] private float damageTakenOnHitBase;
     private float damageTakenOnHit;
     [SerializeField] private float immunitySecondsBase;
+
     private float immunitySeconds;
+    private bool immune;
+    private float immunityTimer;
+    private bool stunned;
+    private float stunTimer;
 
     private Collider2D thisCollider;
     private SpriteRenderer sprite;
@@ -53,7 +57,7 @@ public class Enemy : IOptionObserver
         stunAlpha = originalAlpha * 0.5f;
         thisCollider.isTrigger = false; // Initially, collider acts as solid
         immunityTimer = 0;
-        
+        stunTimer = 0;
     }
 
     void Update()
@@ -61,6 +65,12 @@ public class Enemy : IOptionObserver
         if (immunityTimer > 0)
         {
             immunityTimer-= Time.deltaTime;
+        }
+        if (stunTimer > 0)
+        {
+            stunTimer -= Time.deltaTime;
+        } else if (stunned) {
+            StunOff();
         }
     }
 
@@ -111,15 +121,19 @@ public class Enemy : IOptionObserver
         // thisCollider.isTrigger = true;
         ChangeLayer("IgnorePlayer");
         sprite.material.SetFloat("_Alpha", stunAlpha);
-        StartCoroutine(StunOff(stunTime));
+        stunTimer = stunTime;
+        stunned = true;
+        // StartCoroutine(StunOff(stunTime));
     }
 
-    IEnumerator StunOff(float delayTime)
+    void StunOff()
     {
-        yield return new WaitForSeconds(delayTime);
+        // yield return new WaitForSeconds(delayTime);
         sprite.material.SetFloat("_Alpha", originalAlpha);
         // thisCollider.isTrigger = false;
         ChangeLayer("Default");
+        stunned = false;
+    
     }
 
     void ChangeLayer(string layerName)
