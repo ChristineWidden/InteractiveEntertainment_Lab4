@@ -20,10 +20,10 @@ public class Physics : IOptionObserver
 
     [SerializeField] private float maxSpeedBase;
     private float maxSpeed;
-    
+
     [SerializeField] private float gravityValue = -9.81f;
 
-    public bool onGround {get; private set;}
+    public bool onGround { get; private set; }
     [HideInInspector] public bool facingRight;
     [HideInInspector] public Vector2 velocity = new(0, 0);
 
@@ -44,10 +44,12 @@ public class Physics : IOptionObserver
         base.OnEnable();
         UpdateDifficulty();
     }
-    public override void OnOptionChanged() {
+    public override void OnOptionChanged()
+    {
         UpdateDifficulty();
     }
-    private void UpdateDifficulty() {
+    private void UpdateDifficulty()
+    {
         OptionsManager optionsManager = OptionsManager.Instance != null ? OptionsManager.Instance : throw new ArgumentNullException("Options manager was null");
         maxSpeed = maxSpeedBase * optionsManager.currentDifficulty.enemySpeedMultiplier;
     }
@@ -59,18 +61,25 @@ public class Physics : IOptionObserver
 
     void FixedUpdate()
     {
-        
-        if (onGround && (CrouchInput > 0.5f)) {
+
+        if (onGround && (CrouchInput > 0.5f))
+        {
             // if crouching, slow to a halt
             velocity.x = Mathf.MoveTowards(velocity.x, 0, acceleration * maxSpeedBase * Time.deltaTime);
-        } else {
+        }
+        else
+        {
             velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeedBase, acceleration * maxSpeedBase * Time.deltaTime);
         }
 
-        if (velocity.y < 0) {
-            if (onGround) {
+        if (velocity.y < 0)
+        {
+            if (onGround)
+            {
                 velocity.y = 0f; // if on the ground, y velocity is 0
-            } else {
+            }
+            else
+            {
                 onFalling.Invoke();
             }
         }
@@ -85,41 +94,52 @@ public class Physics : IOptionObserver
         velocity.y += gravityValue * Time.deltaTime; // apply gravity
 
 
-        if(velocity.x < 0) {
+        if (velocity.x < 0)
+        {
             facingRight = false;
             GetComponent<SpriteRenderer>().flipX = true;
             onMoveLeft.Invoke();
-        } else if(velocity.x > 0) {
+        }
+        else if (velocity.x > 0)
+        {
             facingRight = true;
             GetComponent<SpriteRenderer>().flipX = false;
             onMoveRight.Invoke();
         }
-        
+
         Vector2 position = rb.position;
         position += velocity * Time.deltaTime;
 
         rb.MovePosition(position);
     }
 
-    public void setOnGround(bool state) {
+    public void setOnGround(bool state)
+    {
         onGround = state;
-        if (onGround) {
+        if (onGround)
+        {
             onHitGround.Invoke();
-        } else {
+        }
+        else
+        {
             onLeaveGround.Invoke();
         }
     }
 
 
-    void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("Ground")) {
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
             onGround = true;
             onHitGround.Invoke();
         }
     }
 
-    void OnCollisionExit2D(Collision2D other) {
-        if(other.gameObject.CompareTag("Ground")) {
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
 
             onGround = false;
             onLeaveGround.Invoke();
