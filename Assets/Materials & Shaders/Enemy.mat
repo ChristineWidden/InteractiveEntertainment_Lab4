@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Foreground
-  m_Shader: {fileID: -6465566751694194690, guid: 14ad116e1ef13d74f90388894cb3bff3, type: 3}
+  m_Name: Enemy
+  m_Shader: {fileID: -6465566751694194690, guid: 58847d4c10a5c6b45adbb0013dbafa7b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -45,11 +45,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Add: 0
+    - _Alpha: 1
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _Float: 1.5
     - _Float_1: 0.5
-    m_Colors: []
+    - _Multiply: 1
+    m_Colors:
+    - _AddColor: {r: 0.4339623, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 0.2396226, b: 0.2396226, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4258603273663784202
 MonoBehaviour:

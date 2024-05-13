@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Background
+  m_Name: Terrain
   m_Shader: {fileID: -6465566751694194690, guid: 58847d4c10a5c6b45adbb0013dbafa7b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -63,7 +63,8 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _Float: 1.2
     - _Float_1: 0.5
-    - _Multiply: 0.42
+    - _Multiply: 0.25
     m_Colors:
-    - _Color: {r: 0.5773585, g: 0.5773585, b: 0.5773585, a: 0}
+    - _AddColor: {r: 0.4566037, g: 0.4566037, b: 0.4566037, a: 0}
+    - _Color: {r: 0.6830188, g: 0.6830188, b: 0.6830188, a: 0}
   m_BuildTextureStacks: []

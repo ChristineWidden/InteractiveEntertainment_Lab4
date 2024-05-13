@@ -8,6 +8,7 @@ public class MenuButtons : MonoBehaviour
 {
     [SerializeField] private string introScene;
     [SerializeField] private string creditsScene;
+    private string currentLevel;
 
     public void PlayButtonClicked()
     {
@@ -23,6 +24,11 @@ public class MenuButtons : MonoBehaviour
     public void CreditsButtonClicked()
     {
         SceneManager.LoadScene(creditsScene);
+    }
+
+    public void BackToGameButtonClicked()
+    {
+        SceneHandler.instance.Unpause();
     }
 
 }

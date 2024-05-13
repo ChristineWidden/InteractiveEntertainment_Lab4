@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4936070943091221843
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 0
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Background
+  m_Name: Player
   m_Shader: {fileID: -6465566751694194690, guid: 58847d4c10a5c6b45adbb0013dbafa7b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,11 +24,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1c8379217bf31514796b35ef330a1bb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_b8508b76221140e5b9a9db88c0fbeca9_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: a7d91b86eebd0be4ba2feaf85d0a883b, type: 3}
+    - _Texture2DAsset_232c353387bf46f2b07341722fdeeed1_Out_0_Texture2D:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -58,12 +45,27 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Add: 0
+    - _Add: 0.03
+    - _Alpha: 1
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Float: 1.2
-    - _Float_1: 0.5
-    - _Multiply: 0.42
+    - _Float: 0.67
+    - _Float_1: 0.13
+    - _Multiply: 1.17
     m_Colors:
-    - _Color: {r: 0.5773585, g: 0.5773585, b: 0.5773585, a: 0}
+    - _AddColor: {r: 0, g: 0.13070297, b: 1, a: 0}
+    - _Color: {r: 0.34528297, g: 0.6610051, b: 1, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &4258603273663784202
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0

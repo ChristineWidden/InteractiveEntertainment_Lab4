@@ -62,6 +62,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e714c0bc-eeba-4749-ad26-0cdcbf0d982e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -130,6 +139,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""ThrowRock"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e983bf6-97b7-4a18-b126-3a56357c926f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -142,6 +162,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_General_Jump = m_General.FindAction("Jump", throwIfNotFound: true);
         m_General_Crouch = m_General.FindAction("Crouch", throwIfNotFound: true);
         m_General_ThrowRock = m_General.FindAction("ThrowRock", throwIfNotFound: true);
+        m_General_Pause = m_General.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +228,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Jump;
     private readonly InputAction m_General_Crouch;
     private readonly InputAction m_General_ThrowRock;
+    private readonly InputAction m_General_Pause;
     public struct GeneralActions
     {
         private @PlayerInputs m_Wrapper;
@@ -215,6 +237,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_General_Jump;
         public InputAction @Crouch => m_Wrapper.m_General_Crouch;
         public InputAction @ThrowRock => m_Wrapper.m_General_ThrowRock;
+        public InputAction @Pause => m_Wrapper.m_General_Pause;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,6 +259,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @ThrowRock.started += instance.OnThrowRock;
             @ThrowRock.performed += instance.OnThrowRock;
             @ThrowRock.canceled += instance.OnThrowRock;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IGeneralActions instance)
@@ -252,6 +278,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @ThrowRock.started -= instance.OnThrowRock;
             @ThrowRock.performed -= instance.OnThrowRock;
             @ThrowRock.canceled -= instance.OnThrowRock;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IGeneralActions instance)
@@ -275,5 +304,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnThrowRock(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

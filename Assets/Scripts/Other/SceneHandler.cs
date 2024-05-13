@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+
 
 public class SceneHandler : MonoBehaviour
 {
@@ -9,27 +13,44 @@ public class SceneHandler : MonoBehaviour
     private SpriteRenderer sprite;
     private float currentValue;
 
+    private PlayerInput playerInput;
 
     // SINGLETON PATTERN
-    public static GameObject instance;
+    public static SceneHandler instance;
+    
+    private bool paused;
 
     void Awake()
     {
-        instance = gameObject;
+        instance = gameObject.GetComponent<SceneHandler>();
     }
 
     void Start() {
         sprite = fadeTransition.GetComponent<SpriteRenderer>();
         sprite.material.SetFloat("_Alpha", 1);
         InterpolateFloat(1, 0, 2f);
+
+        playerInput = GetComponent<PlayerInput>();
     }
 
     void Update() {
         sprite.material.SetFloat("_Alpha", currentValue);
+
+        if (playerInput.actions["Pause"].ReadValue<float>() > 0.5f && !paused) {
+            SceneManager.LoadScene("Pause Menu", LoadSceneMode.Additive);
+            paused = true;
+            OptionsManager.Instance.Pause();
+        }
+    }
+
+    public void Unpause() {
+        paused = false;
+        SceneManager.UnloadSceneAsync("Pause Menu");
+        OptionsManager.Instance.Unpause();
     }
 
     public void GameOver() {
-
+        
     }
 
     public void TransitionScene(string scene) {

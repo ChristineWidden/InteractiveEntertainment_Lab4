@@ -134,6 +134,12 @@ public class OptionsManager : MonoBehaviour
     }
 
 
+    public void Pause() {
+        Time.timeScale = 0;
+    }
+    public void Unpause() {
+        Time.timeScale = currentGameplaySpeed;
+    }
 
     public void SetGameplaySpeed(int val) {
         Debug.Log("SPEED " + val);
