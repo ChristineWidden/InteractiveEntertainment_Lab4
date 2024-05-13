@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
@@ -188,6 +187,11 @@ public class PlayerController : IOptionObserver
         rock.transform.parent = ProjectileHolder.instance.transform;
 
         rock.GetComponent<PlayerProjectile>().moveDirection = rockDirection;
+    }
+
+    public void Jump()
+    {
+        jumpSoundEffect.Play();
     }
 
 }

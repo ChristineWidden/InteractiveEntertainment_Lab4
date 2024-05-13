@@ -12,8 +12,6 @@ public class Physics : IOptionObserver
     //https://www.youtube.com/watch?v=SPe1xh4D7Wg
 
     private Rigidbody2D rb;
-    private Collider2D groundCollider;
-    private Collider2D wallCollider;
 
     [SerializeField] private float jumpHeight;
     [SerializeField] private float acceleration;
@@ -23,6 +21,7 @@ public class Physics : IOptionObserver
 
     [SerializeField] private float gravityValue = -9.81f;
 
+    [SerializeField] private bool usesSpecialGroundCollider;
     public bool onGround { get; private set; }
     [HideInInspector] public bool facingRight;
     [HideInInspector] public Vector2 velocity = new(0, 0);
@@ -65,11 +64,11 @@ public class Physics : IOptionObserver
         if (onGround && (CrouchInput > 0.5f))
         {
             // if crouching, slow to a halt
-            velocity.x = Mathf.MoveTowards(velocity.x, 0, acceleration * maxSpeedBase * Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, 0, acceleration * maxSpeed * Time.deltaTime);
         }
         else
         {
-            velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeedBase, acceleration * maxSpeedBase * Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
         }
 
         if (velocity.y < 0)
@@ -115,6 +114,7 @@ public class Physics : IOptionObserver
 
     public void setOnGround(bool state)
     {
+        Debug.Log("Set on ground invoked with " + state);
         onGround = state;
         if (onGround)
         {
@@ -129,7 +129,7 @@ public class Physics : IOptionObserver
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") && !usesSpecialGroundCollider)
         {
             onGround = true;
             onHitGround.Invoke();
@@ -138,7 +138,7 @@ public class Physics : IOptionObserver
 
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") && !usesSpecialGroundCollider)
         {
 
             onGround = false;

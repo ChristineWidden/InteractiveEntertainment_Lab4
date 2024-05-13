@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
-using System;
 
 public class SpecialCollider : MonoBehaviour
 {
@@ -28,6 +23,8 @@ public class SpecialCollider : MonoBehaviour
     }
 
     void OnCollisionExit2D(Collision2D other) {
+        Debug.Log("No longer colliding with " + other.collider.tag);
+
         if(other.gameObject.CompareTag(collisionTag)) {
             colliding = false;
             onEndCollision.Invoke();

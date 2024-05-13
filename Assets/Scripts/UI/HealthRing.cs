@@ -9,7 +9,8 @@ public class HealthRing : MonoBehaviour
     private int currentHealth;
     [SerializeField] private int maxHealth;
 
-    void Start() {
+    void Start()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetHealth(maxHealth);
     }

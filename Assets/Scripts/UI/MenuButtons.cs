@@ -9,16 +9,19 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private string introScene;
     [SerializeField] private string creditsScene;
 
-    public void PlayButtonClicked(){
+    public void PlayButtonClicked()
+    {
         SceneManager.LoadScene(introScene);
     }
 
-    public void ExitButtonClicked(){
+    public void ExitButtonClicked()
+    {
         Application.Quit();
         Debug.Log("Quitting");
     }
 
-    public void CreditsButtonClicked(){
+    public void CreditsButtonClicked()
+    {
         SceneManager.LoadScene(creditsScene);
     }
 

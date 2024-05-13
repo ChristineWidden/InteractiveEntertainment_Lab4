@@ -13,13 +13,13 @@ public class HealthBar1 : MonoBehaviour
 
     [SerializeField] private int healthScale;
 
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-    public void SetHealth(int health){
+    public void SetHealth(int health)
+    {
         currentHealth = health;
         UpdateHealthDisplay();
     }
@@ -41,12 +41,12 @@ public class HealthBar1 : MonoBehaviour
 
     public void GenerateHealthBar()
     {
-        int adjustedMaxHealth = (int) maxHealth / healthScale;
+        int adjustedMaxHealth = (int)maxHealth / healthScale;
 
         float pipWidth = healthPipPrefab.GetComponent<RectTransform>().sizeDelta.x;
         float spacing = totalWidth / (adjustedMaxHealth - 1 + adjustedMaxHealth * pipWidth / totalWidth);
 
-        healthPips = new  GameObject[adjustedMaxHealth];
+        healthPips = new GameObject[adjustedMaxHealth];
 
         for (int i = 0; i < adjustedMaxHealth; i++)
         {

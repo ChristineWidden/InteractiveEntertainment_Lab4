@@ -7,13 +7,12 @@ public class TutorialTextTrigger : MonoBehaviour
 {
     [SerializeField] private bool canTriggerAgain;
     private bool alreadyTriggered = false;
-    
+
     [SerializeField, TextArea]
     private string serializedTextField;
     private TextMeshProUGUI textDisplay;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         textDisplay = TextDisplaySingleton.instance.GetComponent<TextMeshProUGUI>();

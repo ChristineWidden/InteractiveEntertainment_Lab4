@@ -10,14 +10,14 @@ public class HealthMeterScript : MonoBehaviour
 
     public void SetMaxHealth(int health)
     {
-        healthBarMaterial.SetFloat("_SegmentCount", (float) health);
+        healthBarMaterial.SetFloat("_SegmentCount", (float)health);
         maxHealth = health;
         currentHealth = health;
     }
 
     public void SetHealth(int health)
     {
-        healthBarMaterial.SetFloat("_RemovedSegments", (float) maxHealth - health);
+        healthBarMaterial.SetFloat("_RemovedSegments", (float)maxHealth - health);
         currentHealth = health;
     }
 

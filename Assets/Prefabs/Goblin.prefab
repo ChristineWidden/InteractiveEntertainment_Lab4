@@ -617,7 +617,6 @@ MonoBehaviour:
   jumpSoundEffect: {fileID: 244966717870105336}
   hurtSoundEffect: {fileID: 1631194731958815602}
   throwSoundEffect: {fileID: 7812832878879087180}
-  gravityValue: -40
 --- !u!114 &8002369926638142187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +652,7 @@ MonoBehaviour:
   acceleration: 2
   maxSpeedBase: 5
   gravityValue: -40
+  usesSpecialGroundCollider: 1
   facingRight: 0
   velocity: {x: 0, y: 0}
   HInput: 0
@@ -660,7 +660,19 @@ MonoBehaviour:
   JumpInput: 0
   onJump:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6938379048799055878}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLeaveGround:
     m_PersistentCalls:
       m_Calls: []
