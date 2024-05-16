@@ -10,14 +10,18 @@ public class PowerUpUI : MonoBehaviour
     [SerializeField] private Sprite tomatoSprite;
     [SerializeField] private Sprite roastSprite;
     SpriteRenderer spriteRenderer;
+    PowerUpEnum currentPowerUp;
 
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetPowerUp(PowerUpEnum.Rock);
+
+        CrossSceneCommunicator.Instance.powerUpUI = this;
     }
 
     public void SetPowerUp(PowerUpEnum powerUp)
     {
+        currentPowerUp = powerUp;
         // Check if index is within bounds of the sprites array
         spriteRenderer.sprite = powerUp switch
         {
@@ -29,5 +33,13 @@ public class PowerUpUI : MonoBehaviour
             _ => rockSprite,
         };
     }
+
+    public Sprite GetSprite() {
+        return spriteRenderer.sprite;
+    }
+
+    public PowerUpEnum GetPowerUp() {
+        return currentPowerUp;
+    }  
 
 }
