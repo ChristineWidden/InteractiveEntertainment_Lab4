@@ -19,13 +19,11 @@ public class CrossSceneCommunicator : MonoBehaviour
             return instance;
         }
     }
+    // [SerializeField] private UnityEvent<PowerUpEnum> updatePowerUpDescription;
+    // [SerializeField] private UnityEvent<Sprite> updatePowerUpSprite;
 
-    public PowerUpUI powerUpUI;
-    [SerializeField] private UnityEvent<PowerUpEnum> updatePowerUpDescription;
-    [SerializeField] private UnityEvent<Sprite> updatePowerUpSprite;
+    public PowerUpEnum powerUp;
+    public Sprite powerUpSprite;
 
-    public void PauseEvent() {
-        updatePowerUpDescription.Invoke(powerUpUI.GetPowerUp());
-        updatePowerUpSprite.Invoke(powerUpUI.GetSprite());
-    }
+
 }

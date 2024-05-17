@@ -16,12 +16,12 @@ public class PowerUpUI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetPowerUp(PowerUpEnum.Rock);
 
-        CrossSceneCommunicator.Instance.powerUpUI = this;
     }
 
     public void SetPowerUp(PowerUpEnum powerUp)
     {
         currentPowerUp = powerUp;
+        CrossSceneCommunicator.Instance.powerUp = currentPowerUp;
         // Check if index is within bounds of the sprites array
         spriteRenderer.sprite = powerUp switch
         {
@@ -32,6 +32,7 @@ public class PowerUpUI : MonoBehaviour
             PowerUpEnum.Roast => roastSprite,
             _ => rockSprite,
         };
+        CrossSceneCommunicator.Instance.powerUpSprite = spriteRenderer.sprite;
     }
 
     public Sprite GetSprite() {

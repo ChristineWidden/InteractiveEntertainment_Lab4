@@ -14,7 +14,7 @@ public class SpecialCollider : MonoBehaviour
     // private Collision2D otherCollider;
 
     void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log("Colliding with " + other.collider.tag);
+        // Debug.Log("Colliding with " + other.collider.tag);
         if(other.gameObject.CompareTag(collisionTag)) {
             colliding = true;
             onStartCollision.Invoke();
@@ -23,7 +23,7 @@ public class SpecialCollider : MonoBehaviour
     }
 
     void OnCollisionExit2D(Collision2D other) {
-        Debug.Log("No longer colliding with " + other.collider.tag);
+        // Debug.Log("No longer colliding with " + other.collider.tag);
 
         if(other.gameObject.CompareTag(collisionTag)) {
             colliding = false;

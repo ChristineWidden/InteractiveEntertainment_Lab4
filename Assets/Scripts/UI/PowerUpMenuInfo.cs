@@ -9,13 +9,31 @@ public class PowerUpMenuInfo : MonoBehaviour
 
     TextMeshProUGUI text;
     Image image;
-    
-    void Start() {
+
+    void Awake()
+    {
+        Debug.Log("Awake!");
         TryGetComponent<TextMeshProUGUI>(out text);
         TryGetComponent<Image>(out image);
     }
 
-    void UpdatePowerUpMenuText(PowerUpEnum powerUp) {
+    void OnEnable()
+    {
+        Debug.Log("Enabled!");
+        if (text)
+        {
+            Debug.Log("UpdatePowerUpMenuText!");
+            UpdatePowerUpMenuText(CrossSceneCommunicator.Instance.powerUp);
+        }
+        if (image)
+        {
+            Debug.Log("UpdatePowerUpMenuSprite!");
+            UpdatePowerUpMenuSprite(CrossSceneCommunicator.Instance.powerUpSprite);
+        }
+    }
+
+    void UpdatePowerUpMenuText(PowerUpEnum powerUp)
+    {
         text.text = powerUp switch
         {
             PowerUpEnum.Rock => "Rock stuff",
@@ -27,7 +45,8 @@ public class PowerUpMenuInfo : MonoBehaviour
         };
     }
 
-    void UpdatePowerUpMenuSprite(Sprite sprite) {
+    void UpdatePowerUpMenuSprite(Sprite sprite)
+    {
         image.sprite = sprite;
     }
 }

@@ -119,7 +119,7 @@ public class PlayerController : IOptionObserver
 
     public void HandleFeetCollisions(string otherTag)
     {
-        Debug.Log("handling feet collisions with " + otherTag);
+        // Debug.Log("handling feet collisions with " + otherTag);
 
         if (otherTag == "Enemy")
         {

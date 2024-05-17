@@ -114,7 +114,7 @@ public class Physics : IOptionObserver
 
     public void setOnGround(bool state)
     {
-        Debug.Log("Set on ground invoked with " + state);
+        // Debug.Log("Set on ground invoked with " + state);
         onGround = state;
         if (onGround)
         {
