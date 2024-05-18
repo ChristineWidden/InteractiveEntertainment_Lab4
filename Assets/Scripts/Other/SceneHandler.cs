@@ -17,15 +17,18 @@ public class SceneHandler : MonoBehaviour
 
     // SINGLETON PATTERN
     public static SceneHandler instance;
-    
+
     private bool paused;
+
+    private float waitBeforePause = 0;
 
     void Awake()
     {
         instance = gameObject.GetComponent<SceneHandler>();
     }
 
-    void Start() {
+    void Start()
+    {
         sprite = fadeTransition.GetComponent<SpriteRenderer>();
         sprite.material.SetFloat("_Alpha", 1);
         InterpolateFloat(1, 0, 2f);
@@ -33,27 +36,48 @@ public class SceneHandler : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
-    void Update() {
+    void Update()
+    {
         sprite.material.SetFloat("_Alpha", currentValue);
 
-        if (playerInput.actions["Pause"].ReadValue<float>() > 0.5f && !paused) {
+        if (waitBeforePause >= 0)
+        {
+            waitBeforePause -= 1;
+            return;
+        }
+
+        if (playerInput.actions["Pause"].ReadValue<float>() <= 0.5f)
+        {
+            return;
+        }
+
+        if (!paused)
+        {
             SceneManager.LoadScene("Pause Menu", LoadSceneMode.Additive);
             paused = true;
             OptionsManager.Instance.Pause();
         }
+        else
+        {
+            Unpause();
+        }
+        waitBeforePause = 50;
     }
 
-    public void Unpause() {
+    public void Unpause()
+    {
         paused = false;
         SceneManager.UnloadSceneAsync("Pause Menu");
         OptionsManager.Instance.Unpause();
     }
 
-    public void GameOver() {
-        
+    public void GameOver()
+    {
+
     }
 
-    public void TransitionScene(string scene) {
+    public void TransitionScene(string scene)
+    {
         InterpolateFloat(0, 1, 2f);
     }
 

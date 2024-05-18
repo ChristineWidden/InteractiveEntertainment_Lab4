@@ -7,6 +7,7 @@ public enum BooleanOptionEnum
 {
     MUSIC_MUTED,
     HIGH_CONTRAST_ON,
+    EDGE_GUARD_ON,
 }
 
 public enum MultiOptionEnum
@@ -49,6 +50,7 @@ public class OptionsManager : MonoBehaviour
     // Boolean options
     [SerializeField] private bool musicMuted;
     [SerializeField] private bool highContrastOn;
+    [SerializeField] private bool edgeGuardOn;
 
     private void Awake()
     {
@@ -88,6 +90,7 @@ public class OptionsManager : MonoBehaviour
     // Call this method when options change
     private void NotifyObservers()
     {
+        Debug.Log("Notifying observers of change");
         foreach (var observer in observers)
         {
             observer.OnOptionChanged();
@@ -118,6 +121,9 @@ public class OptionsManager : MonoBehaviour
             case BooleanOptionEnum.HIGH_CONTRAST_ON:
                 highContrastOn = newValue;
                 break;
+            case BooleanOptionEnum.EDGE_GUARD_ON:
+                edgeGuardOn = newValue;
+                break;
             default:
                 throw new Exception("No implemented behavior for option " + option);
         }
@@ -129,6 +135,7 @@ public class OptionsManager : MonoBehaviour
         {
             BooleanOptionEnum.MUSIC_MUTED => musicMuted,
             BooleanOptionEnum.HIGH_CONTRAST_ON => highContrastOn,
+            BooleanOptionEnum.EDGE_GUARD_ON => edgeGuardOn,
             _ => throw new Exception("No implemented behavior for option " + option),
         };
     }

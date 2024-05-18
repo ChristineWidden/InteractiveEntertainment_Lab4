@@ -39,6 +39,8 @@ public class PlayerController : IOptionObserver
     private PlayerAnimator animator;
     private PlayerInput playerInput;
 
+    private bool throwRockToggle = false;
+    private float throwRockToggleTimer;
     private float ROCK_THROW_WAIT;
     public float ROCK_THROW_WAIT_BASE;
     private float rockCountdown;
@@ -96,9 +98,17 @@ public class PlayerController : IOptionObserver
         {
             immunityTimer -= Time.deltaTime;
         }
+        if (throwRockToggleTimer > 0)
+        {
+            throwRockToggleTimer -= Time.deltaTime;
+        }
 
-
-        if (playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f && rockCountdown <= 0)
+        if (playerInput.actions["ToggleThrowRock"].ReadValue<float>() > 0.5f && throwRockToggleTimer <= 0)
+        {
+            throwRockToggle = !throwRockToggle;
+            throwRockToggleTimer = 0.2f;
+        }
+        if ((throwRockToggle || playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f) && rockCountdown <= 0)
         {
             ThrowRock();
         }
@@ -168,7 +178,7 @@ public class PlayerController : IOptionObserver
 
     public void ThrowRock()
     {
-        Debug.Log("Throwing a rock!");
+        // Debug.Log("Throwing a rock!");
 
         throwSoundEffect.Play();
 

@@ -159,7 +159,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 47, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 86.666664, y: 109.99999}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &161617066
 MonoBehaviour:
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1819098278, guid: 78dcc5913cbfc4d47bb4056848d343ce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -510,7 +510,7 @@ PrefabInstance:
       insertIndex: 0
       addedObject: {fileID: 538015469}
     - targetCorrespondingSourceObject: {fileID: 5888930177603934406, guid: 69c396ef85f6c3a46a20c40aabf1e77b, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 1916086334}
     - targetCorrespondingSourceObject: {fileID: 9172669937929549124, guid: 69c396ef85f6c3a46a20c40aabf1e77b, type: 3}
       insertIndex: 0

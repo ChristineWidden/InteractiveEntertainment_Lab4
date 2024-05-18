@@ -12,22 +12,22 @@ public class PowerUpMenuInfo : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Awake!");
+        // Debug.Log("Awake!");
         TryGetComponent<TextMeshProUGUI>(out text);
         TryGetComponent<Image>(out image);
     }
 
     void OnEnable()
     {
-        Debug.Log("Enabled!");
+        // Debug.Log("Enabled!");
         if (text)
         {
-            Debug.Log("UpdatePowerUpMenuText!");
+            // Debug.Log("UpdatePowerUpMenuText!");
             UpdatePowerUpMenuText(CrossSceneCommunicator.Instance.powerUp);
         }
         if (image)
         {
-            Debug.Log("UpdatePowerUpMenuSprite!");
+            // Debug.Log("UpdatePowerUpMenuSprite!");
             UpdatePowerUpMenuSprite(CrossSceneCommunicator.Instance.powerUpSprite);
         }
     }
@@ -36,7 +36,7 @@ public class PowerUpMenuInfo : MonoBehaviour
     {
         text.text = powerUp switch
         {
-            PowerUpEnum.Rock => "Rock stuff",
+            PowerUpEnum.Rock => "The standard projectile. Briefly stuns enemies, letting you walk past them unharmed.",
             PowerUpEnum.Apple => "Apple stuff",
             PowerUpEnum.Pie => "Pie stuff",
             PowerUpEnum.Tomato => "Tomato stuff",

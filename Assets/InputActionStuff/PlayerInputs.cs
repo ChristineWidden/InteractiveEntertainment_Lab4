@@ -64,9 +64,27 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ToggleThrowRock"",
+                    ""type"": ""Button"",
+                    ""id"": ""adecf264-0843-49a8-954e-de1b2cbf27f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""e714c0bc-eeba-4749-ad26-0cdcbf0d982e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleMovement"",
+                    ""type"": ""Button"",
+                    ""id"": ""02ada451-4ce2-4d1d-88ca-3d884b1ccf95"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -150,6 +168,50 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ec16846-afa9-441f-858b-e0c691e60ac4"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleThrowRock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""f6c305ae-c0c1-4bb8-bf90-ca68c7194ddb"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""df8595c3-8266-4354-a92e-8beb213bda85"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8cf2502e-d4dc-4990-8334-3c68e3abdfd1"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -162,7 +224,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_General_Jump = m_General.FindAction("Jump", throwIfNotFound: true);
         m_General_Crouch = m_General.FindAction("Crouch", throwIfNotFound: true);
         m_General_ThrowRock = m_General.FindAction("ThrowRock", throwIfNotFound: true);
+        m_General_ToggleThrowRock = m_General.FindAction("ToggleThrowRock", throwIfNotFound: true);
         m_General_Pause = m_General.FindAction("Pause", throwIfNotFound: true);
+        m_General_ToggleMovement = m_General.FindAction("ToggleMovement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -228,7 +292,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Jump;
     private readonly InputAction m_General_Crouch;
     private readonly InputAction m_General_ThrowRock;
+    private readonly InputAction m_General_ToggleThrowRock;
     private readonly InputAction m_General_Pause;
+    private readonly InputAction m_General_ToggleMovement;
     public struct GeneralActions
     {
         private @PlayerInputs m_Wrapper;
@@ -237,7 +303,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_General_Jump;
         public InputAction @Crouch => m_Wrapper.m_General_Crouch;
         public InputAction @ThrowRock => m_Wrapper.m_General_ThrowRock;
+        public InputAction @ToggleThrowRock => m_Wrapper.m_General_ToggleThrowRock;
         public InputAction @Pause => m_Wrapper.m_General_Pause;
+        public InputAction @ToggleMovement => m_Wrapper.m_General_ToggleMovement;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -259,9 +327,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @ThrowRock.started += instance.OnThrowRock;
             @ThrowRock.performed += instance.OnThrowRock;
             @ThrowRock.canceled += instance.OnThrowRock;
+            @ToggleThrowRock.started += instance.OnToggleThrowRock;
+            @ToggleThrowRock.performed += instance.OnToggleThrowRock;
+            @ToggleThrowRock.canceled += instance.OnToggleThrowRock;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @ToggleMovement.started += instance.OnToggleMovement;
+            @ToggleMovement.performed += instance.OnToggleMovement;
+            @ToggleMovement.canceled += instance.OnToggleMovement;
         }
 
         private void UnregisterCallbacks(IGeneralActions instance)
@@ -278,9 +352,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @ThrowRock.started -= instance.OnThrowRock;
             @ThrowRock.performed -= instance.OnThrowRock;
             @ThrowRock.canceled -= instance.OnThrowRock;
+            @ToggleThrowRock.started -= instance.OnToggleThrowRock;
+            @ToggleThrowRock.performed -= instance.OnToggleThrowRock;
+            @ToggleThrowRock.canceled -= instance.OnToggleThrowRock;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @ToggleMovement.started -= instance.OnToggleMovement;
+            @ToggleMovement.performed -= instance.OnToggleMovement;
+            @ToggleMovement.canceled -= instance.OnToggleMovement;
         }
 
         public void RemoveCallbacks(IGeneralActions instance)
@@ -304,6 +384,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnThrowRock(InputAction.CallbackContext context);
+        void OnToggleThrowRock(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnToggleMovement(InputAction.CallbackContext context);
     }
 }

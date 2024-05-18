@@ -9,25 +9,36 @@ public class SpecialCollider : MonoBehaviour
     public UnityEvent<string> onStartCollisionSendOther;
     public UnityEvent<string> onEndCollisionSendOther;
 
-    public bool colliding {get; private set;}
+    public bool colliding { get; private set; }
+
+    private int numCollisions;
 
     // private Collision2D otherCollider;
 
-    void OnCollisionEnter2D(Collision2D other) {
+    void OnCollisionEnter2D(Collision2D other)
+    {
         // Debug.Log("Colliding with " + other.collider.tag);
-        if(other.gameObject.CompareTag(collisionTag)) {
+        if (other.gameObject.CompareTag(collisionTag))
+        {
+            numCollisions++;
             colliding = true;
             onStartCollision.Invoke();
         }
         onStartCollisionSendOther.Invoke(other.collider.tag);
     }
 
-    void OnCollisionExit2D(Collision2D other) {
+    void OnCollisionExit2D(Collision2D other)
+    {
         // Debug.Log("No longer colliding with " + other.collider.tag);
-
-        if(other.gameObject.CompareTag(collisionTag)) {
+        if (other.gameObject.CompareTag(collisionTag))
+        {
+            numCollisions--;
             colliding = false;
-            onEndCollision.Invoke();
+            if (numCollisions == 0)
+            {
+                onEndCollision.Invoke();
+            }
+
         }
         onEndCollisionSendOther.Invoke(other.collider.tag);
     }
