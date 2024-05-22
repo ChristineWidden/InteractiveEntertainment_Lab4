@@ -13,8 +13,6 @@ public class SpecialCollider : MonoBehaviour
 
     private int numCollisions;
 
-    // private Collision2D otherCollider;
-
     void OnCollisionEnter2D(Collision2D other)
     {
         // Debug.Log("Colliding with " + other.collider.tag);

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -96,17 +95,6 @@ public class OptionsManager : MonoBehaviour
             observer.OnOptionChanged();
         }
     }
-
-
-    // Update options and notify observers
-    // public void UpdateOptions()
-    // {
-    //     // Update options...
-
-    //     // Notify observers about the change
-    //     NotifyObservers();
-    // }
-
 
 
     // Player prefs are for saving info between sessions

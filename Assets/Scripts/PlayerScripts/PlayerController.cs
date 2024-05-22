@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using System;
 
 public class PlayerController : IOptionObserver
 {
@@ -19,15 +18,6 @@ public class PlayerController : IOptionObserver
     private Coroutine resetPowerUpCoroutine;
 
     private Physics physics;
-
-    //private Animator animator;
-
-    const String ANIM_STAND = "Stand";
-    const String ANIM_WALK = "Walk";
-    const String ANIM_RUN = "Run";
-    const String ANIM_CROUCH = "Crouch";
-    const String ANIM_AIR = "Air";
-    const String ANIM_HURT = "Hurt";
 
     [SerializeField] private const int DAMAGE = 1;
 
@@ -75,13 +65,11 @@ public class PlayerController : IOptionObserver
     {
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<PlayerAnimator>();
-        physics = GetComponent<Physics>(); // TODO switch over to universal physics script
+        physics = GetComponent<Physics>();
         projectile = defaultProjectile;
 
-        //animator = GetComponent<Animator>();
         currentHealth = maxHealth;
 
-        // healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(maxHealth);
         immunityTimer = 0f;
         rockCountdown = 0;
@@ -164,7 +152,6 @@ public class PlayerController : IOptionObserver
                 StopCoroutine(resetPowerUpCoroutine);
             }
             resetPowerUpCoroutine = StartCoroutine(ResetPowerUp(powerUp.powerUpDuration));
-            // Invoke(nameof(ResetPowerUp), powerUp.powerUpDuration);
         }
     }
 
