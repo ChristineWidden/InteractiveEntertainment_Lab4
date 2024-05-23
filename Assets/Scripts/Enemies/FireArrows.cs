@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static System.Random;
 
 public class FireArrows : MonoBehaviour
 {
@@ -14,21 +11,16 @@ public class FireArrows : MonoBehaviour
 
     private Vector2 arrowMoveDirection;
 
-    [SerializeField]
-    private static System.Random random = new System.Random();
+    private static readonly System.Random random = new();
 
-    // Start is called before the first frame update
     void Start()
     {
-        //InvokeRepeating("Fire", 0f, 2f);
-        Invoke("Fire", 2f);
+        Invoke(nameof(Fire), 2f);
     }
 
     private void Fire() {
         float angleStep = (endAngle - startAngle) / arrowAmount;
         float angle = startAngle;
-
-        //yield return new WaitForSeconds((float) random.NextDouble());
 
         for (int i = 0; i < arrowAmount + 1; i++) {
 
@@ -50,7 +42,7 @@ public class FireArrows : MonoBehaviour
             angle += angleStep;
         }
 
-        Invoke("Fire", 1.7f + 0.3f * (float) random.NextDouble());
+        Invoke(nameof(Fire), 1.7f + 0.3f * (float) random.NextDouble());
         
     }
 }

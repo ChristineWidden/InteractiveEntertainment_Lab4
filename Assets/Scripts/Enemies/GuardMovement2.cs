@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GuardMovement2 : MonoBehaviour
 {
@@ -18,13 +16,11 @@ public class GuardMovement2 : MonoBehaviour
         physics = gameObject.GetComponent<Physics>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!frozen)
         {
             physics.HInput = moveDirection;
-            // transform.position = new Vector2(transform.position.x + moveDirection * moveSpeed * Time.deltaTime, transform.position.y);
         }
     }
 
