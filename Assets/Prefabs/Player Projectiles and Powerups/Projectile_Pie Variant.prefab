@@ -20,13 +20,17 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: -7978621385387773963, guid: c03e9287ebf3a8c469a9776dee9a9f27, type: 3}
+      propertyPath: description
+      value: Moves slow, kills
+      objectReference: {fileID: 0}
     - target: {fileID: 7611431907407685534, guid: c03e9287ebf3a8c469a9776dee9a9f27, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.13333334
+      value: 0.46666667
       objectReference: {fileID: 0}
     - target: {fileID: 7611431907407685534, guid: c03e9287ebf3a8c469a9776dee9a9f27, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.13333334
+      value: 0.46666667
       objectReference: {fileID: 0}
     - target: {fileID: 7787440688664846228, guid: c03e9287ebf3a8c469a9776dee9a9f27, type: 3}
       propertyPath: m_Sprite

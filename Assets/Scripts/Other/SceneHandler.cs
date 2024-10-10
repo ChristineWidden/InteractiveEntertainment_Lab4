@@ -17,6 +17,7 @@ public class SceneHandler : MonoBehaviour
     public static SceneHandler instance;
 
     private bool paused;
+    public bool gameOver;
 
     private float waitBeforePause = 0;
 
@@ -28,20 +29,27 @@ public class SceneHandler : MonoBehaviour
     void Start()
     {
         sprite = fadeTransition.GetComponent<SpriteRenderer>();
-        sprite.material.SetFloat("_Alpha", 1);
-        InterpolateFloat(1, 0, 2f);
-
+        
+        sprite.color = new Color(0, 0, 0, 0);
+        StartCoroutine(InterpolateFloat(1, 0, 0.5f));
         playerInput = GetComponent<PlayerInput>();
     }
 
     void Update()
     {
-        sprite.material.SetFloat("_Alpha", currentValue);
+        sprite.color = new Color(0, 0, 0, currentValue);
 
         if (waitBeforePause >= 0)
         {
             waitBeforePause -= 1;
             return;
+        }
+
+        if (gameOver) {
+            SceneManager.LoadScene("GameOverScene", LoadSceneMode.Additive);
+            
+            paused = true;
+            OptionsManager.Instance.Pause();
         }
 
         if (playerInput.actions["Pause"].ReadValue<float>() <= 0.5f)
@@ -71,11 +79,12 @@ public class SceneHandler : MonoBehaviour
 
     public void GameOver()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void TransitionScene(string scene)
     {
+        // TODO get transitions working
         InterpolateFloat(0, 1, 2f);
     }
 

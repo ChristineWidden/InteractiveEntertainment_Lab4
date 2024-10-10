@@ -7,6 +7,7 @@ public enum BooleanOptionEnum
     MUSIC_MUTED,
     HIGH_CONTRAST_ON,
     EDGE_GUARD_ON,
+    AUTO_FIRE_ON,
 }
 
 public enum MultiOptionEnum
@@ -50,6 +51,7 @@ public class OptionsManager : MonoBehaviour
     [SerializeField] private bool musicMuted;
     [SerializeField] private bool highContrastOn;
     [SerializeField] private bool edgeGuardOn;
+    [SerializeField] private bool autoFireOn;
 
     private void Awake()
     {
@@ -100,6 +102,10 @@ public class OptionsManager : MonoBehaviour
     // Player prefs are for saving info between sessions
     // Figure out if I want to do that
 
+    public void PublicNotifyObservers() {
+        NotifyObservers();
+    }
+
     public void SetBooleanOption(BooleanOptionEnum option, bool newValue) {
         switch (option)
         {
@@ -111,6 +117,9 @@ public class OptionsManager : MonoBehaviour
                 break;
             case BooleanOptionEnum.EDGE_GUARD_ON:
                 edgeGuardOn = newValue;
+                break;
+            case BooleanOptionEnum.AUTO_FIRE_ON:
+                autoFireOn = newValue;
                 break;
             default:
                 throw new Exception("No implemented behavior for option " + option);
@@ -124,6 +133,7 @@ public class OptionsManager : MonoBehaviour
             BooleanOptionEnum.MUSIC_MUTED => musicMuted,
             BooleanOptionEnum.HIGH_CONTRAST_ON => highContrastOn,
             BooleanOptionEnum.EDGE_GUARD_ON => edgeGuardOn,
+            BooleanOptionEnum.AUTO_FIRE_ON => autoFireOn,
             _ => throw new Exception("No implemented behavior for option " + option),
         };
     }

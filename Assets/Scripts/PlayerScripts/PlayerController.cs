@@ -6,43 +6,57 @@ using UnityEngine.InputSystem;
 public class PlayerController : IOptionObserver
 {
 
-    public int points = 0;
+    // Directly attached Scripts
+    private Physics physics;
+    private PlayerAnimator animator;
+    private PlayerInput playerInput;
 
-    public int maxHealth;
-    public int currentHealth;
+    private GameObject projectile;
+    [SerializeField] private GameObject defaultProjectile;
+
+
+    // Indirectly attached stuff
+    [SerializeField] private SpecialCollider rayTrace;
+    [SerializeField] private SpecialCollider hurtbox;
+
+
+    // Distantly attached stuff
     public HealthRing healthBar;
     public PowerUpUI powerUpUI;
-
-    public PowerUpEnum powerUpState = PowerUpEnum.Rock;
-
-    private Coroutine resetPowerUpCoroutine;
-
-    private Physics physics;
-
-    [SerializeField] private const int DAMAGE = 1;
-
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource hurtSoundEffect;
     [SerializeField] private AudioSource throwSoundEffect;
 
-    private PlayerAnimator animator;
-    private PlayerInput playerInput;
 
+    // Current Status
+    public int points = 0;
+
+    public int maxHealth;
+    public int currentHealth;
+
+    public PowerUpEnum powerUpState = PowerUpEnum.Rock;
+
+    [SerializeField] private const int DAMAGE = 1;
+
+
+    // Options & Controls
     private bool throwRockToggle = false;
     private float throwRockToggleTimer;
+
+
+    // Timers & Such
+    private float immunitySeconds;
+    private float immunityTimer;
     private float ROCK_THROW_WAIT;
     public float ROCK_THROW_WAIT_BASE;
     private float rockCountdown;
     [SerializeField] private float immunitySecondsBase;
-    private float immunitySeconds;
-    private float immunityTimer;
 
 
-    private GameObject projectile;
-    [SerializeField] private GameObject defaultProjectile;
+    // Other
+    private Coroutine resetPowerUpCoroutine;
 
-    public bool facingRight = true;
 
 
     private new void OnEnable()
@@ -52,6 +66,7 @@ public class PlayerController : IOptionObserver
     }
     public override void OnOptionChanged()
     {
+
         UpdateDifficulty();
     }
     private void UpdateDifficulty()
@@ -64,6 +79,7 @@ public class PlayerController : IOptionObserver
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+
         animator = GetComponent<PlayerAnimator>();
         physics = GetComponent<Physics>();
         projectile = defaultProjectile;
@@ -84,27 +100,48 @@ public class PlayerController : IOptionObserver
         }
         if (immunityTimer > 0)
         {
+            animator.animatingHurt = true;
             immunityTimer -= Time.deltaTime;
+        } else {
+            animator.animatingHurt = false;
+            if (hurtbox.colliding) {
+                GetHurt();
+            }
         }
+
         if (throwRockToggleTimer > 0)
         {
             throwRockToggleTimer -= Time.deltaTime;
         }
+
+        if (physics.facingRight)
+        {
+            rayTrace.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            rayTrace.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        bool autoFireRock = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.AUTO_FIRE_ON)
+                            && rayTrace.numCollisions > 0;
+        bool doThrowRock = autoFireRock || (playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f);
 
         if (playerInput.actions["ToggleThrowRock"].ReadValue<float>() > 0.5f && throwRockToggleTimer <= 0)
         {
             throwRockToggle = !throwRockToggle;
             throwRockToggleTimer = 0.2f;
         }
-        if ((throwRockToggle || playerInput.actions["ThrowRock"].ReadValue<float>() > 0.5f) && rockCountdown <= 0)
+        if ((throwRockToggle || doThrowRock) && rockCountdown <= 0)
         {
             ThrowRock();
         }
 
     }
 
-    private void GetHurt()
+    public void GetHurt()
     {
+        if (immunityTimer > 0) return;
+
         immunityTimer = immunitySeconds;
         currentHealth -= DAMAGE;
         hurtSoundEffect.Play();
@@ -134,12 +171,6 @@ public class PlayerController : IOptionObserver
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if ((other.gameObject.CompareTag("Damage") || other.gameObject.CompareTag("Enemy"))
-            && immunityTimer <= 0)
-        {
-            GetHurt();
-        }
-
         if (other.gameObject.CompareTag("PowerUp"))
         {
             PowerUp powerUp = other.GetComponent<PowerUp>();
@@ -190,5 +221,8 @@ public class PlayerController : IOptionObserver
     {
         jumpSoundEffect.Play();
     }
+
+
+
 
 }

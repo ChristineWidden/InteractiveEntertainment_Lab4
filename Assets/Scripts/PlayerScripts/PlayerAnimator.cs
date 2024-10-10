@@ -46,6 +46,7 @@ public class PlayerAnimator : MonoBehaviour
     void Update() {
         if (animatingHurt) {
             ChangeAnimationState(GoblinAnimation.HURT);
+            return;
         }
 
         if (!onGround) {

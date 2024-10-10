@@ -7,3 +7,8 @@
 // TODO: Improve quality of transition to next level
 // TODO: allow portrait and landscape play
 // TODO: Allow edge guarding mode
+
+// TODO: fix text popup
+// TODO: Adjust feeling of goblin running jumping etc.
+// TODO: Fix sound effects
+// TODO: Make sound effects less annoying

@@ -8,21 +8,28 @@ using System;
 public class PlayerProjectile : MonoBehaviour
 {
     public Vector2 moveDirection;
+
+    [SerializeField, TextArea] private string description;
+
+
     [SerializeField] private float existTime;
     [SerializeField] private float moveSpeed;
     public float stunTime;
     public bool doesKill;
     public float freezeTime;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         Invoke(nameof(Destroy), existTime);
     }
 
-    private void Destroy() {
+    private void Destroy()
+    {
         Destroy(gameObject);
     }
 
-    void Update() {
+    void Update()
+    {
         transform.Translate(moveSpeed * Time.deltaTime * moveDirection);
     }
 

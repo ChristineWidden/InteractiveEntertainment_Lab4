@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 1, y: 0}
+  description: Moves medium, stuns briefly
   existTime: 4
   moveSpeed: 7
   stunTime: 0.5
