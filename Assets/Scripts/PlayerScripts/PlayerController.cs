@@ -152,8 +152,10 @@ public class PlayerController : IOptionObserver
         healthBar.SetHealth(currentHealth);
     }
 
-    public void HandleFeetCollisions(string otherTag)
+    public void HandleFeetCollisions(Collider2D collider)
     {
+        string otherTag = collider.gameObject.tag;
+
         // Debug.Log("handling feet collisions with " + otherTag);
 
         if (otherTag == "Enemy")
@@ -169,22 +171,22 @@ public class PlayerController : IOptionObserver
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void HandlePowerUpCollisions(Collider2D collider)
     {
-        if (other.gameObject.CompareTag("PowerUp"))
-        {
-            PowerUp powerUp = other.GetComponent<PowerUp>();
-            powerUpState = powerUp.powerUpType;
-            powerUpUI.SetPowerUp(powerUpState);
-            projectile = powerUp.associatedProjectile;
+        // Debug.Log("handling powerup collisions with ", collider);
 
-            if (resetPowerUpCoroutine != null)
-            {
-                StopCoroutine(resetPowerUpCoroutine);
-            }
-            resetPowerUpCoroutine = StartCoroutine(ResetPowerUp(powerUp.powerUpDuration));
+        PowerUp powerUp = collider.GetComponent<PowerUp>();
+        powerUpState = powerUp.powerUpType;
+        powerUpUI.SetPowerUp(powerUpState);
+        projectile = powerUp.associatedProjectile;
+
+        if (resetPowerUpCoroutine != null)
+        {
+            StopCoroutine(resetPowerUpCoroutine);
         }
+        resetPowerUpCoroutine = StartCoroutine(ResetPowerUp(powerUp.powerUpDuration));
     }
+
 
     private IEnumerator ResetPowerUp(float powerUpDuration)
     {
@@ -221,8 +223,5 @@ public class PlayerController : IOptionObserver
     {
         jumpSoundEffect.Play();
     }
-
-
-
 
 }

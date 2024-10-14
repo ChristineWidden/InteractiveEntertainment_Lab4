@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 using System.Text.RegularExpressions;
 using System;
 
-public class TutorialTextTrigger : MonoBehaviour
+public class TutorialTextTrigger : IOptionObserver
 {
+    private bool debugMessages = false;
+
     [SerializeField] private bool canTriggerAgain;
     private bool alreadyTriggered = false;
 
@@ -14,17 +16,6 @@ public class TutorialTextTrigger : MonoBehaviour
     private TextMeshProUGUI textDisplay;
 
     private PlayerInput playerInput;
-
-    private string _Movement_negative;
-    private string _Movement_positive;
-    private string _Jump;
-    private string _Crouch;
-    private string _ThrowRock;
-    private string _ToggleThrowRock;
-    private string _Pause;
-    private string _Toggle_Movement_negative;
-    private string _Toggle_Movement_positive;
-
 
     void Start()
     {
@@ -56,11 +47,11 @@ public class TutorialTextTrigger : MonoBehaviour
 
             string replaceval = "";
 
-            Debug.Log(InputControlPath.ToHumanReadableString(binding0.effectivePath));
+            if (debugMessages) Debug.Log(InputControlPath.ToHumanReadableString(binding0.effectivePath));
 
             if (InputControlPath.ToHumanReadableString(binding0.effectivePath) == " [1DAxis]")
             {
-                Debug.Log("Got this far");
+                if (debugMessages) Debug.Log("Got this far");
                 if (x[1] == "negative")
                 {
                     replaceval = InputControlPath.ToHumanReadableString(playerInput.actions[x[0]].bindings[1].effectivePath);
@@ -80,9 +71,14 @@ public class TutorialTextTrigger : MonoBehaviour
             }
             str = str.Replace(match.Value, replaceval);
 
-            Debug.Log(match.Value + " modified " + x[0]);
-            Debug.Log(str);
+            if (debugMessages) Debug.Log(match.Value + " modified " + x[0]);
+            if (debugMessages) Debug.Log(str);
         }
         return str;
+    }
+
+    public override void OnOptionChanged()
+    {
+        textDisplay.text = ProcessString(serializedTextField);
     }
 }

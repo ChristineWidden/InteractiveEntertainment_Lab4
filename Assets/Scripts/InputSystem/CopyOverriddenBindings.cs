@@ -7,18 +7,19 @@ public class CopyOverridenBindings : IActionUser
 {
     private PlayerInput playerInput;
     [SerializeField] private InputActionAsset originalInputs;
-    [SerializeField] private string actionMapName;
+    [SerializeField] private string actionMapName = "General";
 
     void Start() {
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = playerInput != null ? playerInput : GetComponent<PlayerInput>();
     }
 
     public override void OnActionsUpdated()
-    {
-        CopyOverridenBindingsFunc(
-            playerInput.actions.FindActionMap(actionMapName),
-            originalInputs.FindActionMap(actionMapName)
-        );
+    {   
+        playerInput = playerInput != null ? playerInput : GetComponent<PlayerInput>();
+        InputActionMap a = playerInput.actions.FindActionMap(actionMapName);
+        InputActionMap b = originalInputs.FindActionMap(actionMapName);
+
+        CopyOverridenBindingsFunc(a,b);
     }
 
     private void CopyOverridenBindingsFunc(InputActionMap copyActionMap, InputActionMap originalActionMap)

@@ -5,10 +5,10 @@ using UnityEngine.Events;
 public class SpecialCollider : MonoBehaviour
 {
     [SerializeField] private List<string> collisionTags;
-    public UnityEvent onStartCollision;
-    public UnityEvent onEndCollision;
-    public UnityEvent<string> onStartCollisionSendOther;
-    public UnityEvent<string> onEndCollisionSendOther;
+    public UnityEvent<Collider2D> onStartCollision;
+    public UnityEvent<Collider2D> onEndCollision;
+    public UnityEvent<Collider2D> onStartCollisionSendOther;
+    public UnityEvent<Collider2D> onEndCollisionSendOther;
 
     public bool colliding { get; private set; }
 
@@ -21,9 +21,9 @@ public class SpecialCollider : MonoBehaviour
         {
             numCollisions++;
             colliding = true;
-            onStartCollision.Invoke();
+            onStartCollision.Invoke(other.collider);
         }
-        onStartCollisionSendOther.Invoke(other.collider.tag);
+        onStartCollisionSendOther.Invoke(other.collider);
     }
 
     void OnCollisionExit2D(Collision2D other)
@@ -35,11 +35,11 @@ public class SpecialCollider : MonoBehaviour
             if (numCollisions == 0)
             {
                 colliding = false;
-                onEndCollision.Invoke();
+                onEndCollision.Invoke(other.collider);
             }
 
         }
-        onEndCollisionSendOther.Invoke(other.collider.tag);
+        onEndCollisionSendOther.Invoke(other.collider);
     }
 
 
@@ -49,9 +49,9 @@ public class SpecialCollider : MonoBehaviour
         {
             numCollisions++;
             colliding = true;
-            onStartCollision.Invoke();
+            onStartCollision.Invoke(other);
         }
-        onStartCollisionSendOther.Invoke(other.gameObject.tag);
+        onStartCollisionSendOther.Invoke(other);
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -62,10 +62,10 @@ public class SpecialCollider : MonoBehaviour
             if (numCollisions == 0)
             {
                 colliding = false;
-                onEndCollision.Invoke();
+                onEndCollision.Invoke(other);
             }
 
         }
-        onEndCollisionSendOther.Invoke(other.gameObject.tag);
+        onEndCollisionSendOther.Invoke(other);
     }
 }

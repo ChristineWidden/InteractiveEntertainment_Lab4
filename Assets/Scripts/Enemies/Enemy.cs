@@ -75,6 +75,7 @@ public class Enemy : IOptionObserver
     {
         if (immunityTimer <= 0 && other.gameObject.CompareTag("PlayerProjectile"))
         {
+            Debug.Log("Enemy hit by player projectile");
             immunityTimer = 0;
             hurtSoundEffect.Play();
 
@@ -84,17 +85,18 @@ public class Enemy : IOptionObserver
 
             if (projectile.doesKill)
             {
-                Debug.Log("DYING0!");
                 Die();
             }
             else
             {
                 if (projectile.stunTime > 0)
                 {
+                    Debug.Log("Stunning enemy", this);
                     GetStunned(projectile.stunTime);
                 }
                 
                 if (projectile.freezeTime > 0) {
+                    Debug.Log("Freezing enemy", this);
                     GetFrozen(projectile.freezeTime);
                 }
             }

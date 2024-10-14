@@ -163,7 +163,7 @@ MonoBehaviour:
   description: Moves medium, stuns briefly
   existTime: 4
   moveSpeed: 7
-  stunTime: 0.5
+  stunTime: 10
   doesKill: 0
   freezeTime: 0
 --- !u!114 &8992377297123995568
