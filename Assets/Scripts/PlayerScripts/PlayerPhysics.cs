@@ -11,6 +11,8 @@ public class PlayerPhysics : MonoBehaviour
 
     public float jumpHeight;
 
+    public bool touchingAutoJump;
+
     public Vector2 velocity = new(0, 0);
 
 
@@ -36,14 +38,26 @@ public class PlayerPhysics : MonoBehaviour
     }
 
     void Update() {
+
+
         physics.HInput = playerInput.actions["Movement"].ReadValue<float>();
         physics.CrouchInput = playerInput.actions["Crouch"].ReadValue<float>();
         physics.JumpInput = playerInput.actions["Jump"].ReadValue<float>();
 
+        bool autoJump = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.AUTO_JUMP_ON);
+        // Debug.Log(touchingAutoJump + ", " + autoJump);
+        if (autoJump && touchingAutoJump) {
+            Debug.Log("JUMP!!!");
+            physics.JumpInput = 1;
+        }
 
         animator.onGround = physics.onGround;
         animator.velocity = physics.velocity;
-        
     }
 
+    public void SetOnAutoJump(bool state)
+    {
+        // Debug.Log("Set on ground invoked with " + state);
+        touchingAutoJump = state;
+    }
 }

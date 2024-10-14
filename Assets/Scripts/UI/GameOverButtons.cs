@@ -17,7 +17,7 @@ public class GameOverButtons : MonoBehaviour
 
     public void RetryButtonClicked()
     {
-        SceneHandler.instance.GameOver();
+        SceneHandler.instance.ReloadLevel();
         
     }
 

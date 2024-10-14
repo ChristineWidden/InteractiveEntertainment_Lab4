@@ -8,6 +8,7 @@ public class PlayerController : IOptionObserver
 
     // Directly attached Scripts
     private Physics physics;
+    private PlayerPhysics playerPhysics;
     private PlayerAnimator animator;
     private PlayerInput playerInput;
 
@@ -82,6 +83,7 @@ public class PlayerController : IOptionObserver
 
         animator = GetComponent<PlayerAnimator>();
         physics = GetComponent<Physics>();
+        playerPhysics = GetComponent<PlayerPhysics>();
         projectile = defaultProjectile;
 
         currentHealth = maxHealth;
@@ -147,7 +149,8 @@ public class PlayerController : IOptionObserver
         hurtSoundEffect.Play();
         if (currentHealth < 1)
         {
-            SceneManager.LoadScene("GameOverScene");
+            // SceneManager.LoadScene("GameOverScene");
+            SceneHandler.instance.gameOver = true;
         }
         healthBar.SetHealth(currentHealth);
     }

@@ -104,12 +104,12 @@ public class Enemy : IOptionObserver
     }
 
     void GetFrozen(float freezeTime) {
-        GuardMovement2 guardMovement = gameObject.GetComponent<GuardMovement2>();
-        if (guardMovement != null) {
+        if (TryGetComponent<GuardMovement2>(out var guardMovement)) {
             guardMovement.Freeze(freezeTime);
+        } else {
+            Debug.Log("No GuardMovement2 on this", gameObject);
         }
-        JumpPeriodically jumpPeriodically = gameObject.GetComponent<JumpPeriodically>();
-        if (jumpPeriodically != null) {
+        if (TryGetComponent<JumpPeriodically>(out var jumpPeriodically)) {
             jumpPeriodically.Freeze(freezeTime);
         }
     }

@@ -8,6 +8,7 @@ public enum BooleanOptionEnum
     HIGH_CONTRAST_ON,
     EDGE_GUARD_ON,
     AUTO_FIRE_ON,
+    AUTO_JUMP_ON,
 }
 
 public enum MultiOptionEnum
@@ -52,6 +53,7 @@ public class OptionsManager : MonoBehaviour
     [SerializeField] private bool highContrastOn;
     [SerializeField] private bool edgeGuardOn;
     [SerializeField] private bool autoFireOn;
+    [SerializeField] private bool autoJumpOn;
 
     private void Awake()
     {
@@ -121,6 +123,9 @@ public class OptionsManager : MonoBehaviour
             case BooleanOptionEnum.AUTO_FIRE_ON:
                 autoFireOn = newValue;
                 break;
+            case BooleanOptionEnum.AUTO_JUMP_ON:
+                autoJumpOn = newValue;
+                break;
             default:
                 throw new Exception("No implemented behavior for option " + option);
         }
@@ -134,6 +139,7 @@ public class OptionsManager : MonoBehaviour
             BooleanOptionEnum.HIGH_CONTRAST_ON => highContrastOn,
             BooleanOptionEnum.EDGE_GUARD_ON => edgeGuardOn,
             BooleanOptionEnum.AUTO_FIRE_ON => autoFireOn,
+            BooleanOptionEnum.AUTO_JUMP_ON => autoJumpOn,
             _ => throw new Exception("No implemented behavior for option " + option),
         };
     }

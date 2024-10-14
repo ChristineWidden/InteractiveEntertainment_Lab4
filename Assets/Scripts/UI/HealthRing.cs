@@ -21,7 +21,7 @@ public class HealthRing : MonoBehaviour
         if (health >= 0 && health < sprites.Length)
         {
             // Set the sprite
-            spriteRenderer.sprite = sprites[maxHealth + 1 - health];
+            spriteRenderer.sprite = sprites[health];
             currentHealth = health;
         }
         else

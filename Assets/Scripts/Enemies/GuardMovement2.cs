@@ -21,6 +21,8 @@ public class GuardMovement2 : MonoBehaviour
         if (!frozen)
         {
             physics.HInput = moveDirection;
+        } else {
+            physics.HInput = 0;
         }
     }
 

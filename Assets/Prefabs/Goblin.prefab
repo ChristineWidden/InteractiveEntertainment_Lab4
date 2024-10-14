@@ -687,6 +687,7 @@ MonoBehaviour:
   acceleration: 2
   maxSpeed: 5
   jumpHeight: 1.5
+  touchingAutoJump: 0
   velocity: {x: 0, y: 0}
   jumpSoundEffect: {fileID: 244966717870105336}
   hurtSoundEffect: {fileID: 1631194731958815602}
@@ -772,6 +773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1946492522207191599}
   - component: {fileID: 9152930171555233320}
+  - component: {fileID: 8701441223198145324}
   - component: {fileID: 4227842572504146971}
   m_Layer: 8
   m_Name: GroundCollider
@@ -830,7 +832,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.00000010430813, y: -0.26717386}
   m_Size: {x: 0.14428625, y: 0.3356523}
   m_Direction: 0
---- !u!114 &4227842572504146971
+--- !u!114 &8701441223198145324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -889,6 +891,56 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onEndCollisionSendOther:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4227842572504146971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2815695577509091737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab307907c361bb45b3826387a99053d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionTags:
+  - JumpTrigger
+  onStartCollision:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234130144397045201}
+        m_TargetAssemblyTypeName: PlayerPhysics, Assembly-CSharp
+        m_MethodName: SetOnAutoJump
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onEndCollision:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234130144397045201}
+        m_TargetAssemblyTypeName: PlayerPhysics, Assembly-CSharp
+        m_MethodName: SetOnAutoJump
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStartCollisionSendOther:
+    m_PersistentCalls:
+      m_Calls: []
   onEndCollisionSendOther:
     m_PersistentCalls:
       m_Calls: []

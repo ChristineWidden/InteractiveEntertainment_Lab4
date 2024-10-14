@@ -18,6 +18,7 @@ public class SceneHandler : MonoBehaviour
 
     private bool paused;
     public bool gameOver;
+    private bool gameOverLoaded = false;
 
     private float waitBeforePause = 0;
 
@@ -29,10 +30,10 @@ public class SceneHandler : MonoBehaviour
     void Start()
     {
         sprite = fadeTransition.GetComponent<SpriteRenderer>();
+        playerInput = GetComponent<PlayerInput>();
         
         sprite.color = new Color(0, 0, 0, 0);
         StartCoroutine(InterpolateFloat(1, 0, 0.5f));
-        playerInput = GetComponent<PlayerInput>();
     }
 
     void Update()
@@ -45,8 +46,10 @@ public class SceneHandler : MonoBehaviour
             return;
         }
 
-        if (gameOver) {
-            SceneManager.LoadScene("GameOverScene", LoadSceneMode.Additive);
+        if (gameOver && !gameOverLoaded) {
+            gameOverLoaded = true;
+            SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
+            sprite.color = new Color(0, 0, 0, 0.5f);
             
             paused = true;
             OptionsManager.Instance.Pause();
@@ -77,15 +80,21 @@ public class SceneHandler : MonoBehaviour
         OptionsManager.Instance.Unpause();
     }
 
-    public void GameOver()
+    public void ReloadLevel()
     {
+        gameOver = false;
+        gameOverLoaded = false;
+        SceneManager.UnloadSceneAsync("Game Over");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        OptionsManager.Instance.Unpause();
+        paused = false;
     }
 
     public void TransitionScene(string scene)
     {
-        // TODO get transitions working
-        InterpolateFloat(0, 1, 2f);
+        StartCoroutine(
+                // TODO get transitions working
+                InterpolateFloat(0, 1, 2f));
     }
 
 
@@ -106,5 +115,6 @@ public class SceneHandler : MonoBehaviour
 
             yield return null; // Wait for the next frame
         }
+        currentValue = endValue;
     }
 }
