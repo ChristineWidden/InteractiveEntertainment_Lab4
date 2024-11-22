@@ -23,6 +23,8 @@ public class Physics : IOptionObserver
 
     [SerializeField] private bool usesSpecialGroundCollider;
     public bool onGround { get; private set; }
+    private int numGrounds = 0;
+
     [HideInInspector] public bool facingRight;
     [HideInInspector] public Vector2 velocity = new(0, 0);
 
@@ -60,6 +62,9 @@ public class Physics : IOptionObserver
 
     void FixedUpdate()
     {
+
+        if (OptionsManager.Instance.IsPaused) return;
+
 
         if (onGround && (CrouchInput > 0.5f))
         {
@@ -132,7 +137,10 @@ public class Physics : IOptionObserver
         if (other.gameObject.CompareTag("Ground") && !usesSpecialGroundCollider)
         {
             onGround = true;
-            onHitGround.Invoke();
+            if (numGrounds == 0) {
+                onHitGround.Invoke();
+            }
+            numGrounds++;
         }
     }
 
@@ -140,9 +148,11 @@ public class Physics : IOptionObserver
     {
         if (other.gameObject.CompareTag("Ground") && !usesSpecialGroundCollider)
         {
-
-            onGround = false;
-            onLeaveGround.Invoke();
+            numGrounds--;
+            if (numGrounds == 0) {
+                onGround = false;
+                onLeaveGround.Invoke();
+            }
         }
     }
 }

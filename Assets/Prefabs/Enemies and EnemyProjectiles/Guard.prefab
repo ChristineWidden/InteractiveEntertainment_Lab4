@@ -301,9 +301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: 1
-  currentHealth: 100
-  DAMAGE_BUFFER: 30
-  hurtSoundEffect: {fileID: 1742190879566591337}
 --- !u!114 &1433861490740279477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,8 +315,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 10
   acceleration: 100
-  maxSpeed: 3
+  maxSpeedBase: 0
   gravityValue: -9.81
+  usesSpecialGroundCollider: 0
   facingRight: 0
   velocity: {x: 0, y: 0}
   HInput: 0

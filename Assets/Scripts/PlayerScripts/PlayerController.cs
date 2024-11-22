@@ -8,7 +8,6 @@ public class PlayerController : IOptionObserver
 
     // Directly attached Scripts
     private Physics physics;
-    private PlayerPhysics playerPhysics;
     private PlayerAnimator animator;
     private PlayerInput playerInput;
 
@@ -23,11 +22,12 @@ public class PlayerController : IOptionObserver
 
     // Distantly attached stuff
     public HealthRing healthBar;
+    public HealthRing healthBar2;
     public PowerUpUI powerUpUI;
 
-    [SerializeField] private AudioSource jumpSoundEffect;
-    [SerializeField] private AudioSource hurtSoundEffect;
-    [SerializeField] private AudioSource throwSoundEffect;
+    [SerializeField] private AudioClip jumpSoundEffect;
+    [SerializeField] private AudioClip hurtSoundEffect;
+    [SerializeField] private AudioClip throwSoundEffect;
 
 
     // Current Status
@@ -83,12 +83,12 @@ public class PlayerController : IOptionObserver
 
         animator = GetComponent<PlayerAnimator>();
         physics = GetComponent<Physics>();
-        playerPhysics = GetComponent<PlayerPhysics>();
         projectile = defaultProjectile;
 
         currentHealth = maxHealth;
 
         healthBar.SetHealth(maxHealth);
+        healthBar2.SetHealth(maxHealth);
         immunityTimer = 0f;
         rockCountdown = 0;
     }
@@ -146,13 +146,16 @@ public class PlayerController : IOptionObserver
 
         immunityTimer = immunitySeconds;
         currentHealth -= DAMAGE;
-        hurtSoundEffect.Play();
+        SoundEffectHolder.instance.PlaySoundEffect(hurtSoundEffect);
+
+        // hurtSoundEffect.Play();
         if (currentHealth < 1)
         {
             // SceneManager.LoadScene("GameOverScene");
             SceneHandler.instance.gameOver = true;
         }
         healthBar.SetHealth(currentHealth);
+        healthBar2.SetHealth(currentHealth);
     }
 
     public void HandleFeetCollisions(Collider2D collider)
@@ -201,9 +204,11 @@ public class PlayerController : IOptionObserver
 
     public void ThrowRock()
     {
-        // Debug.Log("Throwing a rock!");
+        if (OptionsManager.Instance.IsPaused) return;
 
-        throwSoundEffect.Play();
+
+        SoundEffectHolder.instance.PlaySoundEffect(throwSoundEffect);
+        // throwSoundEffect.Play();
 
         rockCountdown = ROCK_THROW_WAIT;
 
@@ -224,7 +229,8 @@ public class PlayerController : IOptionObserver
 
     public void Jump()
     {
-        jumpSoundEffect.Play();
+        SoundEffectHolder.instance.PlaySoundEffect(jumpSoundEffect);
+        // jumpSoundEffect.Play();
     }
 
 }

@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Powerup_Apple
       objectReference: {fileID: 0}
+    - target: {fileID: 1894272213435622150, guid: c13129f7144c3494080b6e5f5f31e202, type: 3}
+      propertyPath: standardSprite
+      value: 
+      objectReference: {fileID: -1996822147, guid: 2020964393a6dda409815b2c52540e86, type: 3}
+    - target: {fileID: 1894272213435622150, guid: c13129f7144c3494080b6e5f5f31e202, type: 3}
+      propertyPath: alternateSprite
+      value: 
+      objectReference: {fileID: -840871025, guid: b835682d52b94c14ca5e6cc9db48868f, type: 3}
     - target: {fileID: 4583549294302239939, guid: c13129f7144c3494080b6e5f5f31e202, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.4

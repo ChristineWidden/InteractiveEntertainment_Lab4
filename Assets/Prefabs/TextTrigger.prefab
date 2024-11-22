@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 91480126156159672}
   - component: {fileID: 3649429968697059806}
-  - component: {fileID: 4410074574660016145}
   - component: {fileID: 6783139546481662969}
   - component: {fileID: 4159482867297366935}
+  - component: {fileID: 4410074574660016145}
   - component: {fileID: 6064190296714996571}
+  - component: {fileID: 521942127049109251}
+  - component: {fileID: 7517365272186884551}
   m_Layer: 0
   m_Name: TextTrigger
   m_TagString: Untagged
@@ -43,7 +45,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5718265331393429349}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -78,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.14651275, g: 1, b: 0, a: 0.20392157}
+  m_Color: {r: 0.14651275, g: 1, b: 0, a: 0.09803922}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -88,20 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4410074574660016145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5718265331393429349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5312970ac95051c408c3d71eabe769d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canTriggerAgain: 1
-  serializedTextField: test
 --- !u!61 &6783139546481662969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,6 +162,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4410074574660016145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718265331393429349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5312970ac95051c408c3d71eabe769d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canTriggerAgain: 1
+  serializedTextField: test
+  onStartCollision:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7517365272186884551}
+        m_TargetAssemblyTypeName: PlayAudioClip, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6064190296714996571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,3 +221,28 @@ MonoBehaviour:
   m_DefaultActionMap: General
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &521942127049109251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718265331393429349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fc6d31db2d93f4ea2a4c255fae6e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7517365272186884551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718265331393429349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b244991ce9dd1694196f7e8652b7d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 3f7c1bd6d81a92644bf32afe3b5ac2f5, type: 3}

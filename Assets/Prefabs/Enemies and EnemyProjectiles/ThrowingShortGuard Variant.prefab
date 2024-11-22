@@ -10,7 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1693660883158491778, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3916412687865867720, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3916412687865867720, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3916412687865867720, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 3916412687865867720, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -716218627, guid: 110b91fe874c65f4eabfbbb8a1ee4388, type: 3}
+    - target: {fileID: 3916412687865867720, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4088507186986096590, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: hurtAnimState
@@ -86,11 +106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.6333333
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.5333333
+      value: 1.5666667
       objectReference: {fileID: 0}
     - target: {fileID: 8416789373509048071, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_Name

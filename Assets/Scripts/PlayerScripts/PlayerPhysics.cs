@@ -15,11 +15,6 @@ public class PlayerPhysics : MonoBehaviour
 
     public Vector2 velocity = new(0, 0);
 
-
-    [SerializeField] private AudioSource jumpSoundEffect;
-    [SerializeField] private AudioSource hurtSoundEffect;
-    [SerializeField] private AudioSource throwSoundEffect;
-
     private PlayerInput playerInput;
     private PlayerAnimator animator;
     private PlayerController controller;
@@ -38,6 +33,7 @@ public class PlayerPhysics : MonoBehaviour
     }
 
     void Update() {
+        if (OptionsManager.Instance.IsPaused) return;
 
 
         physics.HInput = playerInput.actions["Movement"].ReadValue<float>();

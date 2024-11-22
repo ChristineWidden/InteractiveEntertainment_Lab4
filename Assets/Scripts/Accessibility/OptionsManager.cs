@@ -6,9 +6,13 @@ public enum BooleanOptionEnum
 {
     MUSIC_MUTED,
     HIGH_CONTRAST_ON,
+    LARGER_POWERUPS_ON,
+    LARGER_PROJECTILES_ON,
     EDGE_GUARD_ON,
     AUTO_FIRE_ON,
     AUTO_JUMP_ON,
+    SPRITE_OUTLINES_ON,
+    SMALL_HEALTH_RING,
 }
 
 public enum MultiOptionEnum
@@ -40,10 +44,12 @@ public class OptionsManager : MonoBehaviour
         }
     }
 
-    private float currentGameplaySpeed = 1f;
+    private float defaultGameplaySpeed = 1f;
+    private int gameplaySpeedVal = 0;
     public DifficultyOptions currentDifficulty;
     private DifficultyOptions standardDifficulty = new(DifficultyEnum.STANDARD);
     private DifficultyOptions easyDifficulty = new(DifficultyEnum.EASY);
+    public bool IsPaused {get; private set;}
 
     // List of observers
     private List<IOptionObserver> observers = new List<IOptionObserver>();
@@ -51,9 +57,13 @@ public class OptionsManager : MonoBehaviour
     // Boolean options
     [SerializeField] private bool musicMuted;
     [SerializeField] private bool highContrastOn;
+    [SerializeField] private bool largerPowerupsOn;
+    [SerializeField] private bool largerProjectilesOn;
     [SerializeField] private bool edgeGuardOn;
     [SerializeField] private bool autoFireOn;
     [SerializeField] private bool autoJumpOn;
+    [SerializeField] private bool spriteOutlinesOn;
+    [SerializeField] private bool smallHealthRing;
 
     private void Awake()
     {
@@ -72,8 +82,9 @@ public class OptionsManager : MonoBehaviour
 
 
     private void OnEnable() {
-        Debug.Log("Resetting gameplay speed to "+ currentGameplaySpeed);
-        Time.timeScale = currentGameplaySpeed;
+        Debug.Log("Resetting gameplay speed to "+ defaultGameplaySpeed);
+        Time.timeScale = defaultGameplaySpeed;
+        IsPaused = false;
     }
 
 
@@ -117,6 +128,12 @@ public class OptionsManager : MonoBehaviour
             case BooleanOptionEnum.HIGH_CONTRAST_ON:
                 highContrastOn = newValue;
                 break;
+            case BooleanOptionEnum.LARGER_POWERUPS_ON:
+                largerPowerupsOn = newValue;
+                break;
+            case BooleanOptionEnum.LARGER_PROJECTILES_ON:
+                largerProjectilesOn = newValue;
+                break;
             case BooleanOptionEnum.EDGE_GUARD_ON:
                 edgeGuardOn = newValue;
                 break;
@@ -125,6 +142,12 @@ public class OptionsManager : MonoBehaviour
                 break;
             case BooleanOptionEnum.AUTO_JUMP_ON:
                 autoJumpOn = newValue;
+                break;
+            case BooleanOptionEnum.SPRITE_OUTLINES_ON:
+                spriteOutlinesOn = newValue;
+                break;
+            case BooleanOptionEnum.SMALL_HEALTH_RING:
+                smallHealthRing = newValue;
                 break;
             default:
                 throw new Exception("No implemented behavior for option " + option);
@@ -137,9 +160,13 @@ public class OptionsManager : MonoBehaviour
         {
             BooleanOptionEnum.MUSIC_MUTED => musicMuted,
             BooleanOptionEnum.HIGH_CONTRAST_ON => highContrastOn,
+            BooleanOptionEnum.LARGER_POWERUPS_ON => largerPowerupsOn,
+            BooleanOptionEnum.LARGER_PROJECTILES_ON => largerProjectilesOn,
             BooleanOptionEnum.EDGE_GUARD_ON => edgeGuardOn,
             BooleanOptionEnum.AUTO_FIRE_ON => autoFireOn,
             BooleanOptionEnum.AUTO_JUMP_ON => autoJumpOn,
+            BooleanOptionEnum.SPRITE_OUTLINES_ON => spriteOutlinesOn,
+            BooleanOptionEnum.SMALL_HEALTH_RING => smallHealthRing,
             _ => throw new Exception("No implemented behavior for option " + option),
         };
     }
@@ -147,25 +174,33 @@ public class OptionsManager : MonoBehaviour
 
     public void Pause() {
         Time.timeScale = 0;
+        SoundEffectHolder.instance.PauseMusic();
+        IsPaused = true;
     }
     public void Unpause() {
-        Time.timeScale = currentGameplaySpeed;
+        Time.timeScale = defaultGameplaySpeed;
+        SoundEffectHolder.instance.UnpauseMusic();
+        IsPaused = false;
     }
 
     public void SetGameplaySpeed(int val) {
         Debug.Log("SPEED " + val);
+        gameplaySpeedVal = val;
         switch (val) {
             case 0:
-                currentGameplaySpeed = 1f;
+                defaultGameplaySpeed = 1f;
                 break;
             case 1:
-                currentGameplaySpeed = 0.8f;
+                defaultGameplaySpeed = 0.8f;
                 break;
             case 2:
-                currentGameplaySpeed = 0.6f;
+                defaultGameplaySpeed = 0.6f;
                 break;
         }
-        Time.timeScale = currentGameplaySpeed;
+    }
+
+    public int GetGameplaySpeedVal() {
+        return gameplaySpeedVal;
     }
 
     public void SetDifficulty(int val) {
@@ -178,7 +213,17 @@ public class OptionsManager : MonoBehaviour
         };
     }
 
+    public int GetDifficulty() {
+        return currentDifficulty.currentDifficulty switch
+        {
+            DifficultyEnum.STANDARD => 0,
+            DifficultyEnum.EASY => 1,
+            _ => 0,
+        };
+    }
+
     public class DifficultyOptions {
+        public DifficultyEnum currentDifficulty;
         public float enemySpeedMultiplier; //check
         public float enemyDamageMultiplier; //check
         public float enemyImmunityFrameMultiplier; //check
@@ -191,6 +236,7 @@ public class OptionsManager : MonoBehaviour
         // public float gameplaySpeedMultiplier;
 
         public DifficultyOptions(DifficultyEnum difficultyEnum) {
+            currentDifficulty = difficultyEnum;
             switch(difficultyEnum) {
                 case DifficultyEnum.STANDARD:
                     InitStandard();

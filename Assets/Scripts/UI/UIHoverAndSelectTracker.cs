@@ -1,0 +1,34 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+
+public class UIHoverAndSelectTracker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
+{
+
+    private bool doDebugPrints = false;
+    public UnityEvent onSelect;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        onSelect.Invoke();
+        CurrentSelectionManager.Instance.UpdateSelection(gameObject);
+        if (doDebugPrints) Debug.Log("Hovered over: " + gameObject.name);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (doDebugPrints) Debug.Log("Stopped hovering over: " + gameObject.name);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        onSelect.Invoke();
+        CurrentSelectionManager.Instance.UpdateSelection(gameObject);
+        if (doDebugPrints) Debug.Log("Selected: " + gameObject.name);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        if (doDebugPrints) Debug.Log("Deselected: " + gameObject.name);
+    }
+}

@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Text.RegularExpressions;
+using UnityEngine.Events;
 using System;
 
 public class TutorialTextTrigger : IOptionObserver
@@ -14,6 +15,9 @@ public class TutorialTextTrigger : IOptionObserver
     [SerializeField, TextArea]
     private string serializedTextField;
     private TextMeshProUGUI textDisplay;
+    public UnityEvent onStartCollision;
+
+
 
     private PlayerInput playerInput;
 
@@ -27,7 +31,7 @@ public class TutorialTextTrigger : IOptionObserver
     {
         if (other.gameObject.CompareTag("Player") && (canTriggerAgain || !alreadyTriggered))
         {
-
+            onStartCollision.Invoke();
             textDisplay.text = ProcessString(serializedTextField);
             alreadyTriggered = true;
         }

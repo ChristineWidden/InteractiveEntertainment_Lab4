@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class Enemy : IOptionObserver
 {    
 
@@ -16,10 +16,11 @@ public class Enemy : IOptionObserver
     private float stunTimer;
 
     private Collider2D thisCollider;
+    private Rigidbody2D thisRigidbody;
     private SpriteRenderer sprite;
 
-    private Animator animator;
-    private string currentAnimState;
+    private MyAnimator myAnimator;
+    private string currentState;
     [SerializeField] private string defaultAnimState;
     [SerializeField] private string hurtAnimState;
     [SerializeField] private string idleAnimState;
@@ -47,9 +48,12 @@ public class Enemy : IOptionObserver
     void Start()
     {
         thisCollider = GetComponent<Collider2D>();
+        thisRigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        ChangeAnimationState(defaultAnimState);
+
+        myAnimator = GetComponent<MyAnimator>();
+        myAnimator.ChangeAnimationState(defaultAnimState);
+
         originalAlpha = sprite.material.GetFloat("_Alpha");
         stunAlpha = originalAlpha * 0.5f;
         thisCollider.isTrigger = false; // Initially, collider acts as solid
@@ -104,6 +108,7 @@ public class Enemy : IOptionObserver
     }
 
     void GetFrozen(float freezeTime) {
+        sprite.color = Color.cyan;
         if (TryGetComponent<GuardMovement2>(out var guardMovement)) {
             guardMovement.Freeze(freezeTime);
         } else {
@@ -112,6 +117,13 @@ public class Enemy : IOptionObserver
         if (TryGetComponent<JumpPeriodically>(out var jumpPeriodically)) {
             jumpPeriodically.Freeze(freezeTime);
         }
+        StartCoroutine(UnFreeze(freezeTime));
+    }
+
+    IEnumerator UnFreeze(float freezeTime)
+    {
+        yield return new WaitForSeconds(freezeTime);
+        sprite.color = Color.white;
     }
 
     void GetStunned(float stunTime)
@@ -157,12 +169,14 @@ public class Enemy : IOptionObserver
     {
         // TODO: Add death animation
         Debug.Log("DYING!");
+        sprite.flipY = true;
+        GetFrozen(10000);
+        Invoke(nameof(DestroySelf), 500); // 4294967295
+        thisRigidbody.excludeLayers = LayerMask.GetMask("World");
+    }
+
+    void DestroySelf() {
         Destroy(gameObject);
     }
 
-    public void ChangeAnimationState(string newState) {
-        if (currentAnimState == newState) return;
-        animator.Play(newState);
-        currentAnimState = newState;
-    }
 }

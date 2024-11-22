@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7702778099302496240}
   - component: {fileID: 4583549294302239939}
   - component: {fileID: -2184800969378858534}
+  - component: {fileID: 1894272213435622150}
   m_Layer: 0
   m_Name: Powerup_Pie
   m_TagString: PowerUp
@@ -166,3 +167,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standardRenderMaterial: {fileID: 2100000, guid: e2632be821698d04e85e57946a14637a, type: 2}
   highContrastMaterial: {fileID: 2100000, guid: e2632be821698d04e85e57946a14637a, type: 2}
+--- !u!114 &1894272213435622150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181098823716504414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255e9a79b0a1dc64eae90acfcd812253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standardSprite: {fileID: -1098505229, guid: 2020964393a6dda409815b2c52540e86, type: 3}
+  alternateSprite: {fileID: 1457248452, guid: b835682d52b94c14ca5e6cc9db48868f, type: 3}
+  associatedOption: 2

@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1921863951552169056}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -170,7 +169,6 @@ RectTransform:
   m_Children:
   - {fileID: 1921863950961725755}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -237,9 +235,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.16078432, g: 0.33333334, b: 0.32941177, a: 1}
-    m_HighlightedColor: {r: 0.3014706, g: 0.625, b: 0.61764705, a: 1}
+    m_HighlightedColor: {r: 0.36348164, g: 0.83396226, b: 0.8282247, a: 1}
     m_PressedColor: {r: 0.092611775, g: 0.192, b: 0.18974118, a: 1}
-    m_SelectedColor: {r: 0.3019608, g: 0.62352943, b: 0.61960787, a: 1}
+    m_SelectedColor: {r: 0.43153432, g: 0.85660374, b: 0.85142, a: 1}
     m_DisabledColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

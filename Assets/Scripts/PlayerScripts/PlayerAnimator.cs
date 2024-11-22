@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using System;
 
@@ -30,8 +29,9 @@ public class PlayerAnimator : MonoBehaviour
     public Vector2 velocity;
 
     private PlayerInput playerInput;
-    private Animator animator;
-    private string currentState;
+    public string currentState;
+
+    private MyAnimator myAnimator;
 
     [SerializeField] private Sprite[] standardSprites;
     [SerializeField] private Sprite[] poweredUpSprites;
@@ -39,44 +39,42 @@ public class PlayerAnimator : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        myAnimator = GetComponent<MyAnimator>();
         playerInput = GetComponent<PlayerInput>();
     }
 
     void Update() {
+        if (OptionsManager.Instance.IsPaused) return;
+        
         if (animatingHurt) {
-            ChangeAnimationState(GoblinAnimation.HURT);
+            myAnimator.ChangeAnimationState(GoblinAnimation.HURT);
             return;
         }
 
         if (!onGround) {
-            ChangeAnimationState(GoblinAnimation.AIR);
+            myAnimator.ChangeAnimationState(GoblinAnimation.AIR);
             return;
         }
 
         if (playerInput.actions["Crouch"].ReadValue<float>() > 0.5f) {
-            ChangeAnimationState(GoblinAnimation.CROUCH);
+            myAnimator.ChangeAnimationState(GoblinAnimation.CROUCH);
             return;
         }
 
         float absVelX = Math.Abs(velocity.x);
 
         if (absVelX > walkToRunThreshold) {
-            ChangeAnimationState(GoblinAnimation.RUN);
+            myAnimator.ChangeAnimationState(GoblinAnimation.RUN);
             return;
         }
 
         if (absVelX > standToWalkThreshold) {
-            ChangeAnimationState(GoblinAnimation.WALK);
+            myAnimator.ChangeAnimationState(GoblinAnimation.WALK);
             return;
         }
 
-        ChangeAnimationState(GoblinAnimation.STAND);
+        myAnimator.ChangeAnimationState(GoblinAnimation.STAND);
     }
 
-    public void ChangeAnimationState(string newState) {
-        if (currentState == newState) return;
-        animator.Play(newState);
-        currentState = newState;
-    }
+
 }
