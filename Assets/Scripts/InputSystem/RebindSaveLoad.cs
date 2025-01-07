@@ -8,33 +8,33 @@ public class RebindSaveLoad : IOptionObserver
     private List<IActionUser> actionUsers = new List<IActionUser>();
 
     // Singleton instance
-    private static RebindSaveLoad instance;
+    // private static RebindSaveLoad instance;
 
-    public static RebindSaveLoad Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new GameObject("RebindSaveLoad").AddComponent<RebindSaveLoad>();
-                DontDestroyOnLoad(instance.gameObject);
-            }
-            return instance;
-        }
-    }
+    // public static RebindSaveLoad Instance
+    // {
+    //     get
+    //     {
+    //         if (instance == null)
+    //         {
+    //             instance = new GameObject("RebindSaveLoad").AddComponent<RebindSaveLoad>();
+    //             DontDestroyOnLoad(instance.gameObject);
+    //         }
+    //         return instance;
+    //     }
+    // }
 
     // Register an observer
-    public void RegisterObserver(IActionUser observer)
-    {
-        if (!actionUsers.Contains(observer))
-            actionUsers.Add(observer);
-    }
+    // public void RegisterObserver(IActionUser observer)
+    // {
+    //     if (!actionUsers.Contains(observer))
+    //         actionUsers.Add(observer);
+    // }
 
-    // Unregister an observer
-    public void UnregisterObserver(IActionUser observer)
-    {
-        actionUsers.Remove(observer);
-    }
+    // // Unregister an observer
+    // public void UnregisterObserver(IActionUser observer)
+    // {
+    //     actionUsers.Remove(observer);
+    // }
 
 
     public new void OnEnable()
