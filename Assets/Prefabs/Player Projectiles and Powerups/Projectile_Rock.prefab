@@ -160,10 +160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 1, y: 0}
-  description: Moves medium, stuns briefly
+  description: Moves at a standard speed, stuns enemies briefly
   existTime: 4
   moveSpeed: 7
-  stunTime: 0.5
+  stunTime: 1
   doesKill: 0
   freezeTime: 0
 --- !u!114 &8992377297123995568

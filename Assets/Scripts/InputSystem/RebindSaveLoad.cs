@@ -41,14 +41,14 @@ public class RebindSaveLoad : IOptionObserver
     {
         base.OnEnable();
 
-        // Debug.Log("Loading controls");
+        Debug.Log("RebindSaveLoad enabled", gameObject);
         // var rebinds = PlayerPrefs.GetString("rebinds");
         // if (!string.IsNullOrEmpty(rebinds))
         //     actions.LoadBindingOverridesFromJson(rebinds);
     }
 
     public void Start() {
-        Debug.Log("Loading controls");
+        Debug.Log("RebindSaveLoad started, Loading controls", gameObject);
         var rebinds = PlayerPrefs.GetString("rebinds");
         if (!string.IsNullOrEmpty(rebinds))
             actions.LoadBindingOverridesFromJson(rebinds);
@@ -62,7 +62,7 @@ public class RebindSaveLoad : IOptionObserver
     {
         var rebinds = PlayerPrefs.GetString("rebinds");
         if (!string.IsNullOrEmpty(rebinds)) {
-            Debug.Log("Loading changed controls");
+            Debug.Log("Loading changed controls", gameObject);
             actions.LoadBindingOverridesFromJson(rebinds);
             foreach (var observer in actionUsers)
             {
@@ -75,10 +75,10 @@ public class RebindSaveLoad : IOptionObserver
     {
         base.OnDisable();
 
-        Debug.Log("Saving controls");
+        Debug.Log("Disabling RebindSaveLoad and Saving controls");
         var rebinds = actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
-        Debug.Log("Controls saved.");
+        Debug.Log("Controls saved successfully.");
     }
 
     

@@ -2350,6 +2350,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2234899808473108606, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: nextScene
+      value: Level 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2315284499148549515, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: healthBar
       value: 
@@ -32771,12 +32775,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.624517
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10.241212
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.74
+      value: 63.4687
       objectReference: {fileID: 0}
     - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 2.0756
       objectReference: {fileID: 0}
     - target: {fileID: 5001795028847326708, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_SortingOrder
@@ -32788,6 +32800,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5179689482797155951, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744672876247590868, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_Color.a
+      value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744672876247590868, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744672876247590868, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744672876247590868, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_Color.r
+      value: 0.007511758
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744672876247590868, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5961190087244900971, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
@@ -41607,6 +41639,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2271215724624307154, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       insertIndex: 8
       addedObject: {fileID: 743153776}
+    - targetCorrespondingSourceObject: {fileID: 6060259138567806009, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2022301780}
   m_SourcePrefab: {fileID: 100100000, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
 --- !u!4 &743153772 stripped
 Transform:
@@ -42831,6 +42866,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 592217238518638132, guid: 49441de81d6286f4cb6feab0c67e9de1, type: 3}
   m_PrefabInstance: {fileID: 1081938967}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2022301775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6060259138567806009, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+  m_PrefabInstance: {fileID: 743153771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2022301780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022301775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11fc6d31db2d93f4ea2a4c255fae6e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &2091181374 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1029347353223849939, guid: 365e3a0eb1459784fb6ba24bef138b53, type: 3}

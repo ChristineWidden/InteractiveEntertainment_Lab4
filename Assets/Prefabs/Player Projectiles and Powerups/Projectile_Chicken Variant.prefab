@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7978621385387773963, guid: c03e9287ebf3a8c469a9776dee9a9f27, type: 3}
       propertyPath: description
-      value: Moves slow, freezes
+      value: Moves slow, freezes enemies for a bit of time
       objectReference: {fileID: 0}
     - target: {fileID: 7611431907407685534, guid: c03e9287ebf3a8c469a9776dee9a9f27, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
