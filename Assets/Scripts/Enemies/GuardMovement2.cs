@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
-public class GuardMovement2 : MonoBehaviour
+public class GuardMovement2 : IOptionObserver
 {
 
     private Physics physics;
@@ -35,5 +36,13 @@ public class GuardMovement2 : MonoBehaviour
     {
         yield return new WaitForSeconds(freezeTime);
         frozen = false;
+    }
+
+
+    public override void OnOptionChanged()
+    {
+        OptionsManager optionsManager = OptionsManager.Instance != null ? OptionsManager.Instance : throw new ArgumentNullException("Options manager was null");
+        physics.setSpeedMultiplier(optionsManager.currentDifficulty.enemySpeedMultiplier);
+        physics.UpdateDifficulty();
     }
 }

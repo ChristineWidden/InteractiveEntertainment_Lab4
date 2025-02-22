@@ -17,6 +17,7 @@ public class PlayerController : IOptionObserver
 
     // Indirectly attached stuff
     [SerializeField] private SpecialCollider rayTrace;
+    [SerializeField] private SpecialCollider dangerAlert;
     [SerializeField] private SpecialCollider hurtbox;
 
 
@@ -119,10 +120,12 @@ public class PlayerController : IOptionObserver
         if (physics.facingRight)
         {
             rayTrace.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            dangerAlert.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
             rayTrace.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            dangerAlert.gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
         bool autoFireRock = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.AUTO_FIRE_ON)
                             && rayTrace.numCollisions > 0;
@@ -145,8 +148,8 @@ public class PlayerController : IOptionObserver
         if (immunityTimer > 0) return;
 
         immunityTimer = immunitySeconds;
-        currentHealth -= DAMAGE;
-        SoundEffectHolder.instance.PlaySoundEffect(hurtSoundEffect);
+        currentHealth -= (int)(DAMAGE * OptionsManager.Instance.currentDifficulty.enemyDamageMultiplier);
+        SoundEffectHolder.instance.PlayClip(SoundEffectHolder.instance.SoundEffect, hurtSoundEffect);
 
         // hurtSoundEffect.Play();
         if (currentHealth < 1)
@@ -206,8 +209,7 @@ public class PlayerController : IOptionObserver
     {
         if (OptionsManager.Instance.IsPaused) return;
 
-
-        SoundEffectHolder.instance.PlaySoundEffect(throwSoundEffect);
+        SoundEffectHolder.instance.PlayClip(SoundEffectHolder.instance.SoundEffect, throwSoundEffect);
         // throwSoundEffect.Play();
 
         rockCountdown = ROCK_THROW_WAIT;
@@ -229,7 +231,7 @@ public class PlayerController : IOptionObserver
 
     public void Jump()
     {
-        SoundEffectHolder.instance.PlaySoundEffect(jumpSoundEffect);
+        SoundEffectHolder.instance.PlayClip(SoundEffectHolder.instance.SoundEffect, jumpSoundEffect);
         // jumpSoundEffect.Play();
     }
 

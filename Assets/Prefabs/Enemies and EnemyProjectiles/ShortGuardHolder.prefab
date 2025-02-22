@@ -459,6 +459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenOnHitBase: 1
   immunitySecondsBase: 0.2
+  footsteps: {fileID: 8300000, guid: c316502bd83ec7a45ae8033bd562d11f, type: 3}
   defaultAnimState: ShortGuard
   hurtAnimState: ShortGuard
   idleAnimState: ShortGuard

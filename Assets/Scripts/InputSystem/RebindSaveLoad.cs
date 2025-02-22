@@ -8,33 +8,49 @@ public class RebindSaveLoad : IOptionObserver
     private List<IActionUser> actionUsers = new List<IActionUser>();
 
     // Singleton instance
-    // private static RebindSaveLoad instance;
+    private static RebindSaveLoad instance;
 
-    // public static RebindSaveLoad Instance
-    // {
-    //     get
-    //     {
-    //         if (instance == null)
-    //         {
-    //             instance = new GameObject("RebindSaveLoad").AddComponent<RebindSaveLoad>();
-    //             DontDestroyOnLoad(instance.gameObject);
-    //         }
-    //         return instance;
-    //     }
-    // }
+    public static RebindSaveLoad Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GameObject("RebindSaveLoad").AddComponent<RebindSaveLoad>();
+                Debug.Log("RebindSaveLoad: enabling don't destroy on load");
+                DontDestroyOnLoad(instance.gameObject);
+            } else {
+                Debug.Log(instance);
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        // Ensure only one instance exists
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     // Register an observer
-    // public void RegisterObserver(IActionUser observer)
-    // {
-    //     if (!actionUsers.Contains(observer))
-    //         actionUsers.Add(observer);
-    // }
+    public void RegisterObserver(IActionUser observer)
+    {
+        if (!actionUsers.Contains(observer))
+            actionUsers.Add(observer);
+    }
 
-    // // Unregister an observer
-    // public void UnregisterObserver(IActionUser observer)
-    // {
-    //     actionUsers.Remove(observer);
-    // }
+    // Unregister an observer
+    public void UnregisterObserver(IActionUser observer)
+    {
+        actionUsers.Remove(observer);
+    }
 
 
     public new void OnEnable()
@@ -48,6 +64,7 @@ public class RebindSaveLoad : IOptionObserver
     }
 
     public void Start() {
+
         Debug.Log("RebindSaveLoad started, Loading controls", gameObject);
         var rebinds = PlayerPrefs.GetString("rebinds");
         if (!string.IsNullOrEmpty(rebinds))

@@ -7,6 +7,8 @@ public class CrossSceneCommunicator : MonoBehaviour
     // Singleton instance
     private static CrossSceneCommunicator instance;
 
+    public static string currentLevel;
+
     public static CrossSceneCommunicator Instance
     {
         get

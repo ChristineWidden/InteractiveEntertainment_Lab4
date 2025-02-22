@@ -315,11 +315,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 10
   acceleration: 100
+  decelerationMultiplier: 1
   maxSpeedBase: 0
   gravityValue: -9.81
   usesSpecialGroundCollider: 0
   facingRight: 0
   velocity: {x: 0, y: 0}
+  trueVelocity: {x: 0, y: 0}
   HInput: 0
   CrouchInput: 0
   JumpInput: 0

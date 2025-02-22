@@ -20,6 +20,8 @@ public class CopyOverridenBindings : IActionUser
         InputActionMap b = originalInputs.FindActionMap(actionMapName);
 
         CopyOverridenBindingsFunc(a,b);
+
+        Debug.Log("Overwritten bindings copied.");
     }
 
     private void CopyOverridenBindingsFunc(InputActionMap copyActionMap, InputActionMap originalActionMap)

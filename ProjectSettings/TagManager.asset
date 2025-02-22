@@ -12,6 +12,7 @@ TagManager:
   - PowerUp
   - Enemy
   - JumpTrigger
+  - Pit
   layers:
   - Default
   - TransparentFX

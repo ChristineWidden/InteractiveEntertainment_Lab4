@@ -9,15 +9,19 @@ using UnityEngine.UI;
 public class CurrentSelectionManager : MonoBehaviour
 {
 
+    private bool doDebugPrints = false;
+
     public static CurrentSelectionManager Instance = null;
     GameObject selectedObj = null;
     [SerializeField] public UnityEvent<GameObject> selectionChangedEvent;    
 
     private void OnEnable()
     {
+        Debug.Log("Current Selection Manager enabled");
         // Check if the instance already exists
         if (Instance != null && Instance != this)
         {
+            Debug.Log("Current Selection Manager already exists, destroying copy", gameObject);
             Destroy(gameObject); // Destroy this instance if another already exists
             return;
         }
@@ -29,7 +33,7 @@ public class CurrentSelectionManager : MonoBehaviour
     void Update()
     {
         GameObject newSelectedObj = EventSystem.current.currentSelectedGameObject;
-        CheckNotifyUpdate(newSelectedObj);
+        // CheckNotifyUpdate(newSelectedObj);
     }
 
     public void UpdateSelection(GameObject newSelectedObj) {        
@@ -37,7 +41,14 @@ public class CurrentSelectionManager : MonoBehaviour
     }
 
     private void CheckNotifyUpdate(GameObject newSelectedObj) {
-        if (newSelectedObj == null || newSelectedObj == selectedObj) return;
+        if (newSelectedObj == null) {
+            if (doDebugPrints) Debug.Log("New selected object was null.");
+            return;
+        }
+        if (newSelectedObj == selectedObj) {
+            if (doDebugPrints) Debug.Log("New selected object was the same as the previous.");
+            return;
+        }
 
         selectedObj = newSelectedObj;
         selectionChangedEvent.Invoke(selectedObj);

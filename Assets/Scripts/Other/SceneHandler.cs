@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
-    [SerializeField] GameObject fadeTransition;
-    private SpriteRenderer sprite;
-    private float currentValue;
 
     private PlayerInput playerInput;
 
@@ -29,16 +26,12 @@ public class SceneHandler : MonoBehaviour
 
     void Start()
     {
-        sprite = fadeTransition.GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
-        
-        sprite.color = new Color(0, 0, 0, 0);
-        StartCoroutine(InterpolateFloat(1, 0, 0.5f));
     }
+
 
     void Update()
     {
-        sprite.color = new Color(0, 0, 0, currentValue);
 
         if (waitBeforePause >= 0)
         {
@@ -49,7 +42,6 @@ public class SceneHandler : MonoBehaviour
         if (gameOver && !gameOverLoaded) {
             gameOverLoaded = true;
             SceneManager.LoadScene("Game Over", LoadSceneMode.Additive);
-            sprite.color = new Color(0, 0, 0, 0.5f);
             
             paused = true;
             OptionsManager.Instance.Pause();
@@ -90,31 +82,4 @@ public class SceneHandler : MonoBehaviour
         paused = false;
     }
 
-    public void TransitionScene(string scene)
-    {
-        StartCoroutine(
-                // TODO get transitions working
-                InterpolateFloat(0, 1, 2f));
-    }
-
-
-    private IEnumerator InterpolateFloat(float startValue, float endValue, float duration)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            // Calculate the current value based on the interpolation progress
-            currentValue = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
-
-            // Uncomment the line below if you want to use SmoothStep instead of Lerp
-            // currentValue = Mathf.SmoothStep(startValue, endValue, elapsedTime / duration);
-
-            // Update the elapsed time
-            elapsedTime += Time.deltaTime;
-
-            yield return null; // Wait for the next frame
-        }
-        currentValue = endValue;
-    }
 }

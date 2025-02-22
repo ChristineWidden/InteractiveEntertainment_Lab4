@@ -6,13 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    [SerializeField] private string introScene;
+    [SerializeField] private string playLevel;
     [SerializeField] private string creditsScene;
-    private string currentLevel;
 
     public void PlayButtonClicked()
     {
-        SceneManager.LoadScene(introScene);
+        SceneManager.LoadScene(playLevel);
+    }
+
+    public void MainMenuButtonClicked()
+    {
+        SceneHandler.instance.Unpause();
+        SceneManager.LoadScene("Menu");
     }
 
     public void ExitButtonClicked()
@@ -23,6 +28,7 @@ public class MenuButtons : MonoBehaviour
 
     public void CreditsButtonClicked()
     {
+        SceneHandler.instance.Unpause();
         SceneManager.LoadScene(creditsScene);
     }
 

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using UnityEngine.Audio;
 using UnityEngine;
 using System;
 
 public enum BooleanOptionEnum
 {
-    MUSIC_MUTED,
+    NARRATION_MUTED,
     HIGH_CONTRAST_ON,
     LARGER_POWERUPS_ON,
     LARGER_PROJECTILES_ON,
@@ -13,6 +14,7 @@ public enum BooleanOptionEnum
     AUTO_JUMP_ON,
     SPRITE_OUTLINES_ON,
     SMALL_HEALTH_RING,
+    AUDIO_NAVIGATION_ON, // TODO make this actually toggle!
 }
 
 public enum MultiOptionEnum
@@ -22,7 +24,7 @@ public enum MultiOptionEnum
 
 public enum DifficultyEnum
 {
-    STANDARD, EASY,
+    STANDARD, EASY, HARD, INVULNERABLE
 }
 
 public class OptionsManager : MonoBehaviour
@@ -49,7 +51,11 @@ public class OptionsManager : MonoBehaviour
     public DifficultyOptions currentDifficulty;
     private DifficultyOptions standardDifficulty = new(DifficultyEnum.STANDARD);
     private DifficultyOptions easyDifficulty = new(DifficultyEnum.EASY);
+    private DifficultyOptions hardDifficulty = new(DifficultyEnum.HARD);
+    private DifficultyOptions invulnerableDifficulty = new(DifficultyEnum.INVULNERABLE);
     public bool IsPaused {get; private set;}
+
+    [SerializeField] private AudioMixer mixer;
 
     // List of observers
     private List<IOptionObserver> observers = new List<IOptionObserver>();
@@ -64,6 +70,8 @@ public class OptionsManager : MonoBehaviour
     [SerializeField] private bool autoJumpOn;
     [SerializeField] private bool spriteOutlinesOn;
     [SerializeField] private bool smallHealthRing;
+    [SerializeField] private bool audioNavigationOn;
+    [SerializeField] private bool environmentProximityOn;
 
     private void Awake()
     {
@@ -122,7 +130,7 @@ public class OptionsManager : MonoBehaviour
     public void SetBooleanOption(BooleanOptionEnum option, bool newValue) {
         switch (option)
         {
-            case BooleanOptionEnum.MUSIC_MUTED:
+            case BooleanOptionEnum.NARRATION_MUTED:
                 musicMuted = newValue;
                 break;
             case BooleanOptionEnum.HIGH_CONTRAST_ON:
@@ -149,6 +157,9 @@ public class OptionsManager : MonoBehaviour
             case BooleanOptionEnum.SMALL_HEALTH_RING:
                 smallHealthRing = newValue;
                 break;
+            case BooleanOptionEnum.AUDIO_NAVIGATION_ON:
+                audioNavigationOn = newValue;
+                break;
             default:
                 throw new Exception("No implemented behavior for option " + option);
         }
@@ -158,7 +169,7 @@ public class OptionsManager : MonoBehaviour
     public bool GetBooleanOption(BooleanOptionEnum option) {
         return option switch
         {
-            BooleanOptionEnum.MUSIC_MUTED => musicMuted,
+            BooleanOptionEnum.NARRATION_MUTED => musicMuted,
             BooleanOptionEnum.HIGH_CONTRAST_ON => highContrastOn,
             BooleanOptionEnum.LARGER_POWERUPS_ON => largerPowerupsOn,
             BooleanOptionEnum.LARGER_PROJECTILES_ON => largerProjectilesOn,
@@ -167,6 +178,7 @@ public class OptionsManager : MonoBehaviour
             BooleanOptionEnum.AUTO_JUMP_ON => autoJumpOn,
             BooleanOptionEnum.SPRITE_OUTLINES_ON => spriteOutlinesOn,
             BooleanOptionEnum.SMALL_HEALTH_RING => smallHealthRing,
+            BooleanOptionEnum.AUDIO_NAVIGATION_ON => audioNavigationOn,
             _ => throw new Exception("No implemented behavior for option " + option),
         };
     }
@@ -174,12 +186,12 @@ public class OptionsManager : MonoBehaviour
 
     public void Pause() {
         Time.timeScale = 0;
-        SoundEffectHolder.instance.PauseMusic();
+        SoundEffectHolder.instance.PauseAllNonNarration();
         IsPaused = true;
     }
     public void Unpause() {
         Time.timeScale = defaultGameplaySpeed;
-        SoundEffectHolder.instance.UnpauseMusic();
+        SoundEffectHolder.instance.UnpauseAllNonNarration();
         IsPaused = false;
     }
 
@@ -209,6 +221,8 @@ public class OptionsManager : MonoBehaviour
         {
             0 => standardDifficulty,
             1 => easyDifficulty,
+            2 => hardDifficulty,
+            3 => invulnerableDifficulty,
             _ => standardDifficulty,
         };
     }
@@ -218,6 +232,8 @@ public class OptionsManager : MonoBehaviour
         {
             DifficultyEnum.STANDARD => 0,
             DifficultyEnum.EASY => 1,
+            DifficultyEnum.HARD => 2,
+            DifficultyEnum.INVULNERABLE => 3,
             _ => 0,
         };
     }
@@ -244,6 +260,12 @@ public class OptionsManager : MonoBehaviour
                 case DifficultyEnum.EASY:
                     InitEasy();
                     break;
+                case DifficultyEnum.HARD:
+                    InitHard();
+                    break;
+                case DifficultyEnum.INVULNERABLE:
+                    InitInvulnerable();
+                    break;
                 default:
                     InitStandard();
                     break;
@@ -268,6 +290,28 @@ public class OptionsManager : MonoBehaviour
             playerImmunityFrameMultiplier = 2;
             enemyImmunityFrameMultiplier = 1;
             playerProjectileFrequencyMultiplier = 0.5f;
+            playerProjectileEffectDurationMultiplier = 1;
+            powerUpRespawnMultiplier = 1;
+        }
+
+        private void InitInvulnerable() {
+            enemySpeedMultiplier = 1;
+            enemyDamageMultiplier = 0;
+            // gameplaySpeedMultiplier = 1;
+            playerImmunityFrameMultiplier = 1;
+            enemyImmunityFrameMultiplier = 1;
+            playerProjectileFrequencyMultiplier = 1;
+            playerProjectileEffectDurationMultiplier = 1;
+            powerUpRespawnMultiplier = 1;
+        }
+
+        private void InitHard() {
+            enemySpeedMultiplier = 1;
+            enemyDamageMultiplier = 1;
+            // gameplaySpeedMultiplier = 1;
+            playerImmunityFrameMultiplier = 1;
+            enemyImmunityFrameMultiplier = 1;
+            playerProjectileFrequencyMultiplier = 1;
             playerProjectileEffectDurationMultiplier = 1;
             powerUpRespawnMultiplier = 1;
         }

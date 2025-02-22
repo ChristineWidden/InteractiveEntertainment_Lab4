@@ -15,6 +15,7 @@ public class Physics : IOptionObserver
 
     [SerializeField] private float jumpHeight;
     [SerializeField] private float acceleration;
+    [SerializeField] private float decelerationMultiplier = 1;
 
     [SerializeField] private float maxSpeedBase;
     private float maxSpeed;
@@ -25,12 +26,16 @@ public class Physics : IOptionObserver
     public bool onGround { get; private set; }
     private int numGrounds = 0;
 
-    [HideInInspector] public bool facingRight;
-    [HideInInspector] public Vector2 velocity = new(0, 0);
+    public bool facingRight;
+    public Vector2 velocity = new(0, 0);
+    private Vector2 prevPosition = new(0, 0);
+    public Vector2 trueVelocity = new(0, 0);
 
     [HideInInspector] public float HInput;
     [HideInInspector] public float CrouchInput;
     [HideInInspector] public float JumpInput;
+
+    private float speedMultiplier = 1;
 
     public UnityEvent onJump;
     public UnityEvent onLeaveGround;
@@ -42,17 +47,19 @@ public class Physics : IOptionObserver
 
     private new void OnEnable()
     {
+        speedMultiplier = 1;
         base.OnEnable();
         UpdateDifficulty();
+
+        prevPosition = transform.position.xy();
     }
     public override void OnOptionChanged()
     {
         UpdateDifficulty();
     }
-    private void UpdateDifficulty()
+    public void UpdateDifficulty()
     {
-        OptionsManager optionsManager = OptionsManager.Instance != null ? OptionsManager.Instance : throw new ArgumentNullException("Options manager was null");
-        maxSpeed = maxSpeedBase * optionsManager.currentDifficulty.enemySpeedMultiplier;
+        maxSpeed = maxSpeedBase * speedMultiplier;
     }
 
     void Start()
@@ -69,11 +76,17 @@ public class Physics : IOptionObserver
         if (onGround && (CrouchInput > 0.5f))
         {
             // if crouching, slow to a halt
-            velocity.x = Mathf.MoveTowards(velocity.x, 0, acceleration * maxSpeed * Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, 0, 
+                        decelerationMultiplier * acceleration * maxSpeed * Time.deltaTime);
+        }
+        else if ((HInput / Math.Abs(HInput)) * (velocity.x / Math.Abs(velocity.x)) < 0) {
+            velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, 
+                        decelerationMultiplier * acceleration * maxSpeed * Time.deltaTime);
         }
         else
         {
-            velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, acceleration * maxSpeed * Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, HInput * maxSpeed, 
+                        acceleration * maxSpeed * Time.deltaTime);
         }
 
         if (velocity.y < 0)
@@ -115,6 +128,9 @@ public class Physics : IOptionObserver
         position += velocity * Time.deltaTime;
 
         rb.MovePosition(position);
+        
+        trueVelocity = (transform.position.xy() - prevPosition) / Time.deltaTime;
+        prevPosition = transform.position.xy();
     }
 
     public void setOnGround(bool state)
@@ -131,6 +147,9 @@ public class Physics : IOptionObserver
         }
     }
 
+    public void setSpeedMultiplier(float speed) {
+        speedMultiplier = speed;
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -154,5 +173,9 @@ public class Physics : IOptionObserver
                 onLeaveGround.Invoke();
             }
         }
+    }
+
+    public float GetMaxSpeed() {
+        return maxSpeed;
     }
 }

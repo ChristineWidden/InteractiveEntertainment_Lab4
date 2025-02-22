@@ -10,8 +10,8 @@ public class UIHoverAndSelectTracker : MonoBehaviour, IPointerEnterHandler, IPoi
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        EventSystem.current.SetSelectedGameObject(gameObject);
         onSelect.Invoke();
-        CurrentSelectionManager.Instance.UpdateSelection(gameObject);
         if (doDebugPrints) Debug.Log("Hovered over: " + gameObject.name);
     }
 

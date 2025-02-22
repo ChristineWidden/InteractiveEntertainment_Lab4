@@ -6,10 +6,12 @@ public class PlayerPhysics : MonoBehaviour
     //https://youtu.be/nPigL-dIqgE
     //https://www.youtube.com/watch?v=SPe1xh4D7Wg
 
-    public float acceleration;
-    public float maxSpeed;
+    // public float acceleration;
+    // public float maxSpeed;
+    // public float maxSprintSpeed;
 
-    public float jumpHeight;
+
+    // public float jumpHeight;
 
     public bool touchingAutoJump;
 

@@ -6,17 +6,18 @@ public class PlayAudioClip : IOptionObserver
     private bool doPlayAudio;
 
     void Start() {
-        doPlayAudio = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.MUSIC_MUTED); // TODO update to narration
+        doPlayAudio = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.NARRATION_MUTED);
     }
 
     public void PlayAudio() {
         Debug.Log("Narration played!");
-        if (doPlayAudio) SoundEffectHolder.instance.PlayNarration(audioClip);
+        if (doPlayAudio) SoundEffectHolder.instance.PlayClip(
+                                        SoundEffectHolder.instance.Narration, 
+                                        audioClip);
     }
 
     public override void OnOptionChanged()
     {
-        doPlayAudio = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.MUSIC_MUTED); // TODO update to narration
-
+        doPlayAudio = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.NARRATION_MUTED);
     }
 }

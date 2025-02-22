@@ -15,6 +15,8 @@ public class Enemy : IOptionObserver
     private bool stunned;
     private float stunTimer;
 
+    [SerializeField] private AudioClip footsteps;
+
     private Collider2D thisCollider;
     private Rigidbody2D thisRigidbody;
     private SpriteRenderer sprite;
@@ -167,7 +169,6 @@ public class Enemy : IOptionObserver
 
     void Die()
     {
-        // TODO: Add death animation
         Debug.Log("DYING!");
         sprite.flipY = true;
         GetFrozen(10000);
@@ -177,6 +178,10 @@ public class Enemy : IOptionObserver
 
     void DestroySelf() {
         Destroy(gameObject);
+    }
+
+    public AudioClip getFootsteps() {
+        return footsteps;
     }
 
 }
