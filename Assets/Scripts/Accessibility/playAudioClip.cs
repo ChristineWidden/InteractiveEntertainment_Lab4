@@ -10,10 +10,12 @@ public class PlayAudioClip : IOptionObserver
     }
 
     public void PlayAudio() {
-        Debug.Log("Narration played!");
-        if (doPlayAudio) SoundEffectHolder.instance.PlayClip(
+        if (doPlayAudio) {
+            Debug.Log("Narration played!");
+            SoundEffectHolder.instance.PlayClip(
                                         SoundEffectHolder.instance.Narration, 
                                         audioClip);
+        }
     }
 
     public override void OnOptionChanged()

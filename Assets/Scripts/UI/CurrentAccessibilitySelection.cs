@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,12 @@ using UnityEngine.UI;
 public class CurrentAccessibilitySelection : MonoBehaviour
 {
 
-    private Text text;
+    private TextMeshProUGUI text;
 
     private void OnEnable()
     {
-        text = GetComponent<Text>();
+        text = GetComponent<TextMeshProUGUI>();
+        Debug.Log(text);
         CurrentSelectionManager.Instance.selectionChangedEvent.AddListener(UpdateText);
     }
 
