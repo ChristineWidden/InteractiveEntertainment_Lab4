@@ -12,6 +12,7 @@ public class GuardMovement2 : IOptionObserver
     public static int guardCount = 2;
 
     private bool frozen = false;
+    private float freezeTimer = 0;
 
     void Start() {
         physics = gameObject.GetComponent<Physics>();
@@ -19,6 +20,13 @@ public class GuardMovement2 : IOptionObserver
 
     void Update()
     {
+        if (freezeTimer > 0)
+        {
+            freezeTimer -= Time.deltaTime;
+        } else if (frozen) {
+            frozen = false;
+        }
+
         if (!frozen)
         {
             physics.HInput = moveDirection;
@@ -30,12 +38,7 @@ public class GuardMovement2 : IOptionObserver
     public void Freeze(float freezeTime)
     {
         frozen = true;
-        StartCoroutine(UnFreeze(freezeTime));
-    }
-    IEnumerator UnFreeze(float freezeTime)
-    {
-        yield return new WaitForSeconds(freezeTime);
-        frozen = false;
+        freezeTimer = freezeTime;
     }
 
 

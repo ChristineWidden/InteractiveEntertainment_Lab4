@@ -16,7 +16,7 @@ public class SpecialCollider : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        // Debug.Log("Colliding with " + other.collider.tag);
+        // Debug.Log(name + " Colliding with " + other.collider.tag);
         if (collisionTags.Contains(other.gameObject.tag))
         {
             numCollisions++;
@@ -45,6 +45,7 @@ public class SpecialCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Debug.Log("Colliding with " + other.gameObject.tag);
         if (collisionTags.Contains(other.gameObject.tag))
         {
             numCollisions++;

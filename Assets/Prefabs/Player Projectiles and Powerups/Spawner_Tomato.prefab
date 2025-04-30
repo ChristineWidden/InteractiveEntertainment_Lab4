@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: powerUpPrefab
       value: 
       objectReference: {fileID: 3152055825374063880, guid: 491717084ce724e42b6180a54b5b1b78, type: 3}
+    - target: {fileID: 1203076861559550945, guid: f6d7606b9b866e948b38f150661dfc94, type: 3}
+      propertyPath: powerupDescription
+      value: 
+      objectReference: {fileID: 8300000, guid: 117c4de90385fe24b91fb4493a162ea0, type: 3}
     - target: {fileID: 1489467471477271962, guid: f6d7606b9b866e948b38f150661dfc94, type: 3}
       propertyPath: m_Name
       value: Spawner_Tomato
@@ -47,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8480509708058786740, guid: f6d7606b9b866e948b38f150661dfc94, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 494450283, guid: 2020964393a6dda409815b2c52540e86, type: 3}
+      objectReference: {fileID: -754876083, guid: d040daa4f691aba45b4786804cb41dea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

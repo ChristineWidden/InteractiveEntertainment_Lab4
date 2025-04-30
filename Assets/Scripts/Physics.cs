@@ -110,17 +110,20 @@ public class Physics : IOptionObserver
         }
         velocity.y += gravityValue * Time.deltaTime; // apply gravity
 
+        if (HInput < 0) {
+            facingRight = false;
+            GetComponent<SpriteRenderer>().flipX = true;
+        } else if (HInput > 0) {
+            facingRight = true;
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
 
         if (velocity.x < 0)
         {
-            facingRight = false;
-            GetComponent<SpriteRenderer>().flipX = true;
             onMoveLeft.Invoke();
         }
         else if (velocity.x > 0)
         {
-            facingRight = true;
-            GetComponent<SpriteRenderer>().flipX = false;
             onMoveRight.Invoke();
         }
 

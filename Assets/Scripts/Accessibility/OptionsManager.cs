@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public enum BooleanOptionEnum
 {
+    ACCESSIBILITY_ENABLED,
     NARRATION_MUTED,
     HIGH_CONTRAST_ON,
     LARGER_POWERUPS_ON,
@@ -14,7 +16,8 @@ public enum BooleanOptionEnum
     AUTO_JUMP_ON,
     SPRITE_OUTLINES_ON,
     SMALL_HEALTH_RING,
-    AUDIO_NAVIGATION_ON, // TODO make this actually toggle!
+    AUDIO_NAVIGATION_ON,
+    ENVIRONMENT_PROXIMITY_ON,
 }
 
 public enum MultiOptionEnum
@@ -31,6 +34,7 @@ public class OptionsManager : MonoBehaviour
 {
     // Singleton instance
     private static OptionsManager instance;
+    private bool versionLoadedYet = false;
 
     public static OptionsManager Instance
     {
@@ -40,11 +44,32 @@ public class OptionsManager : MonoBehaviour
             {
                 instance = new GameObject("OptionsManager").AddComponent<OptionsManager>();
                 DontDestroyOnLoad(instance.gameObject);
+
+                // UnityEngine.Random.InitState((int)System.DateTime.UtcNow.Ticks); 
+                // instance.accessibilityEnabled = UnityEngine.Random.value >= 0.5f;
+                // System.Random rand = new System.Random(Guid.NewGuid().GetHashCode());
+                int seed = (int)System.DateTime.Now.Ticks;
+                Debug.Log("SEED: " + seed);
+                System.Random rand = new System.Random();
+                double randval = rand.NextDouble();
+                Debug.Log("RANDVAL: " + randval);
+                instance.accessibilityEnabled = randval >= 0.5;
+
                 instance.SetDifficulty(0);
             }
             return instance;
         }
     }
+
+    // private static int GenerateSeed()
+    // {
+    //     int timeSeed = (int)DateTime.UtcNow.Ticks; // Time-based seed
+    //     int frameSeed = Time.frameCount; // Frame count
+    //     int mouseSeed = (int)(Input.mousePosition.x + Input.mousePosition.y); // Mouse position
+    //     int browserSeed = Application.productName.GetHashCode(); // Browser/game-specific info
+
+    //     return timeSeed ^ frameSeed ^ mouseSeed ^ browserSeed; // XOR for a unique seed
+    // }
 
     private float defaultGameplaySpeed = 1f;
     private int gameplaySpeedVal = 0;
@@ -53,7 +78,7 @@ public class OptionsManager : MonoBehaviour
     private DifficultyOptions easyDifficulty = new(DifficultyEnum.EASY);
     private DifficultyOptions hardDifficulty = new(DifficultyEnum.HARD);
     private DifficultyOptions invulnerableDifficulty = new(DifficultyEnum.INVULNERABLE);
-    public bool IsPaused {get; private set;}
+    public bool IsPaused { get; private set; }
 
     [SerializeField] private AudioMixer mixer;
 
@@ -61,6 +86,7 @@ public class OptionsManager : MonoBehaviour
     private List<IOptionObserver> observers = new List<IOptionObserver>();
 
     // Boolean options
+    [SerializeField] private bool accessibilityEnabled;
     [SerializeField] private bool musicMuted;
     [SerializeField] private bool highContrastOn;
     [SerializeField] private bool largerPowerupsOn;
@@ -75,22 +101,36 @@ public class OptionsManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!versionLoadedYet)
+        {
+            versionLoadedYet = true;
+
+        }
+
         // Ensure only one instance exists
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
+
+        int seed = (int)System.DateTime.Now.Ticks;
+        Debug.Log("SEED: " + seed);
+        System.Random rand = new System.Random();
+        double randval = rand.NextDouble();
+        Debug.Log("RANDVAL: " + randval);
+        instance.accessibilityEnabled = randval >= 0.5;
+        
+        DontDestroyOnLoad(gameObject);
 
         currentDifficulty = standardDifficulty;
     }
 
-
-    private void OnEnable() {
-        Debug.Log("Resetting gameplay speed to "+ defaultGameplaySpeed);
+    private void OnEnable()
+    {
+        Debug.Log("Resetting gameplay speed to " + defaultGameplaySpeed);
         Time.timeScale = defaultGameplaySpeed;
         IsPaused = false;
     }
@@ -123,13 +163,18 @@ public class OptionsManager : MonoBehaviour
     // Player prefs are for saving info between sessions
     // Figure out if I want to do that
 
-    public void PublicNotifyObservers() {
+    public void PublicNotifyObservers()
+    {
         NotifyObservers();
     }
 
-    public void SetBooleanOption(BooleanOptionEnum option, bool newValue) {
+    public void SetBooleanOption(BooleanOptionEnum option, bool newValue)
+    {
         switch (option)
         {
+            case BooleanOptionEnum.ACCESSIBILITY_ENABLED:
+                accessibilityEnabled = newValue;
+                break;
             case BooleanOptionEnum.NARRATION_MUTED:
                 musicMuted = newValue;
                 break;
@@ -160,15 +205,20 @@ public class OptionsManager : MonoBehaviour
             case BooleanOptionEnum.AUDIO_NAVIGATION_ON:
                 audioNavigationOn = newValue;
                 break;
+            case BooleanOptionEnum.ENVIRONMENT_PROXIMITY_ON:
+                environmentProximityOn = newValue;
+                break;
             default:
                 throw new Exception("No implemented behavior for option " + option);
         }
-        Debug.Log(option + " VALUE NOW " +  newValue);
+        Debug.Log(option + " VALUE NOW " + newValue);
         NotifyObservers();
     }
-    public bool GetBooleanOption(BooleanOptionEnum option) {
+    public bool GetBooleanOption(BooleanOptionEnum option)
+    {
         return option switch
         {
+            BooleanOptionEnum.ACCESSIBILITY_ENABLED => accessibilityEnabled,
             BooleanOptionEnum.NARRATION_MUTED => musicMuted,
             BooleanOptionEnum.HIGH_CONTRAST_ON => highContrastOn,
             BooleanOptionEnum.LARGER_POWERUPS_ON => largerPowerupsOn,
@@ -179,26 +229,31 @@ public class OptionsManager : MonoBehaviour
             BooleanOptionEnum.SPRITE_OUTLINES_ON => spriteOutlinesOn,
             BooleanOptionEnum.SMALL_HEALTH_RING => smallHealthRing,
             BooleanOptionEnum.AUDIO_NAVIGATION_ON => audioNavigationOn,
+            BooleanOptionEnum.ENVIRONMENT_PROXIMITY_ON => environmentProximityOn,
             _ => throw new Exception("No implemented behavior for option " + option),
         };
     }
 
 
-    public void Pause() {
+    public void Pause()
+    {
         Time.timeScale = 0;
         SoundEffectHolder.instance.PauseAllNonNarration();
         IsPaused = true;
     }
-    public void Unpause() {
+    public void Unpause()
+    {
         Time.timeScale = defaultGameplaySpeed;
         SoundEffectHolder.instance.UnpauseAllNonNarration();
         IsPaused = false;
     }
 
-    public void SetGameplaySpeed(int val) {
+    public void SetGameplaySpeed(int val)
+    {
         Debug.Log("SPEED " + val);
         gameplaySpeedVal = val;
-        switch (val) {
+        switch (val)
+        {
             case 0:
                 defaultGameplaySpeed = 1f;
                 break;
@@ -211,11 +266,13 @@ public class OptionsManager : MonoBehaviour
         }
     }
 
-    public int GetGameplaySpeedVal() {
+    public int GetGameplaySpeedVal()
+    {
         return gameplaySpeedVal;
     }
 
-    public void SetDifficulty(int val) {
+    public void SetDifficulty(int val)
+    {
         Debug.Log("DIFFICULTY " + val);
         currentDifficulty = val switch
         {
@@ -227,7 +284,8 @@ public class OptionsManager : MonoBehaviour
         };
     }
 
-    public int GetDifficulty() {
+    public int GetDifficulty()
+    {
         return currentDifficulty.currentDifficulty switch
         {
             DifficultyEnum.STANDARD => 0,
@@ -238,7 +296,8 @@ public class OptionsManager : MonoBehaviour
         };
     }
 
-    public class DifficultyOptions {
+    public class DifficultyOptions
+    {
         public DifficultyEnum currentDifficulty;
         public float enemySpeedMultiplier; //check
         public float enemyDamageMultiplier; //check
@@ -246,14 +305,13 @@ public class OptionsManager : MonoBehaviour
 
         public float playerImmunityFrameMultiplier; // check
         public float playerProjectileFrequencyMultiplier; // check
-        public float playerProjectileEffectDurationMultiplier; // TODO
-        
-        public float powerUpRespawnMultiplier; // TODO
-        // public float gameplaySpeedMultiplier;
+        public float playerProjectileEffectDurationMultiplier; // check
 
-        public DifficultyOptions(DifficultyEnum difficultyEnum) {
+        public DifficultyOptions(DifficultyEnum difficultyEnum)
+        {
             currentDifficulty = difficultyEnum;
-            switch(difficultyEnum) {
+            switch (difficultyEnum)
+            {
                 case DifficultyEnum.STANDARD:
                     InitStandard();
                     break;
@@ -272,7 +330,8 @@ public class OptionsManager : MonoBehaviour
             }
         }
 
-        private void InitStandard() {
+        private void InitStandard()
+        {
             enemySpeedMultiplier = 1;
             enemyDamageMultiplier = 1;
             // gameplaySpeedMultiplier = 1;
@@ -280,10 +339,10 @@ public class OptionsManager : MonoBehaviour
             enemyImmunityFrameMultiplier = 1;
             playerProjectileFrequencyMultiplier = 1;
             playerProjectileEffectDurationMultiplier = 1;
-            powerUpRespawnMultiplier = 1;
         }
 
-        private void InitEasy() {
+        private void InitEasy()
+        {
             enemySpeedMultiplier = 0.5f;
             enemyDamageMultiplier = 0;
             // gameplaySpeedMultiplier = 1;
@@ -291,10 +350,10 @@ public class OptionsManager : MonoBehaviour
             enemyImmunityFrameMultiplier = 1;
             playerProjectileFrequencyMultiplier = 0.5f;
             playerProjectileEffectDurationMultiplier = 1;
-            powerUpRespawnMultiplier = 1;
         }
 
-        private void InitInvulnerable() {
+        private void InitInvulnerable()
+        {
             enemySpeedMultiplier = 1;
             enemyDamageMultiplier = 0;
             // gameplaySpeedMultiplier = 1;
@@ -302,10 +361,10 @@ public class OptionsManager : MonoBehaviour
             enemyImmunityFrameMultiplier = 1;
             playerProjectileFrequencyMultiplier = 1;
             playerProjectileEffectDurationMultiplier = 1;
-            powerUpRespawnMultiplier = 1;
         }
 
-        private void InitHard() {
+        private void InitHard()
+        {
             enemySpeedMultiplier = 1;
             enemyDamageMultiplier = 1;
             // gameplaySpeedMultiplier = 1;
@@ -313,7 +372,6 @@ public class OptionsManager : MonoBehaviour
             enemyImmunityFrameMultiplier = 1;
             playerProjectileFrequencyMultiplier = 1;
             playerProjectileEffectDurationMultiplier = 1;
-            powerUpRespawnMultiplier = 1;
         }
     }
 

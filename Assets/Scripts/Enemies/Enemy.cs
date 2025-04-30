@@ -1,19 +1,23 @@
 using UnityEngine;
 using System.Collections;
 public class Enemy : IOptionObserver
-{    
-
-    // TODO some way to make sure that stun timer resets with each hit
+{
 
     [SerializeField] private float damageTakenOnHitBase;
     private float damageTakenOnHit;
     [SerializeField] private float immunitySecondsBase;
+
+    [SerializeField] private SpriteRenderer freezeIconRenderer;
+    [SerializeField] private Collider2D shield;
+
 
     private float immunitySeconds;
     private bool immune;
     private float immunityTimer;
     private bool stunned;
     private float stunTimer;
+    private bool frozen;
+    private float freezeTimer;
 
     [SerializeField] private AudioClip footsteps;
 
@@ -26,22 +30,26 @@ public class Enemy : IOptionObserver
     [SerializeField] private string defaultAnimState;
     [SerializeField] private string hurtAnimState;
     [SerializeField] private string idleAnimState;
-    
+
     private float originalAlpha;
     private float stunAlpha;
 
-    [SerializeField] private AudioSource hurtSoundEffect;
+    // [SerializeField] private AudioSource hurtSoundEffect;
+    [SerializeField] private AudioClip hurtSound;
 
 
     private new void OnEnable()
     {
         base.OnEnable();
         UpdateDifficulty();
+        freezeIconRenderer.enabled = false;
     }
-    public override void OnOptionChanged() {
+    public override void OnOptionChanged()
+    {
         UpdateDifficulty();
     }
-    private void UpdateDifficulty() {
+    private void UpdateDifficulty()
+    {
         immunitySeconds = immunitySecondsBase * OptionsManager.Instance.currentDifficulty.enemyImmunityFrameMultiplier;
         damageTakenOnHit = damageTakenOnHitBase * OptionsManager.Instance.currentDifficulty.enemyDamageMultiplier;
     }
@@ -67,66 +75,140 @@ public class Enemy : IOptionObserver
     {
         if (immunityTimer > 0)
         {
-            immunityTimer-= Time.deltaTime;
+            immunityTimer -= Time.deltaTime;
         }
         if (stunTimer > 0)
         {
             stunTimer -= Time.deltaTime;
-        } else if (stunned) {
+        }
+        else if (stunned)
+        {
             StunOff();
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (immunityTimer <= 0 && other.gameObject.CompareTag("PlayerProjectile"))
+        if (freezeTimer > 0)
         {
-            Debug.Log("Enemy hit by player projectile");
-            immunityTimer = 0;
-            hurtSoundEffect.Play();
-
-            immunityTimer = immunitySeconds;
-
-            PlayerProjectile projectile = other.GetComponent<PlayerProjectile>();
-
-            if (projectile.doesKill)
-            {
-                Die();
-            }
-            else
-            {
-                if (projectile.stunTime > 0)
-                {
-                    Debug.Log("Stunning enemy", this);
-                    GetStunned(projectile.stunTime);
-                }
-                
-                if (projectile.freezeTime > 0) {
-                    Debug.Log("Freezing enemy", this);
-                    GetFrozen(projectile.freezeTime);
-                }
-            }
+            freezeTimer -= Time.deltaTime;
+        }
+        else if (frozen)
+        {
+            FreezeOff();
         }
     }
 
-    void GetFrozen(float freezeTime) {
+    public void GetHurt(Collider2D other)
+    {
+        if (!(immunityTimer <= 0 && other.gameObject.CompareTag("PlayerProjectile")))
+        {
+            return;
+        }
+
+        Debug.Log("Enemy hit by player projectile");
+
+        immunityTimer = 0;
+        SoundEffectHolder.instance.SoundEffect.clip = hurtSound;
+        SoundEffectHolder.instance.SoundEffect.Play();
+
+        immunityTimer = immunitySeconds;
+
+        PlayerProjectile projectile = other.GetComponent<PlayerProjectile>();
+
+        if (projectile.doesKill)
+        {
+            Die();
+        }
+        else
+        {
+            if (projectile.stunTime > 0)
+            {
+                Debug.Log("Stunning enemy", this);
+                GetStunned(projectile.stunTime * OptionsManager.Instance.currentDifficulty.playerProjectileEffectDurationMultiplier);
+            }
+
+            if (projectile.freezeTime > 0)
+            {
+                Debug.Log("Freezing enemy", this);
+                GetFrozen(projectile.freezeTime * OptionsManager.Instance.currentDifficulty.playerProjectileEffectDurationMultiplier);
+            }
+
+        }
+    }
+
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (immunityTimer <= 0 && other.gameObject.CompareTag("PlayerProjectile"))
+    //     {
+    //         Debug.Log("Enemy hit by player projectile");
+
+    //         if (shield && shield.OverlapPoint(other.ClosestPoint(transform.position))) {
+    //             Debug.Log("Shield was hit!");
+    //             return;
+    //         }
+
+    //         immunityTimer = 0;
+    //         SoundEffectHolder.instance.SoundEffect.clip = hurtSound;
+    //         SoundEffectHolder.instance.SoundEffect.Play();
+
+    //         immunityTimer = immunitySeconds;
+
+    //         PlayerProjectile projectile = other.GetComponent<PlayerProjectile>();
+
+    //         if (projectile.doesKill)
+    //         {
+    //             Die();
+    //         }
+    //         else
+    //         {
+    //             if (projectile.stunTime > 0)
+    //             {
+    //                 Debug.Log("Stunning enemy", this);
+    //                 GetStunned(projectile.stunTime);
+    //             }
+
+    //             if (projectile.freezeTime > 0) {
+    //                 Debug.Log("Freezing enemy", this);
+    //                 GetFrozen(projectile.freezeTime);
+    //             }
+    //         }
+    //     }
+    // }
+
+    void GetFrozen(float freezeTime, bool doShowIcon = true)
+    {
+        freezeTimer = freezeTime;
         sprite.color = Color.cyan;
-        if (TryGetComponent<GuardMovement2>(out var guardMovement)) {
+        frozen = true;
+        if (TryGetComponent<GuardMovement2>(out var guardMovement))
+        {
             guardMovement.Freeze(freezeTime);
-        } else {
+        }
+        else
+        {
             Debug.Log("No GuardMovement2 on this", gameObject);
         }
-        if (TryGetComponent<JumpPeriodically>(out var jumpPeriodically)) {
+        if (TryGetComponent<JumpPeriodically>(out var jumpPeriodically))
+        {
             jumpPeriodically.Freeze(freezeTime);
         }
-        StartCoroutine(UnFreeze(freezeTime));
+        // StartCoroutine(UnFreeze(freezeTime));
+        if (doShowIcon) {
+            freezeIconRenderer.enabled = true;
+        }
     }
 
-    IEnumerator UnFreeze(float freezeTime)
+    void FreezeOff()
     {
-        yield return new WaitForSeconds(freezeTime);
+        Debug.Log("Unfreezing enemy", this);
+        frozen = false;
         sprite.color = Color.white;
+        freezeIconRenderer.enabled = false;
     }
+
+    // IEnumerator UnFreeze(float freezeTime)
+    // {
+    //     yield return new WaitForSeconds(freezeTime);
+    //     sprite.color = Color.white;
+    //     freezeIconRenderer.enabled = false;
+    // }
 
     void GetStunned(float stunTime)
     {
@@ -146,14 +228,14 @@ public class Enemy : IOptionObserver
         // thisCollider.isTrigger = false;
         ChangeLayer("Default");
         stunned = false;
-    
+
     }
 
     void ChangeLayer(string layerName)
     {
         // Get the layer index by name
         int layerIndex = LayerMask.NameToLayer(layerName);
-        
+
         // Check if the layer index is valid
         if (layerIndex != -1)
         {
@@ -171,16 +253,18 @@ public class Enemy : IOptionObserver
     {
         Debug.Log("DYING!");
         sprite.flipY = true;
-        GetFrozen(10000);
+        GetFrozen(10000, false);
         Invoke(nameof(DestroySelf), 500); // 4294967295
         thisRigidbody.excludeLayers = LayerMask.GetMask("World");
     }
 
-    void DestroySelf() {
+    void DestroySelf()
+    {
         Destroy(gameObject);
     }
 
-    public AudioClip getFootsteps() {
+    public AudioClip getFootsteps()
+    {
         return footsteps;
     }
 

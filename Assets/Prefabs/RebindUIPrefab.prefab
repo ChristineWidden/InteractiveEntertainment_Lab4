@@ -92,6 +92,8 @@ GameObject:
   - component: {fileID: 6680292650503350824}
   - component: {fileID: 6680292650503350826}
   - component: {fileID: 4145350909416282391}
+  - component: {fileID: 32111723358615746}
+  - component: {fileID: 2337095290726754814}
   m_Layer: 5
   m_Name: RebindUIPrefab
   m_TagString: Untagged
@@ -214,6 +216,46 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &32111723358615746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680292650503350822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa59287c1ebd1241abc27901b60428e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2337095290726754814}
+        m_TargetAssemblyTypeName: PlayAudioClip, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2337095290726754814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680292650503350822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b244991ce9dd1694196f7e8652b7d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 3f7c1bd6d81a92644bf32afe3b5ac2f5, type: 3}
 --- !u!1 &6680292650847612333
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +503,8 @@ GameObject:
   - component: {fileID: 6562243507651565417}
   - component: {fileID: 4168522202458225171}
   - component: {fileID: 1222814981220747490}
+  - component: {fileID: 7456023905052707212}
+  - component: {fileID: 5808861746302659152}
   m_Layer: 5
   m_Name: TriggerRebindButton
   m_TagString: Untagged
@@ -547,7 +591,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.81886786, g: 0.81886786, b: 0.81886786, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -602,6 +646,46 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &7456023905052707212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384654220190448158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa59287c1ebd1241abc27901b60428e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5808861746302659152}
+        m_TargetAssemblyTypeName: PlayAudioClip, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5808861746302659152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384654220190448158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b244991ce9dd1694196f7e8652b7d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 3f7c1bd6d81a92644bf32afe3b5ac2f5, type: 3}
 --- !u!1001 &5976404328887122424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -743,6 +827,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1921863951552169059, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2113336132341744814}
+    - targetCorrespondingSourceObject: {fileID: 1921863951552169059, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1144863240738524840}
+    - targetCorrespondingSourceObject: {fileID: 1921863951552169059, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1758935964779688404}
   m_SourcePrefab: {fileID: 100100000, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
 --- !u!224 &5213938042825948568 stripped
 RectTransform:
@@ -785,3 +875,43 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1144863240738524840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213938042825948571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa59287c1ebd1241abc27901b60428e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1758935964779688404}
+        m_TargetAssemblyTypeName: PlayAudioClip, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1758935964779688404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213938042825948571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b244991ce9dd1694196f7e8652b7d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 3f7c1bd6d81a92644bf32afe3b5ac2f5, type: 3}

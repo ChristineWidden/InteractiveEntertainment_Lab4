@@ -123,6 +123,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &16490996
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1037169239}
+    m_Modifications:
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.4026015
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 34.449997
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5893168
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410074574660016145, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: serializedTextField
+      value: 'Watch out! The tall guard ahead will throw things at you! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718265331393429349, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: m_Name
+      value: TextTrigger_ThrowPowerup (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517365272186884551, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b9676eb4dde221d45a2d2803e5a8d80f, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+--- !u!4 &16490997 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 91480126156159672, guid: d3c4dcf49c55f1c4abefb1c4a2b9d7de, type: 3}
+  m_PrefabInstance: {fileID: 16490996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &58813340 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7637708605090982498, guid: 725705dca9ebccc4197f7e87c2fbc3aa, type: 3}
@@ -137,6 +211,96 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2793888241665379041, guid: bb2f7037eb723c045850ca26ebec2856, type: 3}
   m_PrefabInstance: {fileID: 2632111399594470855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &73222410
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1373026819}
+    m_Modifications:
+    - target: {fileID: 4683397713043820843, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 53.794994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.6251206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781269421636269684, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.347558
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781269421636269684, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0366
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Size.y
+      value: 0.76666665
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416789373509048071, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_Name
+      value: ShortGuardHolder (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+--- !u!4 &73222411 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+  m_PrefabInstance: {fileID: 73222410}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &146258533 stripped
 Transform:
@@ -415,6 +579,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4540533473521406390, guid: 725705dca9ebccc4197f7e87c2fbc3aa, type: 3}
   m_PrefabInstance: {fileID: 1296493876108730701}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1037169239 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8072308904465885241, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+  m_PrefabInstance: {fileID: 3688354908479298857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1062053542 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4570029051985386388, guid: 0115030d6ac4d9f4ea0002a22e994041, type: 3}
@@ -637,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2793888241665379041, guid: b7213c499e658854182132b3ceae95cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.084747
+      value: 33.125
       objectReference: {fileID: 0}
     - target: {fileID: 2793888241665379041, guid: b7213c499e658854182132b3ceae95cc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1304,6 +1473,14 @@ PrefabInstance:
     - target: {fileID: 4807249496280277148, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781269421636269684, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.0363603
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781269421636269684, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 6005279202725041419, guid: ff112d147d5601b4fb85dc8ef7572f49, type: 3}
       propertyPath: m_Size.x
@@ -4312,6 +4489,15 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.45
       objectReference: {fileID: 0}
+    - target: {fileID: 1027305517913271477, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: serializedTextField
+      value: Bananas can be used to make enemies slip off the screen. Try throwing
+        this banana at the guards!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1276023422931475517, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f1ebed271d5a61e418de74499653da45, type: 3}
     - target: {fileID: 1600876690431498377, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_Size.x
       value: 154
@@ -4972,13 +5158,22 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[17].second.m_TileObjectToInstantiateIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1959572173954826000, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: serializedTextField
+      value: Stun the guard with a potion by pressing &ThrowRock, letting you walk
+        past without getting hurt. You can also throw things automatically with &ToggleThrowRock.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004919657640999147, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: serializedTextField
+      value: This is a jumping guard. Press &ThrowRock to freeze it with a snowball!
+      objectReference: {fileID: 0}
     - target: {fileID: 2038010414923096932, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2234899808473108606, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: nextScene
-      value: Level 2
+      value: Lvl1
       objectReference: {fileID: 0}
     - target: {fileID: 2315284499148549515, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: healthBar
@@ -4996,17 +5191,33 @@ PrefabInstance:
       propertyPath: alertAudioSource
       value: 
       objectReference: {fileID: 1362725567}
+    - target: {fileID: 2513354999562897900, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: serializedTextField
+      value: Up ahead  is a guard. You can get past guards in a few different ways.
+      objectReference: {fileID: 0}
     - target: {fileID: 2856509266997516866, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25.175
       objectReference: {fileID: 0}
+    - target: {fileID: 2940618251209582858, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: db6b32895ea9b5443b953b7618766e76, type: 3}
+    - target: {fileID: 3053318317739189276, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 25086f13aff28724c8c87ffe3014d3f9, type: 3}
     - target: {fileID: 3258515317548833893, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: alertAudioSource
       value: 
       objectReference: {fileID: 1362725567}
+    - target: {fileID: 3618364302779010588, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 46.375
+      objectReference: {fileID: 0}
     - target: {fileID: 3685762603594619492, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 58.829994
+      value: 56.975
       objectReference: {fileID: 0}
     - target: {fileID: 3685762603594619492, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35382,7 +35593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10.241212
+      value: 10.739959
       objectReference: {fileID: 0}
     - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35390,11 +35601,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4713020236781831044, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0756
+      value: 1.8261
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960125779107223019, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: serializedTextField
+      value: Power-ups give temporary upgrades to your attack. This snowball temporarily
+        freezes enemies, so they stop moving, making them easier to get past.
       objectReference: {fileID: 0}
     - target: {fileID: 5179689482797155951, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643428240598513350, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 609bf83b4c0b2d341a5030e29d167f47, type: 3}
+    - target: {fileID: 5670690922673385789, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3cd061767dd957d42b726b24232ed1a8, type: 3}
+    - target: {fileID: 5781775785256166438, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.829998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781775785256166438, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.8399997
       objectReference: {fileID: 0}
     - target: {fileID: 5895267907726311639, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41644,6 +41876,10 @@ PrefabInstance:
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[51].Array.data[8].X
       value: 1054049920
       objectReference: {fileID: 0}
+    - target: {fileID: 6566539059665954147, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 276eb9eb9e868654ba5d104deba7ec79, type: 3}
     - target: {fileID: 7256137640511452254, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.314995
@@ -41651,10 +41887,6 @@ PrefabInstance:
     - target: {fileID: 7256137640511452254, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.y
       value: -6.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 7391652494452921020, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
-      propertyPath: jumpHeight
-      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7391652494452921020, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: speedMultiplier
@@ -43804,9 +44036,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -4.19
       objectReference: {fileID: 0}
+    - target: {fileID: 8611317453491732538, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e5e9a91c439656b4f9e9a46b3dcba820, type: 3}
     - target: {fileID: 8692883895633164098, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.464998
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169082834509409738, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      propertyPath: serializedTextField
+      value: Welcome to Goblin Escape! Move with &Movement_negative and &Movement_positive.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -43847,7 +44087,20 @@ PrefabInstance:
     - {fileID: 1438627649241752237, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
     - {fileID: 8641392648103716607, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
     - {fileID: 3050140320366211802, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 8279754614244344250, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 6050607368518857947, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 3191335693363452877, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 4609914319419689244, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 3632592237575332238, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 2240824395576536229, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 5068651951731017645, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 1280138480754567575, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 8452161289433639237, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+    - {fileID: 292543851539687957, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8072308904465885241, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 16490997}
     - targetCorrespondingSourceObject: {fileID: 7309041019880082537, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1694119019}
@@ -43875,6 +44128,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 236586232145284849, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       insertIndex: -1
       addedObject: {fileID: 918968868}
+    - targetCorrespondingSourceObject: {fileID: 236586232145284849, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 73222411}
     - targetCorrespondingSourceObject: {fileID: 236586232145284849, guid: 09c72d75ebab73c459cfdc3720726527, type: 3}
       insertIndex: -1
       addedObject: {fileID: 267435522}

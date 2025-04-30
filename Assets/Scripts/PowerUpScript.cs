@@ -12,6 +12,8 @@ public class PowerUp : MonoBehaviour
 
     [SerializeField] public GameObject associatedProjectile;
 
+    [SerializeField] private AudioClip collectSound;
+
     public float powerUpDuration;
 
     public PowerUpEnum powerUpType;
@@ -38,7 +40,7 @@ public class PowerUp : MonoBehaviour
         {
             SoundEffectHolder.instance.PlayClip(
                 SoundEffectHolder.instance.SoundEffect,
-                SoundEffectHolder.instance.BOOP_SOUND);
+                collectSound);
             // AudioSource boopSound = SoundEffectHolder.soundEffectInstance.COLLECT_POWER_UP;
             //boopSound.Play();
             destroyedEvent.Invoke();

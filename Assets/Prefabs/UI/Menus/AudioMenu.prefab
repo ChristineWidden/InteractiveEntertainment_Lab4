@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8828365319454801064}
+  - component: {fileID: 4529365508807913613}
   m_Layer: 5
   m_Name: DoneButtonHolder
   m_TagString: Untagged
@@ -36,6 +37,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4529365508807913613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6329094718650210516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: 100
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: 4
+  m_LayoutPriority: 1
 --- !u!1 &6358682705505906942
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2157995031234730962}
   - component: {fileID: 3244930821461894782}
+  - component: {fileID: 6661323214848574959}
   m_Layer: 5
   m_Name: AudioMenu
   m_TagString: Untagged
@@ -315,6 +337,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 3209583889109223594}
   eventSystem: {fileID: 0}
+--- !u!114 &6661323214848574959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409235009781411657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67244868b590e434ea2bc1f9f88d6212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableWhenAccessibilityOn_A:
+  - {fileID: 7480131833539212124}
+  - {fileID: 6589096934196822402}
+  EnableWhenAccessibilityOff_B: []
 --- !u!1 &8739976380164698340
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,14 +501,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 6193725546722093514}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_Name
       value: SFX Volume Slider
@@ -611,6 +641,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8628240940999071893, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b33f8ee4ae63dae44958dc50c7fdb930, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -677,23 +711,11 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
-      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
@@ -714,10 +736,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1921863951552169056, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
@@ -742,6 +760,10 @@ PrefabInstance:
       objectReference: {fileID: 7185334166131288347}
     - target: {fileID: 1921863951552169057, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 2256062501895011871}
+    - target: {fileID: 1921863951552169057, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
+      propertyPath: m_Navigation.m_SelectOnRight
       value: 
       objectReference: {fileID: 2256062501895011871}
     - target: {fileID: 1921863951552169057, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
@@ -803,7 +825,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1921863951552169059, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 899929144940022969}
+    - targetCorrespondingSourceObject: {fileID: 1921863951552169059, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8890640494715541414}
   m_SourcePrefab: {fileID: 100100000, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
 --- !u!114 &3209583889109223592 stripped
 MonoBehaviour:
@@ -826,6 +854,46 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1921863951552169059, guid: 20c6c716c7b2e9a4c9118e030c1ad1cb, type: 3}
   m_PrefabInstance: {fileID: 3900520377596071113}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &899929144940022969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209583889109223594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa59287c1ebd1241abc27901b60428e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8890640494715541414}
+        m_TargetAssemblyTypeName: PlayAudioClip, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8890640494715541414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209583889109223594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b244991ce9dd1694196f7e8652b7d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: bddd0190e7eeeb943bdacced18aa8124, type: 3}
 --- !u!1001 &4498746162869552953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -898,14 +966,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 182754510519759377}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_Name
       value: MusicVolume Slider
@@ -1046,6 +1106,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8628240940999071893, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 236b6a1c4a97b4f4c892bae27933689d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1127,14 +1191,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 3209583889109223592}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_Name
       value: MasterVolume Slider
@@ -1271,6 +1327,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8628240940999071893, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 73ff22ebff3acee44b5096bc001a4f2d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1302,11 +1362,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 465806560316588392, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_text
-      value: Narration Volume
+      value: Audio-Based Navigation Volume
       objectReference: {fileID: 0}
     - target: {fileID: 465806560316588392, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_fontSize
-      value: 51.35
+      value: 46.8
       objectReference: {fileID: 0}
     - target: {fileID: 465806560316588392, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_fontSizeBase
@@ -1352,14 +1412,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 7185334166131288347}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_Name
       value: Accessibility Volume Slider
@@ -1500,6 +1552,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8628240940999071893, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7dd6fec3f07c2014eb997e72f56524b5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1510,12 +1566,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7611489417611528547, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
   m_PrefabInstance: {fileID: 5218129612181283378}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7480131833539212124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+  m_PrefabInstance: {fileID: 5218129612181283378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7587263638582926100 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
   m_PrefabInstance: {fileID: 5218129612181283378}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7480131833539212124}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -1581,14 +1642,6 @@ PrefabInstance:
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 7587263638582926100}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnLeft
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
-      propertyPath: m_Navigation.m_SelectOnRight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
       propertyPath: m_Name
       value: Narration Volume Slider
@@ -1729,6 +1782,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8628240940999071893, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7da8355677316064cb848c25687caaff, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1744,9 +1801,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2387441240883476774, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
   m_PrefabInstance: {fileID: 8418755721459126508}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6589096934196822402}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6589096934196822402 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3432940804668199278, guid: ac2c294fb9710094e846f3ff799b4ae5, type: 3}
+  m_PrefabInstance: {fileID: 8418755721459126508}
+  m_PrefabAsset: {fileID: 0}

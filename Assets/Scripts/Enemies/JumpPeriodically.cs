@@ -5,6 +5,7 @@ public class JumpPeriodically : MonoBehaviour
 {
     [SerializeField] private float jumpInterval;
     private bool frozen = false;
+    private float freezeTimer = 0;
 
     private Physics physics;
 
@@ -12,6 +13,15 @@ public class JumpPeriodically : MonoBehaviour
     {
         physics = GetComponent<Physics>();
         InvokeRepeating(nameof(Jump), 1.5f, jumpInterval);
+    }
+
+    void Update() {
+        if (freezeTimer > 0)
+        {
+            freezeTimer -= Time.deltaTime;
+        } else if (frozen) {
+            frozen = false;
+        }
     }
 
     private void Jump()
@@ -31,11 +41,6 @@ public class JumpPeriodically : MonoBehaviour
     public void Freeze(float freezeTime)
     {
         frozen = true;
-        StartCoroutine(UnFreeze(freezeTime));
-    }
-    IEnumerator UnFreeze(float freezeTime)
-    {
-        yield return new WaitForSeconds(freezeTime);
-        frozen = false;
+        freezeTimer = freezeTime;
     }
 }

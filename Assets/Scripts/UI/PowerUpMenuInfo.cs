@@ -8,6 +8,12 @@ public class PowerUpMenuInfo : MonoBehaviour
     TextMeshProUGUI text;
     Image image;
 
+    [SerializeField] private PlayerProjectile rockProjectile;
+    [SerializeField] private PlayerProjectile appleProjectile;
+    [SerializeField] private PlayerProjectile pieProjectile;
+    [SerializeField] private PlayerProjectile tomatoProjectile;
+    [SerializeField] private PlayerProjectile roastProjectile;
+
     void Awake()
     {
         // Debug.Log("Awake!");
@@ -34,11 +40,12 @@ public class PowerUpMenuInfo : MonoBehaviour
     {
         text.text = powerUp switch
         {
-            PowerUpEnum.Rock => "The standard projectile. Briefly stuns enemies, letting you walk past them unharmed.",
-            PowerUpEnum.Apple => "Apple stuff",
-            PowerUpEnum.Pie => "Pie stuff",
-            PowerUpEnum.Tomato => "Tomato stuff",
-            PowerUpEnum.Roast => "Roast stuff",
+            // PowerUpEnum.Rock => "The standard projectile. Briefly stuns enemies, letting you walk past them unharmed.",
+            PowerUpEnum.Rock => rockProjectile.GetDescription(),
+            PowerUpEnum.Apple => appleProjectile.GetDescription(),
+            PowerUpEnum.Pie => pieProjectile.GetDescription(),
+            PowerUpEnum.Tomato => tomatoProjectile.GetDescription(),
+            PowerUpEnum.Roast => roastProjectile.GetDescription(),
             _ => "Should be a power up here why isn't there",
         };
     }

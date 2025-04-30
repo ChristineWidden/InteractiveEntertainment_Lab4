@@ -38,6 +38,11 @@ public class RayTraceAlert : MonoBehaviour
         //     SoundEffectHolder.instance.SetProximityAlertVolume(volume);
         // }
 
+        if (!OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.AUDIO_NAVIGATION_ON)) {
+            alertAudioSource.volume = 0;
+            return;
+        }
+
         if (nearbyTargets.Count == 0)
         {
             alertAudioSource.volume = Mathf.Lerp(alertAudioSource.volume, 0f, Time.deltaTime * 5f);

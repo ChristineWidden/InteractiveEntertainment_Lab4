@@ -24,6 +24,11 @@ public class PitAudioCollider : MonoBehaviour
 
     private void Update()
     {
+        if (!OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.ENVIRONMENT_PROXIMITY_ON)) {
+            SoundEffectHolder.instance.Environment.volume = 0f;
+            return;
+        }
+
         if (nearbyPits.Count == 0)
         {
             // todo fix how volume is managed here
@@ -45,8 +50,8 @@ public class PitAudioCollider : MonoBehaviour
                 closestPit = pitTransform;
             }
 
-            float normalizedDistance = Mathf.InverseLerp(maxPanningDistance, 0f, distance);
-            totalVolume += Mathf.Lerp(minVolume, maxVolume, normalizedDistance);
+            // float normalizedDistance = Mathf.InverseLerp(maxPanningDistance, 0f, distance);
+            // totalVolume += Mathf.Lerp(minVolume, maxVolume, normalizedDistance);
         }
 
         // Apply stereo panning based on enemy position
@@ -94,4 +99,6 @@ public class PitAudioCollider : MonoBehaviour
             nearbyPits.Remove(other.transform);
         }
     }
+
+
 }

@@ -8,6 +8,7 @@ using System;
 public class PlayerProjectile : MonoBehaviour
 {
     public Vector2 moveDirection;
+    public PowerUpEnum powerUpType;
 
     [SerializeField, TextArea] private string description;
 
@@ -35,9 +36,22 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Debug.Log(name + " collided with " + other);
         if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // Debug.Log(name + " collided with " + other);
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public string GetDescription() {
+        return description;
     }
 }

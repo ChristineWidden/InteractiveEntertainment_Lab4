@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Parralax : MonoBehaviour
 {
-    // TODO disable this for accessibility
-
     [SerializeField] private GameObject followObject;
     [SerializeField] private Vector2 originalPosition;
     [SerializeField] private float parralaxAmount;

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private PowerUp powerUpPrefab;
+    [SerializeField] private AudioClip powerupCollectSound;
+    [SerializeField] private AudioClip powerupDescription;
     private PowerUp powerUp;
     [SerializeField] private float respawnTime;
 
@@ -16,6 +18,10 @@ public class Spawner : MonoBehaviour
     }
 
     void PowerUpDestroyed() {
+        SoundEffectHolder.instance.SoundEffect.clip = powerupCollectSound;
+        SoundEffectHolder.instance.SoundEffect.Play();
+        SoundEffectHolder.instance.Narration.clip = powerupDescription;
+        SoundEffectHolder.instance.Narration.Play();
         StartCoroutine(SpawnNewPowerUp(respawnTime));
     }
     

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class UIHoverAndSelectTracker : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
 
-    private bool doDebugPrints = false;
+    private bool doDebugPrints = true;
     public UnityEvent onSelect;
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -22,6 +22,7 @@ public class UIHoverAndSelectTracker : MonoBehaviour, IPointerEnterHandler, IPoi
 
     public void OnSelect(BaseEventData eventData)
     {
+        if (doDebugPrints) Debug.Log("Selecting: " + gameObject.name);
         onSelect.Invoke();
         CurrentSelectionManager.Instance.UpdateSelection(gameObject);
         if (doDebugPrints) Debug.Log("Selected: " + gameObject.name);

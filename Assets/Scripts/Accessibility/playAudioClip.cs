@@ -5,7 +5,8 @@ public class PlayAudioClip : IOptionObserver
     [SerializeField] private AudioClip audioClip;
     private bool doPlayAudio;
 
-    void Start() {
+    new void OnEnable() {
+        base.OnEnable();
         doPlayAudio = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.NARRATION_MUTED);
     }
 

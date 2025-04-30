@@ -7,6 +7,7 @@ public class EnemyTossProjectile : MonoBehaviour
 {
     [SerializeField] private float startAngle;
     [SerializeField] private float initVelocity;
+    // [SerializeField] private AudioClip throwSound;
 
     public float fireDirection;
 
@@ -26,6 +27,8 @@ public class EnemyTossProjectile : MonoBehaviour
     }
 
     private void Fire() {
+        // SoundEffectHolder.instance.SoundEffect.clip = throwSound;
+        // SoundEffectHolder.instance.SoundEffect.Play();
 
         Vector2 arrowDirection = initVelocity * (new Vector2(fireDirection * Mathf.Cos(startAngle), Mathf.Sin(startAngle))).normalized;
 

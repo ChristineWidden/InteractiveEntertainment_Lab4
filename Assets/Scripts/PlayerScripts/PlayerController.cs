@@ -15,6 +15,7 @@ public class PlayerController : IOptionObserver
     [SerializeField] private GameObject defaultProjectile;
 
 
+
     // Indirectly attached stuff
     [SerializeField] private SpecialCollider rayTrace;
     [SerializeField] private SpecialCollider dangerAlert;
@@ -29,7 +30,10 @@ public class PlayerController : IOptionObserver
     [SerializeField] private AudioClip jumpSoundEffect;
     [SerializeField] private AudioClip hurtSoundEffect;
     [SerializeField] private AudioClip throwSoundEffect;
+    [SerializeField] private AudioClip deathSoundEffect;
 
+    [SerializeField] private PitAudioCollider pitSounds;
+    [SerializeField] private RayTraceAlert rayTraceAlert;
 
     // Current Status
     public int points = 0;
@@ -37,7 +41,7 @@ public class PlayerController : IOptionObserver
     public int maxHealth;
     public int currentHealth;
 
-    public PowerUpEnum powerUpState = PowerUpEnum.Rock;
+    public PowerUpEnum powerUpState;
 
     [SerializeField] private const int DAMAGE = 1;
 
@@ -68,7 +72,10 @@ public class PlayerController : IOptionObserver
     }
     public override void OnOptionChanged()
     {
-
+        bool audioNavOn = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.AUDIO_NAVIGATION_ON);
+        bool envProximityOn = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.ENVIRONMENT_PROXIMITY_ON);
+        pitSounds.enabled = envProximityOn;
+        rayTraceAlert.enabled = audioNavOn;
         UpdateDifficulty();
     }
     private void UpdateDifficulty()
@@ -85,6 +92,10 @@ public class PlayerController : IOptionObserver
         animator = GetComponent<PlayerAnimator>();
         physics = GetComponent<Physics>();
         projectile = defaultProjectile;
+
+        PlayerProjectile playerProjectile = projectile.GetComponent<PlayerProjectile>();
+        powerUpState = playerProjectile.powerUpType;
+        powerUpUI.SetPowerUp(powerUpState);
 
         currentHealth = maxHealth;
 
@@ -154,6 +165,9 @@ public class PlayerController : IOptionObserver
         // hurtSoundEffect.Play();
         if (currentHealth < 1)
         {
+            SoundEffectHolder.instance.PlayClip(
+                            SoundEffectHolder.instance.Narration, 
+                            deathSoundEffect);
             // SceneManager.LoadScene("GameOverScene");
             SceneHandler.instance.gameOver = true;
         }

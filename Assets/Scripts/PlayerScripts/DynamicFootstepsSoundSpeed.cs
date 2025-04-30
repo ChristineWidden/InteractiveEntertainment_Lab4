@@ -10,7 +10,6 @@ public class DynamicFootstepsSoundSpeed : MonoBehaviour
     [SerializeField] private float maxPitch = 1.5f; // Higher than normal
 
     public float volume = 0;
-    public float normSpeed = 0;
     public float speedMultiplier;
 
     private void Start() {
@@ -30,7 +29,6 @@ public class DynamicFootstepsSoundSpeed : MonoBehaviour
 
         // Normalize speed to a 0-1 range
         float normalizedSpeed = Mathf.InverseLerp(minSpeed, physics.GetMaxSpeed(), speed);
-        normSpeed = normalizedSpeed;
 
         // Map speed to pitch range
         SoundEffectHolder.instance.Footsteps.pitch = Mathf.Lerp(minPitch, maxPitch, normalizedSpeed);

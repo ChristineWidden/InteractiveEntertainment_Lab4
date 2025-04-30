@@ -25,7 +25,6 @@ public class FogFader : MonoBehaviour
     public void TransitionScene(string scene)
     {
         StartCoroutine(
-                // TODO get transitions working
                 InterpolateFloat(0, 1, 2f));
     }
 

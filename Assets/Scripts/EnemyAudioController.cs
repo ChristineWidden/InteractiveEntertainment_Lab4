@@ -28,7 +28,7 @@ public class EnemyAudioManager : MonoBehaviour
             return;
         }
 
-        float totalVolume = 0f;
+        // float totalVolume = 0f;
         float closestDistance = float.MaxValue;
         Enemy closestEnemy = null;
         Transform player = transform;
@@ -45,8 +45,8 @@ public class EnemyAudioManager : MonoBehaviour
                 closestEnemy = enemy;
             }
 
-            float normalizedDistance = Mathf.InverseLerp(maxPanningDistance, 0f, distance);
-            totalVolume += Mathf.Lerp(minVolume, maxVolume, normalizedDistance);
+            // float normalizedDistance = Mathf.InverseLerp(maxPanningDistance, 0f, distance);
+            // totalVolume += Mathf.Lerp(minVolume, maxVolume, normalizedDistance);
         }
 
         // Apply stereo panning based on enemy position
