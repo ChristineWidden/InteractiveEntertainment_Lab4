@@ -10,7 +10,7 @@ public class AccessibilityAudioClip : MonoBehaviour
 
     public void PlayClip()
     {
-        Debug.Log("Playing accessibility clip");
+        Debug.Log("Playing accessibility clip");    
         bool accessEnabled = OptionsManager.Instance.GetBooleanOption(BooleanOptionEnum.ACCESSIBILITY_ENABLED);
         if (accessEnabled)
         {

@@ -8,27 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 04e152150b1bc402892ce1b39aad450d
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/Intro Cutscene.unity
-    guid: 3eb78335efb5d8b4eb7c1fc3287efc29
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/FirstLevel.unity
-    guid: 5307aaeb97be04356b288c2ed2dbe3cd
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/Credits.unity
-    guid: 1d99385aeda0b4e46aa79573469fbec5
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/GameOverScene.unity
-    guid: c8336daa295a546e487f18e57b7f3e5a
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/SampleScene.unity
-    guid: 289067ed26a814163bb15c77eac87c83
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/WinScene.unity
-    guid: 388d3d2b9ce1e114497c3c6c4164b5b9
-  - enabled: 0
-    path: Assets/Scenes/UNUSED/Level 2.unity
-    guid: 6344d1867d60da14faa7fbcdf9dba8a9
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: ad3cd60e30212a54c924e1603a5302be

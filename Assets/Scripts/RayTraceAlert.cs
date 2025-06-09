@@ -19,6 +19,8 @@ public class RayTraceAlert : MonoBehaviour
 
     private bool inPlayerProximity;
 
+    // TODO this isn't working. Fix it.
+
     void Start() {
         thisCollider = GetComponent<BoxCollider2D>();
         alertAudioSource.clip = alertSound;
