@@ -63,3 +63,8 @@ crashlytics-build.properties
 Assets/.DS_Store
 .DS_Store
 *.meta
+
+# other
+
+Assets/SoundEffects/working/*
+"Assets/SoundEffects/FLOW - Burn.aup3"
